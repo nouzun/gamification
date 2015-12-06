@@ -9,13 +9,22 @@ use App\Http\Controllers\Controller;
 
 class SubjectController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
     public function index(Request $request)
     {
+        /*
         $subjects = Subject::where('user_id', $request->user()->id)->get();
 
-        return view('subjects.index', [
+        return view('subject.index', [
             'subjects' => $subjects,
         ]);
+        */
+
+        return view('subject.index');
     }
 
     public function store(Request $request)

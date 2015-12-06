@@ -1,5 +1,3 @@
-// resources/views/subject/index.blade.php
-
 @extends('layouts.dashboard')
 @section('page_heading','Subjects')
 @section('section')

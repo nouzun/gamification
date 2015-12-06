@@ -11,9 +11,15 @@ class Subject extends Model
         'description' => '',
     );
     protected $fillable = ['title','description'];
+
     // Topics will be here
     public function topics()
     {
         return $this->hasMany(Topic::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
