@@ -80,3 +80,12 @@ Route::get('/documentation', function()
 {
     return View::make('documentation');
 });
+
+Route::get('/subjects', 'SubjectController@index');
+Route::post('/subjects', 'SubjectController@store');
+Route::delete('/subjects/{id}', 'SubjectController@destroy');
+
+Route::get('/question/{id}', 'QuestionController@show');
+Route::get('/questions', 'QuestionController@index');
+Route::post('/questions', 'QuestionController@store');
+Route::delete('/questions/{id}', 'QuestionController@destroy');
