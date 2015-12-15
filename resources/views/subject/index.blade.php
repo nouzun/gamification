@@ -55,6 +55,7 @@
                 <thead>
                 <th>Subjects</th>
                 <th>Description</th>
+                <th>User</th>
                 <th>&nbsp;</th>
                 </thead>
 
@@ -70,8 +71,17 @@
                         <td class="table-text">
                             <div>{{ $subject->description }}</div>
                         </td>
+                        <td class="table-text">
+                            <div>{{ $subject->user_id }}</div>
+                        </td>
+                        <!-- Delete Button -->
                         <td>
-                            <!-- TODO: Delete Button -->
+                            <form action="{{ url('/subject', $subject->id) }}" method="POST">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+
+                                <button>Delete Subject</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

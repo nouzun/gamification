@@ -92,9 +92,9 @@ Route::post('/auth/register', 'Auth\AuthController@postRegister');
 
 Route::get('/subjects', 'SubjectController@index');
 Route::post('/subjects', 'SubjectController@store');
-Route::delete('/subjects/{id}', 'SubjectController@destroy');
+Route::delete('/subject/{subject}', 'SubjectController@destroy');
 
 Route::get('/question/{id}', 'QuestionController@show');
 Route::get('/questions', 'QuestionController@index');
 Route::post('/questions', 'QuestionController@store');
-Route::delete('/questions/{id}', 'QuestionController@destroy');
+Route::delete('/question/{id}', 'QuestionController@destroy');

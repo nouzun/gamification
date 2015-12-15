@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\SubjectRepository;
+use App\Subject;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -49,6 +50,15 @@ class SubjectController extends Controller
         ]);
 
 
-        return redirect('subjects');
+        return redirect('/subjects');
+    }
+
+    public function destroy(Request $request, Subject $subject)
+    {
+        $this->authorize('destroy', $subject);
+
+        $subject->delete();
+
+        return redirect('/subjects');
     }
 }
