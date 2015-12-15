@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost/gamification_laravel/',
+    'url' => 'http://localhost/gamification_laravel/public/',
 
     /*
     |--------------------------------------------------------------------------

@@ -2,14 +2,14 @@
 @section('page_heading','Subjects')
 @section('section')
 
-        <!-- Bootstrap Boilerplate... -->
+<!-- Bootstrap Boilerplate... -->
 
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
 
             <!-- New Subject Form -->
-    <form action="/subject" method="POST" class="form-horizontal">
+    <form action="{{ url('/subjects') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
                 <!-- Subject Title -->
@@ -41,5 +41,45 @@
     </form>
 </div>
 
-<!-- TODO: Current Subject -->
+<!-- Current Tasks -->
+@if (count($subjects) > 0)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Current Subjects
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-striped task-table">
+
+                <!-- Table Headings -->
+                <thead>
+                <th>Subjects</th>
+                <th>Description</th>
+                <th>&nbsp;</th>
+                </thead>
+
+                <!-- Table Body -->
+                <tbody>
+                @foreach ($subjects as $subject)
+                    <tr>
+                        <!-- Subject Name -->
+                        <td class="table-text">
+                            <div>{{ $subject->title }}</div>
+                        </td>
+                        <!-- Subject Description -->
+                        <td class="table-text">
+                            <div>{{ $subject->description }}</div>
+                        </td>
+                        <td>
+                            <!-- TODO: Delete Button -->
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endif
+
+
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SubjectRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,22 +10,30 @@ use App\Http\Controllers\Controller;
 
 class SubjectController extends Controller
 {
-    public function __construct()
+    /**
+     * The task repository instance.
+     *
+     * @var TaskRepository
+     */
+    protected $subjects;
+
+    public function __construct(SubjectRepository $subjects)
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
+        $this->subjects = $subjects;
     }
 
     public function index(Request $request)
     {
-        /*
-        $subjects = Subject::where('user_id', $request->user()->id)->get();
+
+        //$subjects = Subject::where('user_id', $request->user()->id)->get();
 
         return view('subject.index', [
-            'subjects' => $subjects,
+            'subjects' => $this->subjects->forUser($request->user()),
         ]);
-        */
 
-        return view('subject.index');
+
+        //return view('subject.index');
     }
 
     public function store(Request $request)
@@ -36,9 +45,10 @@ class SubjectController extends Controller
 
         $request->user()->subjects()->create([
             'title' => $request->title,
+            'description' => $request->description,
         ]);
 
 
-        return redirect('/subjects');
+        return redirect('subjects');
     }
 }
