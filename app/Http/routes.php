@@ -90,9 +90,15 @@ Route::get('/auth/logout', 'Auth\AuthController@getLogout');
 Route::get('/auth/register', 'Auth\AuthController@getRegister');
 Route::post('/auth/register', 'Auth\AuthController@postRegister');
 
+// Subjects
 Route::get('/subjects', 'SubjectController@index');
 Route::post('/subjects', 'SubjectController@store');
 Route::delete('/subject/{subject}', 'SubjectController@destroy');
+
+// Topics
+Route::get('/subjects/{subject_id}/topics', 'TopicController@index');
+Route::post('/subjects/{subject_id}/topics', 'TopicController@store');
+Route::delete('/topic/{topic}', 'TopicController@destroy');
 
 Route::get('/question/{id}', 'QuestionController@show');
 Route::get('/questions', 'QuestionController@index');

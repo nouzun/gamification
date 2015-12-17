@@ -11,11 +11,6 @@ use App\Http\Controllers\Controller;
 
 class SubjectController extends Controller
 {
-    /**
-     * The task repository instance.
-     *
-     * @var TaskRepository
-     */
     protected $subjects;
 
     public function __construct(SubjectRepository $subjects)
@@ -26,15 +21,9 @@ class SubjectController extends Controller
 
     public function index(Request $request)
     {
-
-        //$subjects = Subject::where('user_id', $request->user()->id)->get();
-
         return view('subject.index', [
             'subjects' => $this->subjects->forUser($request->user()),
         ]);
-
-
-        //return view('subject.index');
     }
 
     public function store(Request $request)

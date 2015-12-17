@@ -247,6 +247,24 @@
                         <li {{ (Request::is('/') ? 'class="active"' : '') }}>
                             <a href="{{ url ('') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
+                        <li >
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Gamification<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/subjects') }}">Subjects</a>
+                                </li>
+                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/topics' ) }}">Topics</a>
+                                </li>
+                                <li {{ (Request::is('*notifications') ? 'class="active"' : '') }}>
+                                    <a href="{{ url('/knowledgeunits') }}">Knowledge Units</a>
+                                </li>
+                                <li {{ (Request::is('*typography') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/questions') }}">Questions</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->
