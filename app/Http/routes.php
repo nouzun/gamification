@@ -101,6 +101,11 @@ Route::get('/subjects/{subject_id}/topics', 'TopicController@index');
 Route::post('/subjects/{subject_id}/topics', 'TopicController@store');
 Route::delete('/topic/{topic}', 'TopicController@destroy');
 
+// Knowledge Units
+Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits', 'KnowledgeUnitController@index');
+Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits', 'KnowledgeUnitController@store');
+Route::delete('/knowledgeunits/{knowledgeunit}', 'KnowledgeUnitController@destroy');
+
 Route::get('/question/{id}', 'QuestionController@show');
 Route::get('/questions', 'QuestionController@index');
 Route::post('/questions', 'QuestionController@store');

@@ -74,7 +74,7 @@
                             <tr>
                                 <!-- Topic Name -->
                                 <td class="table-text">
-                                    <div>{{ $topic->title }}</div>
+                                    <div><a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}"> {{ $topic->title }} </a></div>
                                 </td>
                                 <!-- Topic Description -->
                                 <td class="table-text">
