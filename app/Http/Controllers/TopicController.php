@@ -22,11 +22,33 @@ class TopicController extends Controller
 
     public function index(Request $request, $subject_id)
     {
-        $subject = Subject::find($subject_id);
-        return view('topic.index', [
-            'subject' => $subject,
-            'topics' => $this->topics->forSubject($subject_id),
-        ]);
+        $data = array(
+            'subjects'  => $this->topics->subjectsForUser($request->user()),
+        );
+
+        if(isset($subject_id)) {
+            $subject = Subject::find($subject_id);
+            $data["subject"] = $subject;
+            $data["topics"] = $this->topics->forSubject($subject_id);
+        }
+
+        return view('topic.index', $data);
+    }
+
+    public function indexFromSubjects(Request $request)
+    {
+        $data = array(
+            'subjects'  => $this->topics->subjectsForUser($request->user()),
+        );
+
+        if (count($data["subjects"]) > 0) {
+            $subject_id = $data["subjects"][0]->id;
+            $subject = Subject::find($subject_id);
+            $data["subject"] = $subject;
+            $data["topics"] = $this->topics->forSubject($subject_id);
+        }
+
+        return view('topic.index', $data);
     }
 
     public function store(Request $request, $subject_id)

@@ -96,6 +96,7 @@ Route::post('/subjects', 'SubjectController@store');
 Route::delete('/subject/{subject}', 'SubjectController@destroy');
 
 // Topics
+Route::get('/topics', 'TopicController@indexFromSubjects');
 Route::get('/subjects/{subject_id}/topics', 'TopicController@index');
 Route::post('/subjects/{subject_id}/topics', 'TopicController@store');
 Route::delete('/topic/{topic}', 'TopicController@destroy');
