@@ -8,8 +8,9 @@ class KnowledgeUnit extends Model
 {
     protected $attributes = array(
         'title' => '',
+        'description' => '',
     );
-    protected $fillable = ['title'];
+    protected $fillable = ['title','description'];
 
     // Questions will be here
     public function questions()

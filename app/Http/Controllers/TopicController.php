@@ -20,13 +20,14 @@ class TopicController extends Controller
         $this->topics = $topics;
     }
 
-    public function index(Request $request, $subject_id)
+    public function index(Request $request)
     {
         $data = array(
             'subjects'  => $this->topics->subjectsForUser($request->user()),
         );
 
-        if(isset($subject_id)) {
+        if (count($data["subjects"]) > 0) {
+            $subject_id = $data["subjects"][0]->id;
             $subject = Subject::find($subject_id);
             $data["subject"] = $subject;
             $data["topics"] = $this->topics->forSubject($subject_id);
@@ -35,14 +36,13 @@ class TopicController extends Controller
         return view('topic.index', $data);
     }
 
-    public function indexFromSubjects(Request $request)
+    public function indexWithInstance(Request $request, $subject_id)
     {
         $data = array(
             'subjects'  => $this->topics->subjectsForUser($request->user()),
         );
 
-        if (count($data["subjects"]) > 0) {
-            $subject_id = $data["subjects"][0]->id;
+        if(isset($subject_id)) {
             $subject = Subject::find($subject_id);
             $data["subject"] = $subject;
             $data["topics"] = $this->topics->forSubject($subject_id);
