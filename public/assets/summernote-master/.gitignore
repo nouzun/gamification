@@ -1,0 +1,20 @@
+# vim editing
+*.swp
+*.swo
+.tern-port
+.DS_Store
+
+# node modules
+node_modules
+bower_components
+*.sublime*
+.build*
+
+# zip file
+*.zip
+
+.versions
+coverage/
+
+.idea/
+*.iml

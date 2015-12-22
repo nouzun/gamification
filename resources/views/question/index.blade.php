@@ -1,6 +1,22 @@
-// resources/views/tasks/index.blade.php
-
 @extends('layouts.dashboard')
+@section('page-script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
+    @stop
+@section('page_heading_tree')
+    <ul class="tree">
+        <li>{{ $subject->title }}</li>
+        <ul>
+            <li>{{ $topic->title }}</li>
+            <ul>
+                <li>{{ $knowledgeunit->title }}</li>
+            </ul>
+        </ul>
+    </ul>
+    @stop
 @section('page_heading','Questions')
 @section('section')
 
@@ -11,15 +27,24 @@
     @include('common.errors')
 
             <!-- New Question Form -->
-    <form action="/question" method="POST" class="form-horizontal">
+    <form action="{{ url('/subjects/'.$topic->subject_id.'/topics/'. $topic->id .'/knowledgeunits/'. $knowledgeunit->id .'/questions') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
-                <!-- Question Name -->
+                <!-- Question Title -->
         <div class="form-group">
             <label for="task-name" class="col-sm-3 control-label">Question</label>
 
             <div class="col-sm-6">
-                <input type="text" name="description" id="question-description" class="form-control">
+                <input type="text" name="title" id="question-title" class="form-control">
+            </div>
+        </div>
+
+        <!-- Question Description -->
+        <div class="form-group">
+            <label for="task-name" class="col-sm-3 control-label">Description</label>
+
+            <div class="col-sm-6">
+                <div id="summernote">Hello Summernote</div>
             </div>
         </div>
 

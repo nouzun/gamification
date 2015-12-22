@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\KnowledgeUnit;
 use App\Question;
+use App\Repositories\QuestionRepository;
+use App\Subject;
+use App\Topic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,88 +14,53 @@ use App\Http\Controllers\Controller;
 
 class QuestionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $questions;
+
+    public function __construct(QuestionRepository $questions)
+    {
+        $this->middleware('auth');
+        $this->questions = $questions;
+    }
+
     public function index()
     {
-        return view('question.index');
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function indexWithInstance(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
     {
-        //
+        $data = array(
+            'questions'  => $this->questions->forKnowledgeUnit($knowledgeunit_id),
+        );
+
+        if(isset($topic_id)) {
+            $subject = Subject::find($subject_id);
+            $topic = Topic::find($topic_id);
+            $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+            $data["subject"] = $subject;
+            $data["topic"] = $topic;
+            $data["knowledgeunit"] = $knowledgeunit;
+        }
+        return view('question.index', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
     {
         $this->validate($request, [
+            'title' => 'required',
             'description' => 'required',
         ]);
 
-        $request->subject()->topics()->knowledge_units()->questions()->create([
-            'description' => $request->description,
-        ]);
 
+        $knowledgeUnit = KnowledgeUnit::find($knowledgeunit_id);
+        Log::info('$knowledgeUnit: '.$knowledgeUnit->title);
+        $question = new Question();
+        $question->title = $request->title;
+        $question->description = $request->description;
 
-        return redirect('/questions');
-    }
+        $question->knowledge_unit()->associate($question);
+        $question->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return view('question.display', ['question' => Question::findOrFail($id)]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits'.$knowledgeunit_id.'/questions');
     }
 }

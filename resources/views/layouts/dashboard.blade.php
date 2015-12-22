@@ -354,6 +354,7 @@
         <div id="page-wrapper">
 			 <div class="row">
                 <div class="col-lg-12">
+                    <div>@yield('page_heading_tree')</div>
                     <h1 class="page-header">@yield('page_heading')</h1>
                 </div>
                 <!-- /.col-lg-12 -->

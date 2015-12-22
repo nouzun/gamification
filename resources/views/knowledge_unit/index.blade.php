@@ -5,13 +5,15 @@
         });
     </script>
 @stop
-@section('page_heading')
-    <ul>
+@section('page_heading_tree')
+    <ul class="tree">
         <li>{{ $subject->title }}</li>
         <ul>
             <li>{{ $topic->title }}</li>
         </ul>
     </ul>
+@stop
+@section('page_heading')
     Knowledge Units
 @stop
 
@@ -82,7 +84,7 @@
                 <label for="task-name" class="col-sm-3 control-label">Title</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="title" id="topic-title" class="form-control">
+                    <input type="text" name="title" id="knowledgeunit-title" class="form-control">
                 </div>
             </div>
 
@@ -91,7 +93,7 @@
                 <label for="task-name" class="col-sm-3 control-label">Description</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="description" id="topic-description" class="form-control">
+                    <input type="text" name="description" id="knowledgeunit-description" class="form-control">
                 </div>
             </div>
 
