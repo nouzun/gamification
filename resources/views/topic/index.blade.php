@@ -24,6 +24,11 @@
         });
     </script>
 @stop
+@section('page_heading_tree')
+    <ul class="tree">
+        <li>{{ $subject->title }}</li>
+    </ul>
+@stop
 @section('page_heading')
     Topics
 @stop
@@ -64,7 +69,7 @@
                         <thead>
                         <th>Topics</th>
                         <th>Description</th>
-                        <th>Subject</th>
+                        <th>Knowledge Units</th>
                         <th>&nbsp;</th>
                         </thead>
 
@@ -74,14 +79,17 @@
                             <tr>
                                 <!-- Topic Name -->
                                 <td class="table-text">
-                                    <div><a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}"> {{ $topic->title }} </a></div>
+                                    <div>{{ $topic->title }}</div>
                                 </td>
                                 <!-- Topic Description -->
                                 <td class="table-text">
                                     <div>{{ $topic->description }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div>{{ $subject->title }} ( {{ $topic->subject_id   }} )</div>
+                                    @foreach ($topic->knowledgeunits as $knowledgeunit)
+                                        <div>{{ $knowledgeunit->title }}</div>
+                                    @endforeach
+                                    <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}">Add new Knowledge Unit</a>
                                 </td>
                                 <!-- Delete Button -->
                                 <td>

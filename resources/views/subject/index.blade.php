@@ -22,7 +22,7 @@
                     <thead>
                     <th>Subjects</th>
                     <th>Description</th>
-                    <th>User</th>
+                    <th>Topics</th>
                     <th>&nbsp;</th>
                     </thead>
 
@@ -39,8 +39,12 @@
                                 <div>{{ $subject->description }}</div>
                             </td>
                             <td class="table-text">
-                                <div>{{ $subject->user_id }}</div>
+                                @foreach ($subject->topics as $topic)
+                                    <div>{{ $topic->title }}</div>
+                                @endforeach
+                                <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/') }}">Add new Topic</a>
                             </td>
+
                             <!-- Delete Button -->
                             <td>
                                 <form action="{{ url('/subject', $subject->id) }}" method="POST">

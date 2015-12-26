@@ -40,7 +40,7 @@
                         <thead>
                         <th>Knowledge Units</th>
                         <th>Description</th>
-                        <th>Topic</th>
+                        <th>Questions</th>
                         <th>&nbsp;</th>
                         </thead>
 
@@ -50,14 +50,17 @@
                             <tr>
                                 <!-- Topic Name -->
                                 <td class="table-text">
-                                    <div><a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$knowledge_unit->topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/questions') }}"> {{ $knowledge_unit->title }} </a></div>
+                                    <div>{{ $knowledge_unit->title }}</div>
                                 </td>
                                 <!-- Topic Description -->
                                 <td class="table-text">
                                     <div>{{ $knowledge_unit->description }}</div>
                                 </td>
                                 <td class="table-text">
-                                    <div>{{ $topic->title }} ( {{ $knowledge_unit->topic_id   }} )</div>
+                                    @foreach ($knowledge_unit->questions as $question)
+                                        <div>{{ $question->title }}</div>
+                                    @endforeach
+                                    <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions') }}">Add new Question</a>
                                 </td>
                                 <!-- Delete Button -->
                                 <td>

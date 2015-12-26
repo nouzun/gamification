@@ -15,7 +15,8 @@ class SubjectRepository
      */
     public function forUser(User $user)
     {
-        return Subject::where('subjects.user_id', $user->id)
+        return Subject::with('topics')
+            ->where('subjects.user_id', $user->id)
             ->orderBy('created_at', 'asc')
             ->get();
     }

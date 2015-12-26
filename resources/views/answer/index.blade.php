@@ -15,11 +15,14 @@
             <li>{{ $topic->title }}</li>
             <ul>
                 <li>{{ $knowledge_unit->title }}</li>
+                <ul>
+                    <li>{{ $question->title }}</li>
+                </ul>
             </ul>
         </ul>
     </ul>
     @stop
-@section('page_heading','Questions')
+@section('page_heading','Answers')
 @section('section')
 
 <!-- Bootstrap Boilerplate... -->
@@ -28,11 +31,11 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
 
-    <!-- Current Questions -->
-    @if (count($questions) > 0)
+    <!-- Current Answers -->
+    @if (count($answers) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
-                Current Questions
+                Current Answers
             </div>
 
             <div class="panel-body">
@@ -40,38 +43,29 @@
 
                     <!-- Table Headings -->
                     <thead>
-                    <th>Title</th>
                     <th>Description</th>
-                    <th>Answers</th>
+                    <th>Correct?</th>
                     <th>&nbsp;</th>
                     </thead>
 
                     <!-- Table Body -->
                     <tbody>
-                    @foreach ($questions as $question)
+                    @foreach ($answers as $answer)
                         <tr>
-                            <!-- Topic Name -->
+                            <!-- Answer Description -->
                             <td class="table-text">
-                                <div>{{ $question->title }}</div>
-                            </td>
-                            <!-- Topic Description -->
-                            <td class="table-text">
-                                <div>{{ $question->description }}</div>
+                                <div>{{ $answer->description }}</div>
                             </td>
                             <td class="table-text">
-                                @foreach ($question->answers as $answer)
-                                    <div>{{ $answer->description }}</div>
-                                @endforeach
-                                <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers') }}">Add new Answer</a>
-
+                                <div>{{ $answer->correct }}</div>
                             </td>
                             <!-- Delete Button -->
                             <td>
-                                <form action="{{ url('/question', $question->id) }}" method="POST">
+                                <form action="{{ url('/answer', $answer->id) }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 
-                                    <button>Delete Question</button>
+                                    <button>Delete Answer</button>
                                 </form>
                             </td>
                         </tr>
@@ -82,20 +76,11 @@
         </div>
         @endif
 
-            <!-- New Question Form -->
-    <form action="{{ url('/subjects/'.$topic->subject_id.'/topics/'. $topic->id .'/knowledgeunits/'. $knowledge_unit->id .'/questions') }}" method="POST" class="form-horizontal">
+            <!-- New Answer Form -->
+    <form action="{{ url('/subjects/'.$topic->subject_id.'/topics/'. $topic->id .'/knowledgeunits/'. $knowledge_unit->id .'/questions/'.$question->id.'/answers') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
-                <!-- Question Title -->
-        <div class="form-group">
-            <label for="task-name" class="col-sm-3 control-label">Title</label>
-
-            <div class="col-sm-6">
-                <input type="text" name="title" id="question-title" class="form-control">
-            </div>
-        </div>
-
-        <!-- Question Description -->
+        <!-- Answer Description -->
         <div class="form-group">
             <label for="task-name" class="col-sm-3 control-label">Description</label>
 
@@ -105,16 +90,24 @@
             </div>
         </div>
 
-        <!-- Add Question Button -->
+        <!-- Answer Correct -->
+        <div class="form-group">
+            <label for="task-name" class="col-sm-3 control-label">Correct?</label>
+
+            <div class="col-sm-6">
+                <input type="text" name="title" id="question-title" class="form-control">
+            </div>
+        </div>
+
+        <!-- Add Answer Button -->
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">
                 <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Add Question
+                    <i class="fa fa-plus"></i> Add Answer
                 </button>
             </div>
         </div>
     </form>
 </div>
 
-<!-- TODO: Current Question -->
 @endsection

@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model {
     protected $attributes = array(
-        'answer' => '',
+        'description' => '',
+        'correct' => 0,
     );
 
-    protected $fillable = ['answer'];
+    protected $fillable = ['description','correct'];
 
     public function user()
     {

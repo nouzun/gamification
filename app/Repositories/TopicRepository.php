@@ -16,7 +16,8 @@ class TopicRepository
      */
     public function forSubject($subject_id)
     {
-        return Topic::where('topics.subject_id', $subject_id)
+        return Topic::with('knowledgeunits')
+            ->where('topics.subject_id', $subject_id)
             ->orderBy('created_at', 'asc')
             ->get();
     }

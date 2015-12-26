@@ -40,7 +40,7 @@ class QuestionController extends Controller
             $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
             $data["subject"] = $subject;
             $data["topic"] = $topic;
-            $data["knowledgeunit"] = $knowledgeunit;
+            $data["knowledge_unit"] = $knowledgeunit;
         }
         return view('question.index', $data);
     }

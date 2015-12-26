@@ -253,15 +253,6 @@
                                 <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('/subjects') }}">Subjects</a>
                                 </li>
-                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/topics' ) }}">Topics</a>
-                                </li>
-                                <li {{ (Request::is('*notifications') ? 'class="active"' : '') }}>
-                                    <a href="{{ url('/knowledgeunits') }}">Knowledge Units</a>
-                                </li>
-                                <li {{ (Request::is('*typography') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/questions') }}">Questions</a>
-                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

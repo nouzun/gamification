@@ -110,3 +110,8 @@ Route::delete('/knowledgeunits/{knowledgeunit_id}', 'KnowledgeUnitController@des
 Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions', 'QuestionController@indexWithInstance');
 Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions', 'QuestionController@store');
 Route::delete('/questions/{question_id}', 'QuestionController@destroy');
+
+// Answers
+Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers', 'AnswerController@indexWithInstance');
+Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers', 'AnswerController@store');
+Route::delete('/answers/{answer_id}', 'AnswerController@destroy');
