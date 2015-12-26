@@ -2,7 +2,7 @@
 @section('page-script')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#question-description').summernote({
+            $('#answer-description').summernote({
                 height: "200px"
             });
         });
@@ -85,7 +85,7 @@
             <label for="task-name" class="col-sm-3 control-label">Description</label>
 
             <div class="col-sm-6">
-                <textarea name="description" id="question-description" rows="18" class="form-control">
+                <textarea name="description" id="answer-description" rows="18" class="form-control">
                 </textarea>
             </div>
         </div>
@@ -94,8 +94,8 @@
         <div class="form-group">
             <label for="task-name" class="col-sm-3 control-label">Correct?</label>
 
-            <div class="col-sm-6">
-                <input type="text" name="title" id="question-title" class="form-control">
+            <div class="col-sm-1">
+                <input type="checkbox" name="correct" id="answer-correct" class="form-control" value="1">
             </div>
         </div>
 

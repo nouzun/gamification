@@ -52,19 +52,17 @@ class AnswerController extends Controller
     {
         $this->validate($request, [
             'description' => 'required',
-            'correct' => 'required',
         ]);
-
 
         $question = Question::find($question_id);
         Log::info('$knowledgeUnit: '.$question->title);
         $answer = new Answer();
-        $answer->correct = $request->correct;
+        $answer->correct = $request->correct ?  $request->correct : 0;
         $answer->description = $request->description;
 
         $answer->question()->associate($question);
         $answer->save();
 
-        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions'.$question_id.'/answers');
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
 }
