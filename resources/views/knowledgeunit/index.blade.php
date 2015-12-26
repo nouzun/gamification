@@ -27,7 +27,7 @@
 
     @if( ! empty($topic) )
         <!-- Current Knowledge Units -->
-        @if (count($knowledge_units) > 0)
+        @if (count($knowledgeunits) > 0)
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Current Knowledge Units
@@ -46,7 +46,7 @@
 
                         <!-- Table Body -->
                         <tbody>
-                        @foreach ($knowledge_units as $knowledge_unit)
+                        @foreach ($knowledgeunits as $knowledge_unit)
                             <tr>
                                 <!-- Topic Name -->
                                 <td class="table-text">

@@ -13,7 +13,7 @@ class QuestionRepository
      */
     public function forKnowledgeUnit($knowledgeunit_id)
     {
-        return Question::where('questions.knowledgeunit_id', $knowledgeunit_id)
+        return Question::where('questions.knowledge_unit_id', $knowledgeunit_id)
             ->orderBy('created_at', 'asc')
             ->get();
     }

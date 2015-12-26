@@ -30,7 +30,7 @@ class KnowledgeUnitController extends Controller
     public function indexWithInstance(Request $request, $subject_id, $topic_id)
     {
         $data = array(
-            'knowledge_units'  => $this->knowledgeUnits->forTopic($topic_id),
+            'knowledgeunits'  => $this->knowledgeUnits->forTopic($topic_id),
         );
 
         if(isset($topic_id)) {
@@ -39,7 +39,7 @@ class KnowledgeUnitController extends Controller
             $data["subject"] = $subject;
             $data["topic"] = $topic;
         }
-        return view('knowledge_unit.index', $data);
+        return view('knowledgeunit.index', $data);
     }
 
     public function store(Request $request, $subject_id, $topic_id)

@@ -12,7 +12,7 @@ class Topic extends Model
     );
     protected $fillable = ['title','description'];
     // Knowledge Units will be here
-    public function knowledge_units()
+    public function knowledgeunits()
     {
         return $this->hasMany(KnowledgeUnit::class);
     }

@@ -2,7 +2,9 @@
 @section('page-script')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#summernote').summernote();
+            $('#question-description').summernote({
+                height: "200px"
+            });
         });
     </script>
     @stop
@@ -20,11 +22,61 @@
 @section('page_heading','Questions')
 @section('section')
 
-        <!-- Bootstrap Boilerplate... -->
+<!-- Bootstrap Boilerplate... -->
 
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
+
+    <!-- Current Questions -->
+    @if (count($questions) > 0)
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Current Questions
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-striped task-table">
+
+                    <!-- Table Headings -->
+                    <thead>
+                    <th>Questions</th>
+                    <th>Description</th>
+                    <th>Knowledge Unit</th>
+                    <th>&nbsp;</th>
+                    </thead>
+
+                    <!-- Table Body -->
+                    <tbody>
+                    @foreach ($questions as $question)
+                        <tr>
+                            <!-- Topic Name -->
+                            <td class="table-text">
+                                <div>{{ $question->title }}</div>
+                            </td>
+                            <!-- Topic Description -->
+                            <td class="table-text">
+                                <div>{{ $question->description }}</div>
+                            </td>
+                            <td class="table-text">
+                                <div>{{ $knowledgeunit->title }} ( {{ $question->knowledge_unit_id }} )</div>
+                            </td>
+                            <!-- Delete Button -->
+                            <td>
+                                <form action="{{ url('/question', $question->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+
+                                    <button>Delete Question</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        @endif
 
             <!-- New Question Form -->
     <form action="{{ url('/subjects/'.$topic->subject_id.'/topics/'. $topic->id .'/knowledgeunits/'. $knowledgeunit->id .'/questions') }}" method="POST" class="form-horizontal">
@@ -44,7 +96,8 @@
             <label for="task-name" class="col-sm-3 control-label">Description</label>
 
             <div class="col-sm-6">
-                <div id="summernote">Hello Summernote</div>
+                <textarea name="description" id="question-description" rows="18" class="form-control">
+                </textarea>
             </div>
         </div>
 

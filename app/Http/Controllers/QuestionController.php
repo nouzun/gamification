@@ -7,6 +7,7 @@ use App\Question;
 use App\Repositories\QuestionRepository;
 use App\Subject;
 use App\Topic;
+use Log;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -58,9 +59,9 @@ class QuestionController extends Controller
         $question->title = $request->title;
         $question->description = $request->description;
 
-        $question->knowledge_unit()->associate($question);
+        $question->knowledge_unit()->associate($knowledgeUnit);
         $question->save();
 
-        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits'.$knowledgeunit_id.'/questions');
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions');
     }
 }
