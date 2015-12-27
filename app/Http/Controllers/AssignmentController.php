@@ -35,7 +35,7 @@ class AssignmentController extends Controller
     {
         $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
 
-        $knowledgeunit->load('questions', 'questions.answers');
+        $knowledgeunit->load('questions', 'questions.answers', 'questions.correctAnswers');
 
         $data = array(
             'knowledgeunit'  => $knowledgeunit,
