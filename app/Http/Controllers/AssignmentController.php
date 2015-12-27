@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\KnowledgeUnit;
 use App\Repositories\AssignmentRepository;
 use App\Subject;
+use App\Topic;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -27,5 +29,23 @@ class AssignmentController extends Controller
         );
 
         return view('assignment.index', $data);
+    }
+
+    public function indexWithInstance(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
+    {
+        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+
+        $knowledgeunit->load('questions', 'questions.answers');
+
+        $data = array(
+            'knowledgeunit'  => $knowledgeunit,
+        );
+        if(isset($knowledgeunit_id)) {
+            $subject = Subject::find($subject_id);
+            $topic = Topic::find($topic_id);
+            $data["subject"] = $subject;
+            $data["topic"] = $topic;
+        }
+        return view('assignment.quiz', $data);
     }
 }

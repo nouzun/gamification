@@ -2,6 +2,13 @@
 @section('page-script')
     <script type="text/javascript">
         $(document).ready(function() {
+            /*
+            $(".assignment").click(function(){
+                if($(this).find("a").length){
+                    window.location.href = $(this).find("a:first").attr("href");
+                }
+            });
+            */
         });
     </script>
     <style>
@@ -56,18 +63,20 @@
                     </div>
                     @foreach ($subject->topics as $topic)
                         @foreach ($topic->knowledgeunits as $knowledgeunit)
-                        <div class="row horizontal-box hover-color headline-1-text">
-                            <div class="col-sm-6 od-item">
-                                <span class="fa fa-star od-icon"></span>
-                                <span>{{ $topic->title }}: {{ $knowledgeunit->title }}</span>
-                            </div>
-                            <div class="col-sm-2 od-item">
-                                Due
-                            </div>
-                            <div class="col-sm-2 od-item">
-                                Grade
-                            </div>
-                        </div>
+                            <a href="{{ url('/assignments/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/') }}">
+                                <div class="row assignment horizontal-box hover-color headline-1-text">
+                                    <div class="col-sm-6 od-item">
+                                        <span class="fa fa-star od-icon"></span>
+                                        <span>{{ $topic->title }}: {{ $knowledgeunit->title }}</span>
+                                    </div>
+                                    <div class="col-sm-2 od-item">
+                                        Due
+                                    </div>
+                                    <div class="col-sm-2 od-item">
+                                        Grade
+                                    </div>
+                                </div>
+                            </a>
                         @endforeach
                     @endforeach
                 </div>

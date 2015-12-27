@@ -97,6 +97,7 @@ Route::delete('/subject/{subject}', 'SubjectController@destroy');
 
 // Assignments
 Route::get('/assignments', 'AssignmentController@index');
+Route::get('/assignments/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/', 'AssignmentController@indexWithInstance');
 Route::post('/assignments', 'AssignmentController@store');
 Route::delete('/assignment/{subject}', 'AssignmentController@destroy');
 
