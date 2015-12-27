@@ -95,6 +95,11 @@ Route::get('/subjects', 'SubjectController@index');
 Route::post('/subjects', 'SubjectController@store');
 Route::delete('/subject/{subject}', 'SubjectController@destroy');
 
+// Assignments
+Route::get('/assignments', 'AssignmentController@index');
+Route::post('/assignments', 'AssignmentController@store');
+Route::delete('/assignment/{subject}', 'AssignmentController@destroy');
+
 // Topics
 Route::get('/topics', 'TopicController@index');
 Route::get('/subjects/{subject_id}/topics', 'TopicController@indexWithInstance');

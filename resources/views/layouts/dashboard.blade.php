@@ -253,6 +253,9 @@
                                 <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('/subjects') }}">Subjects</a>
                                 </li>
+                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/assignments') }}">Assignments</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

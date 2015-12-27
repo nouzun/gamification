@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="{{ asset('assets/scripts/jquery-2.1.4.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('assets/bootstrap-3.3.6-dist/js/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('assets/jquery-sizzle-7de7363/dist/sizzle.min.js') }}"></script>
-	<script src="{{ asset("assets/scripts/frontend.js") }}" type="text/javascript"></script>
+	<script type="text/javascript" src="{{ asset("assets/scripts/frontend.js") }}" ></script>
 	<link rel="stylesheet" href="{{ asset("assets/stylesheets/styles.css") }}" />
 	<link rel="stylesheet" href="{{ asset("assets/font-awesome-4.5.0/css/font-awesome.min.css") }}" />
 
