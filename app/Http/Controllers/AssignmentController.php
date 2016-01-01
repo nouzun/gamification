@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
+use App\Assignment;
 use App\KnowledgeUnit;
 use App\Repositories\AssignmentRepository;
 use App\Subject;
 use App\Topic;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Input;
+use Log;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -47,5 +50,17 @@ class AssignmentController extends Controller
             $data["topic"] = $topic;
         }
         return view('assignment.quiz', $data);
+    }
+
+    public function store(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
+    {
+        $assignment = new Assignment();
+
+        foreach ($request->answers as $answer) {
+            $selected[] = new Answer(['answer' => $answer]);
+        }
+
+        $assignment->user()->associate($request->user());
+        $assignment->answers()->saveMany($selected);
     }
 }

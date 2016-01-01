@@ -56,14 +56,14 @@
                             </td>
                             <!-- Topic Description -->
                             <td class="table-text">
-                                <div>{{ $question->description }}</div>
+                                <div>{!! $question->description !!}</div>
                             </td>
                             <td class="table-text">
                                 @foreach ($question->answers as $answer)
                                     @if ($answer->correct == 1)
-                                        <div class="text-success">{{ $answer->description }}<span class="fa fa-check"></span></div>
+                                        <div class="text-success">{!! $answer->description !!}<span class="fa fa-check"></span></div>
                                     @else
-                                        <div>{{ $answer->description }}</div>
+                                        <div>{!! $answer->description !!}</div>
                                     @endif
                                 @endforeach
                                 <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers') }}">Add new Answer</a>

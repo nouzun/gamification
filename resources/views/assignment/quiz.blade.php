@@ -43,6 +43,16 @@
             vertical-align: middle;
         }
 
+        .answer-radio, input[type="radio"]  {
+            top: 8px;
+            left: 10px;
+            margin: 0px;
+            padding: 0px;
+            height: 22px;
+            width: 22px;
+            vertical-align: middle;
+        }
+
         .answer-text {
             display: inline-block;
             vertical-align: middle;
@@ -70,41 +80,51 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
     <div>{{ count($knowledgeunit->questions) }} questions</div>
-    <div class="col-sm-12">
-        @foreach ($knowledgeunit->questions as $index => $question)
-            <div class="row">
-                <div class="col-sm-1">
-                    <span class="question-number">{{$index + 1}}.</span>
-                </div>
-                <div class="col-sm-11 single-page-question od-item ">
-                    <div class="single-page-question-desc">{{ $question->description }}</div>
-                    @if (count($question->correctAnswers) > 1)
-                        @foreach ($question->answers as $answer)
-                            <div class="row">
-                                <div class="col-sm-12" >
-                                    <div class="answer">
-                                        <input type="checkbox" name="answer" id="quiz-answer" class="answer-checkbox">
-                                        <span class="answer-text"> {{ $answer->description }} </span>
+    <form action="{{ url('/assignments/subjects/'.$subject->id.'/topics/'. $topic->id .'/knowledgeunits/'. $knowledgeunit->id ) }}" method="POST" class="form-horizontal">
+        {{ csrf_field() }}
+        <div class="col-sm-12">
+            @foreach ($knowledgeunit->questions as $index => $question)
+                <div class="row">
+                    <div class="col-sm-1">
+                        <span class="question-number">{{$index + 1}}.</span>
+                    </div>
+                    <div class="col-sm-11 single-page-question od-item ">
+                        <div class="single-page-question-desc">{!! $question->description !!}</div>
+                        @if (count($question->correctAnswers) > 1)
+                            @foreach ($question->answers as $answer)
+                                <div class="row">
+                                    <div class="col-sm-12" >
+                                        <div class="answer">
+                                            <input type="checkbox" name="answers[]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}">
+                                            <span class="answer-text"> {!! $answer->description !!} </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    @else
-                        @foreach ($question->answers as $answer)
-                            <div class="row">
-                                <div class="col-sm-12" >
-                                    <div class="answer">
-                                        <input type="radio" name="answer" id="quiz-answer" class="answer-checkbox">
-                                        <span class="answer-text"> {{ $answer->description }} </span>
+                            @endforeach
+                        @else
+                            @foreach ($question->answers as $answer)
+                                <div class="row">
+                                    <div class="col-sm-12" >
+                                        <div class="answer">
+                                            <input type="radio" name="answers[]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}">
+                                            <span class="answer-text"> {!! $answer->description !!} </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    @endif
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
+            @endforeach
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12" style="text-align: right">
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-send"></i> Submit Quiz
+                </button>
             </div>
-        @endforeach
-    </div>
+        </div>
+    </form>
 </div>
 
 @endsection
