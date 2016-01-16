@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Assignment extends Model
 {
-    public function user()
+    public function knowledgeunits()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(KnowledgeUnit::class, 'quiz', 'assignment_id', 'knowledgeunit_id');
     }
 
-    public function answers()
+    public function subject()
     {
-        return $this->hasMany(Answer::class);
+        return $this->belongsTo(Subject::class);
     }
+
 }

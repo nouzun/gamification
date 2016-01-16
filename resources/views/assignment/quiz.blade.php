@@ -66,9 +66,7 @@
     <div>
         {{ $subject->title }}
         <span class="fa fa-chevron-right"></span>
-        {{ $topic->title }}
-        <span class="fa fa-chevron-right"></span>
-        {{ $knowledgeunit->title }} Assignment
+        Assignment {{ $assignment->id }}
     </div>
     @stop
 @section('page_heading','Quiz')
@@ -79,8 +77,10 @@
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
+
+    @foreach ($assignment->knowledgeunits as $knowledgeunit)
     <div>{{ count($knowledgeunit->questions) }} questions</div>
-    <form action="{{ url('/assignments/subjects/'.$subject->id.'/topics/'. $topic->id .'/knowledgeunits/'. $knowledgeunit->id ) }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/assignments/subjects/'.$subject->id.'/assignment/'. $assignment->id ) }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
         <div class="col-sm-12">
             @foreach ($knowledgeunit->questions as $index => $question)
@@ -125,6 +125,7 @@
             </div>
         </div>
     </form>
+    @endforeach
 </div>
 
 @endsection

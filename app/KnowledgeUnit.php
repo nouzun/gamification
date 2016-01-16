@@ -22,4 +22,9 @@ class KnowledgeUnit extends Model
     {
         return $this->belongsTo(Topic::class);
     }
+
+    public function assignments()
+    {
+        return $this->belongsToMany(Assignment::class, 'quiz', 'assignment_id', 'knowledgeunit_id');
+    }
 }

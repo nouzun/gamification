@@ -14,8 +14,7 @@ class CreateAssignmentsTable extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->index();
-            $table->integer('answer_id')->index();
+            $table->integer('subject_id');
             $table->timestamps();
         });
     }

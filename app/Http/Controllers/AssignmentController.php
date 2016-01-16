@@ -9,6 +9,7 @@ use App\Repositories\AssignmentRepository;
 use App\Subject;
 use App\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Log;
 use App\Http\Requests;
@@ -24,9 +25,9 @@ class AssignmentController extends Controller
         $this->assignments = $assignments;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = Subject::with(['topics', 'topics.knowledgeunits'])->get();
+        $subjects = Subject::all();
         $data = array(
             'subjects'  => $subjects,
         );
@@ -34,33 +35,38 @@ class AssignmentController extends Controller
         return view('assignment.index', $data);
     }
 
-    public function indexWithInstance(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
+    public function indexWithInstance(Request $request, $subject_id)
     {
-        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
-
-        $knowledgeunit->load('questions', 'questions.answers', 'questions.correctAnswers');
-
+        $subject = Subject::find($subject_id);
         $data = array(
-            'knowledgeunit'  => $knowledgeunit,
+            'subjectOnly'  => $subject,
         );
-        if(isset($knowledgeunit_id)) {
-            $subject = Subject::find($subject_id);
-            $topic = Topic::find($topic_id);
-            $data["subject"] = $subject;
-            $data["topic"] = $topic;
-        }
-        return view('assignment.quiz', $data);
+        return view('assignment.index', $data);
     }
 
-    public function store(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
+   public function indexWithQuiz(Request $request, $subject_id, $assignment_id)
+   {
+       $assignment = Assignment::find($assignment_id);
+
+       $data = array(
+           'assignment'  => $assignment,
+       );
+       if(isset($subject_id)) {
+           $subject = Subject::find($subject_id);
+           $data["subject"] = $subject;
+       }
+       return view('assignment.quiz', $data);
+
+    }
+
+    public function store(Request $request, $subject_id)
     {
+        $subject = Subject::find($subject_id);
         $assignment = new Assignment();
+        $assignment->subject()->associate($subject);
+        $assignment->save();
+        $assignment->knowledgeunits()->sync(Input::get('knowledgeunits'));
 
-        foreach ($request->answers as $answer) {
-            $selected[] = new Answer(['answer' => $answer]);
-        }
-
-        $assignment->user()->associate($request->user());
-        $assignment->answers()->saveMany($selected);
+        return redirect('assignments/subjects/'.$subject_id);
     }
 }
