@@ -78,12 +78,11 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
 
-    @foreach ($assignment->knowledgeunits as $knowledgeunit)
-    <div>{{ count($knowledgeunit->questions) }} questions</div>
+    <div>{{ count($questionsAll) }} questions</div>
     <form action="{{ url('/assignments/subjects/'.$subject->id.'/assignment/'. $assignment->id ) }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
         <div class="col-sm-12">
-            @foreach ($knowledgeunit->questions as $index => $question)
+            @foreach ($questionsAll as $index => $question)
                 <div class="row">
                     <div class="col-sm-1">
                         <span class="question-number">{{$index + 1}}.</span>
@@ -125,7 +124,6 @@
             </div>
         </div>
     </form>
-    @endforeach
 </div>
 
 @endsection

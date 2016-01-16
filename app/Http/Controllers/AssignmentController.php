@@ -8,6 +8,7 @@ use App\KnowledgeUnit;
 use App\Repositories\AssignmentRepository;
 use App\Subject;
 use App\Topic;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
@@ -48,8 +49,17 @@ class AssignmentController extends Controller
    {
        $assignment = Assignment::find($assignment_id);
 
+       $questionsAll = new Collection;
+
+       foreach ($assignment->knowledgeunits()->get() as $knowledgeunit)
+       {
+           //Log::info('111 $knowledgeunit: '.$knowledgeunit->title);
+           $questionsAll = $questionsAll->merge($knowledgeunit->questions()->get());
+       }
+
        $data = array(
            'assignment'  => $assignment,
+           'questionsAll' => $questionsAll,
        );
        if(isset($subject_id)) {
            $subject = Subject::find($subject_id);
