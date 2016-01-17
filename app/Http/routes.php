@@ -100,7 +100,7 @@ Route::get('/assignments', 'AssignmentController@index');
 Route::get('/assignments/subjects/{subject_id}', 'AssignmentController@indexWithInstance');
 Route::get('/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@indexWithQuiz');
 Route::post('/assignments/subjects/{subject_id}', 'AssignmentController@store');
-//Route::post('/assignments/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}', 'AssignmentController@store');
+Route::post('/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@storeQuiz');
 Route::delete('/assignment/{subject}', 'AssignmentController@destroy');
 
 // Topics

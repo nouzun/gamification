@@ -42,7 +42,7 @@ class AssignmentController extends Controller
         $data = array(
             'subjectOnly'  => $subject,
         );
-        return view('assignment.index', $data);
+        return view('assignment.edit', $data);
     }
 
    public function indexWithQuiz(Request $request, $subject_id, $assignment_id)
@@ -78,5 +78,10 @@ class AssignmentController extends Controller
         $assignment->knowledgeunits()->sync(Input::get('knowledgeunits'));
 
         return redirect('assignments/subjects/'.$subject_id);
+    }
+
+    public function storeQuiz(Request $request, $subject_id, $assignment_id)
+    {
+        
     }
 }

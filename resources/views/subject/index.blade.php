@@ -23,6 +23,7 @@
                     <th>Subjects</th>
                     <th>Description</th>
                     <th>Topics</th>
+                    <th>Assignments</th>
                     <th>&nbsp;</th>
                     </thead>
 
@@ -44,7 +45,12 @@
                                 @endforeach
                                 <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/') }}">Add new Topic</a>
                             </td>
-
+                            <td class="table-text">
+                                @foreach ($subject->assignments as $assignment)
+                                    <div>Assignment {{ $assignment->id }}</div>
+                                @endforeach
+                                <a href="{{ url('/assignments/subjects/'.$subject->id) }}">Add new Assignment</a>
+                            </td>
                             <!-- Delete Button -->
                             <td>
                                 <form action="{{ url('/subject', $subject->id) }}" method="POST">
