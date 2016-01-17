@@ -73,6 +73,7 @@ class AssignmentController extends Controller
     {
         $subject = Subject::find($subject_id);
         $assignment = new Assignment();
+        $assignment->due_date = $request->due_date;
         $assignment->subject()->associate($subject);
         $assignment->save();
         $assignment->knowledgeunits()->sync(Input::get('knowledgeunits'));
@@ -82,6 +83,10 @@ class AssignmentController extends Controller
 
     public function storeQuiz(Request $request, $subject_id, $assignment_id)
     {
-        
+        $assignment = Assignment::find($assignment_id);
+        $request->user()->assignments()->sync($assignment);
+        $request->user()->answers()->sync(Input::get('answers'));
+
+        return redirect('assignments');
     }
 }

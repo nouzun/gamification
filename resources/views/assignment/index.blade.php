@@ -91,12 +91,12 @@
                             @foreach ($subject->assignments as $assignment)
                                 <a href="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
                                     <div class="row assignment horizontal-box hover-color headline-1-text">
-                                        <div class="col-sm-6 od-item">
+                                        <div class="col-sm-5 od-item">
                                             <span class="fa fa-star od-icon"></span>
                                             <span>{{ $subject->title }}: Assignment {{ $assignment->id }}</span>
                                         </div>
-                                        <div class="col-sm-2 od-item">
-                                            Due
+                                        <div class="col-sm-3 od-item">
+                                            Due: {{ date('F d, Y', strtotime($assignment->due_date)) }}
                                         </div>
                                         <div class="col-sm-2 od-item">
                                             Grade

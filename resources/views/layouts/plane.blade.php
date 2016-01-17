@@ -20,6 +20,8 @@
 
 	<script type="text/javascript" src="{{ asset('assets/summernote-master/dist/summernote.js') }}"></script>
 	<link rel="stylesheet" href="{{ asset("assets/summernote-master/dist/summernote.css") }}" />
+	<script type="text/javascript" src="{{ asset('assets/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ asset("assets/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css") }}" />
 	<link rel="stylesheet" href="{{ asset("assets/stylesheets/tree.css") }}" />
 
 	@yield('page-script')

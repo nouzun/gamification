@@ -42,8 +42,13 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany(Subject::class);
     }
 
-    public function comments ()
+    public function assignments()
     {
-        return $this->hasMany(Answer::class);
+        return $this->belongsToMany(Assignment::class, 'users_assignments', 'user_id', 'assignment_id');
+    }
+
+    public function answers()
+    {
+        return $this->belongsToMany(Answer::class, 'users_answers', 'user_id', 'answer_id');
     }
 }

@@ -12,13 +12,13 @@ class Answer extends Model {
 
     protected $fillable = ['description','correct'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function question()
     {
         return $this->belongsTo(Question::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_answers', 'user_id', 'answer_id');
     }
 }

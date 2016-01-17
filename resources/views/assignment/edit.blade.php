@@ -2,13 +2,7 @@
 @section('page-script')
     <script type="text/javascript">
         $(document).ready(function() {
-            /*
-            $(".assignment").click(function(){
-                if($(this).find("a").length){
-                    window.location.href = $(this).find("a:first").attr("href");
-                }
-            });
-            */
+            //$('#div_datetimepicker').datepicker();
         });
     </script>
     <style>
@@ -141,18 +135,38 @@
             <div class="row">
                 {{  $subjectOnly->title  }}
             </div>
-            @foreach ($subjectOnly->topics as $topic)
-                @foreach ($topic->knowledgeunits as $knowledgeunit)
-                    <div class="row">
-                        <div class="col-sm-12" >
-                            <div class="checkbox-container">
-                                <input type="checkbox" name="knowledgeunits[]" id="knowledgeunit" class="input-checkbox" value="{{ $knowledgeunit->id }}">
-                                <span class="checkbox-text">{{ $topic->title }}: {{ $knowledgeunit->title }} </span>
-                            </div>
+            <div class="row">
+                <div class='col-sm-2'>
+                    Due Date:
+                </div>
+                <div class='col-sm-4'>
+                    <div class="form-group">
+                        <div class='input-group date' id='div_datetimepicker'>
+                            <input type='date' class="form-control" name="due_date" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
                     </div>
-                @endforeach
-            @endforeach
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-sm-2'>
+                    Knowledge Units:
+                </div>
+                <div class='col-sm-4'>
+                    @foreach ($subjectOnly->topics as $topic)
+                        @foreach ($topic->knowledgeunits as $knowledgeunit)
+                            <div class="row">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" name="knowledgeunits[]" id="knowledgeunit" class="input-checkbox" value="{{ $knowledgeunit->id }}">
+                                    <span class="checkbox-text">{{ $topic->title }}: {{ $knowledgeunit->title }} </span>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
         </div>
         <!-- Add Assignment Button -->
         <div class="form-group">
