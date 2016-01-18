@@ -66,6 +66,10 @@
             vertical-align: middle;
             line-height: 32px;
         }
+
+        .line-through {
+            text-decoration: line-through;
+        }
     </style>
     @stop
 @section('page_heading_tree')
@@ -89,11 +93,17 @@
                                 <h4 class="name-margin headline-2-text">{{ $subject->title }}</h4>
                             </div>
                             @foreach ($subject->assignments as $assignment)
-                                <a href="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
+                                    <a href="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
+
                                     <div class="row assignment horizontal-box hover-color headline-1-text">
                                         <div class="col-sm-5 od-item">
                                             <span class="fa fa-star od-icon"></span>
-                                            <span>{{ $subject->title }}: Assignment {{ $assignment->id }}</span>
+                                            @if ( $assignment->done == 1 )
+                                                <span class="line-through">
+                                            @else
+                                                <span>
+                                            @endif
+                                                    {{ $subject->title }}: Assignment {{ $assignment->id }}</span>
                                         </div>
                                         <div class="col-sm-3 od-item">
                                             Due: {{ date('F d, Y', strtotime($assignment->due_date)) }}

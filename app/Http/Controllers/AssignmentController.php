@@ -29,6 +29,7 @@ class AssignmentController extends Controller
     public function index(Request $request)
     {
         $subjects = Subject::all();
+
         $data = array(
             'subjects'  => $subjects,
         );
@@ -83,8 +84,7 @@ class AssignmentController extends Controller
 
     public function storeQuiz(Request $request, $subject_id, $assignment_id)
     {
-        $assignment = Assignment::find($assignment_id);
-        $request->user()->assignments()->sync($assignment);
+        $request->user()->assignments()->sync(array($assignment_id));
         $request->user()->answers()->sync(Input::get('answers'));
 
         return redirect('assignments');
