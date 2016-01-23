@@ -2,6 +2,10 @@
 @section('page-script')
     <script type="text/javascript">
         $(document).ready(function() {
+            var done = {{ $assignment->done }};
+            if (done == 1) {
+                $('#form-quiz').find(':input').prop('disabled', true);
+            }
         });
     </script>
     <style>
@@ -31,6 +35,9 @@
             height: 32px;
             vertical-align: middle;
             line-height: 32px;
+            margin-bottom: 2px;
+            border: 1px solid transparent;
+            border-radius: 4px;
         }
 
         .answer-checkbox, input[type="checkbox"]  {
@@ -60,6 +67,11 @@
             padding: 0px 10px;
         }
 
+        .answer-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
     </style>
     @stop
 @section('page_heading_tree')
@@ -79,7 +91,7 @@
     @include('common.errors')
 
     <div>{{ count($questionsAll) }} questions</div>
-    <form action="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'. $assignment->id ) }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'. $assignment->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
         {{ csrf_field() }}
         <div class="col-sm-12">
             @foreach ($questionsAll as $index => $question)
@@ -93,8 +105,16 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        <div class="answer">
+                                        @if ($answer->correct)
+                                            <div class="answer answer-success">
+                                        @else
+                                            <div class="answer">
+                                        @endif
+                                        @if ( Auth::User()->answers->contains($answer->id) )
+                                            <input type="checkbox" name="answers[]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}" checked="checked">
+                                        @else
                                             <input type="checkbox" name="answers[]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}">
+                                        @endif
                                             <span class="answer-text"> {!! $answer->description !!} </span>
                                         </div>
                                     </div>
@@ -104,8 +124,16 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        <div class="answer">
+                                        @if ($answer->correct)
+                                            <div class="answer answer-success">
+                                        @else
+                                            <div class="answer">
+                                        @endif
+                                        @if ( Auth::User()->answers->contains($answer->id) )
+                                            <input type="radio" name="answers[]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}" checked="checked">
+                                        @else
                                             <input type="radio" name="answers[]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}">
+                                        @endif
                                             <span class="answer-text"> {!! $answer->description !!} </span>
                                         </div>
                                     </div>
@@ -116,6 +144,7 @@
                 </div>
             @endforeach
         </div>
+        @if ( $assignment->done != 1 )
         <div class="form-group">
             <div class="col-sm-12" style="text-align: right">
                 <button type="submit" class="btn btn-default">
@@ -123,6 +152,7 @@
                 </button>
             </div>
         </div>
+        @endif
     </form>
 </div>
 
