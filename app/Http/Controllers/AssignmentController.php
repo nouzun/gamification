@@ -11,6 +11,7 @@ use App\Topic;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Log;
 use App\Http\Requests;
@@ -84,9 +85,19 @@ class AssignmentController extends Controller
 
     public function storeQuiz(Request $request, $subject_id, $assignment_id)
     {
+        $point = 0;
+        $answers = Input::get('answers');
         $request->user()->assignments()->sync(array($assignment_id));
-        $request->user()->answers()->sync(Input::get('answers'));
+        $request->user()->answers()->sync($answers);
 
+        foreach($answers as $answer_id) {
+            $answer = Answer::find($answer_id);
+            if ($answer->correct) {
+                $point++;
+            }
+        }
+        DB::update('UPDATE (users_assignments) SET point=? WHERE user_id=? AND assignment_id=?',
+            [$point, $request->user()->id, $assignment_id]);
         return redirect('assignments');
     }
 }

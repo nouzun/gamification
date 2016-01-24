@@ -109,7 +109,7 @@
                                             Due: {{ date('F d, Y', strtotime($assignment->due_date)) }}
                                         </div>
                                         <div class="col-sm-2 od-item">
-                                            Grade
+                                            Point: {{ $assignment->point }}
                                         </div>
                                     </div>
                                 </a>

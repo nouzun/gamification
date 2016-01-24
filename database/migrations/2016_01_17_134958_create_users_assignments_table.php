@@ -15,7 +15,7 @@ class CreateUsersAssignmentsTable extends Migration
         Schema::create('users_assignments', function (Blueprint $table) {
             $table->integer('user_id');
             $table->integer('assignment_id');
-            $table->integer('grade');
+            $table->integer('point');
             $table->timestamps();
         });
     }

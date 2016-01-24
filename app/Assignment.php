@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class Assignment extends Model
 {
-    protected $appends = ['done'];
+    protected $appends = ['done', 'point'];
 
     function getDoneAttribute() {
         $is_done = 0;
@@ -22,6 +23,20 @@ class Assignment extends Model
         }
 
         return $is_done;
+    }
+
+    function getPointAttribute() {
+
+        $point = DB::table('users_assignments')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('assignment_id', '=', $this->id)
+            ->pluck('point');
+
+        /*
+            $point = DB::select('SELECT point FROM users_assignments WHERE user_id=? AND assignment_id=?',
+                [Auth::user()->id, $this->id]);
+        */
+        return $point;
     }
 
     public function knowledgeunits()

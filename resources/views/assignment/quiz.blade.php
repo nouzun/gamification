@@ -105,12 +105,12 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        @if ($answer->correct)
+                                        @if ($assignment->done && $answer->correct)
                                             <div class="answer answer-success">
                                         @else
                                             <div class="answer">
                                         @endif
-                                        @if ( Auth::User()->answers->contains($answer->id) )
+                                        @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
                                             <input type="checkbox" name="answers[]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}" checked="checked">
                                         @else
                                             <input type="checkbox" name="answers[]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}">
@@ -124,12 +124,12 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        @if ($answer->correct)
+                                        @if ($assignment->done && $answer->correct)
                                             <div class="answer answer-success">
                                         @else
                                             <div class="answer">
                                         @endif
-                                        @if ( Auth::User()->answers->contains($answer->id) )
+                                        @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
                                             <input type="radio" name="answers[]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}" checked="checked">
                                         @else
                                             <input type="radio" name="answers[]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}">
