@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Support\Facades\DB;
+use Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -36,6 +38,24 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    protected $appends = ['points'];
+
+    function getPointsAttribute() {
+
+        $points = DB::table('users_assignments')
+            ->select(DB::raw('SUM(point) as points'))
+            ->where('user_id', '=', $this->id)
+            ->pluck('points');
+
+        Log::info('$points: '.$points);
+
+        /*
+            $point = DB::select('SELECT point FROM users_assignments WHERE user_id=? AND assignment_id=?',
+                [Auth::user()->id, $this->id]);
+        */
+        return $points;
+    }
 
     public function subjects()
     {

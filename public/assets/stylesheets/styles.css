@@ -8686,6 +8686,24 @@ table.dataTable thead .sorting:after {
     font-size: 40px;
 }
 
+.panel-turquoise {
+  border-color: #32ADA1;
+}
+
+.panel-turquoise .panel-heading {
+  border-color: #32ADA1;
+  color: #fff;
+  background-color: #32ADA1;
+}
+
+.panel-turquoise a {
+  color: #32ADA1;
+}
+
+.panel-turquoise a:hover {
+  color: #237A72;
+}
+
 .panel-green {
     border-color: #5cb85c;
 }

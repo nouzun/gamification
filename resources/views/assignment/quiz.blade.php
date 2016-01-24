@@ -89,7 +89,11 @@
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
-
+    @if ( $assignment->done == 1 )
+        <div class="alert alert-success " role="alert">
+            <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this assignment and earned <strong>{{ $assignment->point }}</strong> points.
+        </div>
+    @endif
     <div>{{ count($questionsAll) }} questions</div>
     <form action="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'. $assignment->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
         {{ csrf_field() }}
