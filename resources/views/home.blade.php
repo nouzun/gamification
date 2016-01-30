@@ -122,28 +122,51 @@
             <div class="row">
                 <div class="col-lg-8">
                 
-                @section ('pane2_panel_title', 'Responsive Timeline')
+                @section ('pane2_panel_title', 'News Feed')
                 @section ('pane2_panel_body')
                     
                     <!-- /.panel -->
-                    
-                        
               
                     <ul class="timeline">
-                        <li>
-                            <div class="timeline-badge"><i class="fa fa-check"></i>
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                    <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
-                                    </p>
-                                </div>
-                                <div class="timeline-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p>
-                                </div>
-                            </div>
-                        </li>
+
+                        @foreach (Auth::user()->timeline as $index => $feed)
+                            @if ($index % 2 == 0)
+                                <li>
+                            @else
+                                <li class="timeline-inverted">
+                            @endif
+                            @if ($feed->type == 'assignment')
+                                    <div class="timeline-badge success"><i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">You finished an Assignment</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }} </small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>You posted Assignment {{ $feed->assignment_id }} and earned <strong>{{ $feed->point }}</strong> point.</p>
+                                        </div>
+                                    </div>
+
+                            @elseif ($feed->type == 'reminder')
+                                    <div class="timeline-badge warning"><i class="fa fa-bomb"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">Oh my! Less than 2 days!</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }} </small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>You have only <strong>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }}</strong> to finish Assignment {{ $feed->assignment_id }}. Hurry up!</p>
+                                        </div>
+                                    </div>
+                            @endif
+                            </li>
+                        @endforeach
+                        <!--
+                        fa-check
                         <li class="timeline-inverted">
                             <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
                             </div>
@@ -230,6 +253,7 @@
                                 </div>
                             </div>
                         </li>
+                        -->
                     </ul>
                         
                         <!-- /.panel-body -->

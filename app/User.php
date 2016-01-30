@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Carbon\Carbon;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -39,7 +40,7 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    protected $appends = ['points'];
+    protected $appends = ['points', 'timeline'];
 
     function getPointsAttribute() {
 
@@ -57,6 +58,32 @@ class User extends Model implements AuthenticatableContract,
         return $points;
     }
 
+    function getTimelineAttribute() {
+        $date = new Carbon;
+        $date->subDays(2);
+
+        // Assignments that need to be completed in 2 days
+        $waiting_assignments = DB::table('assignments')
+            ->select(DB::raw('id, point, created_at, due_date as date, \'reminder\' as type'))
+            ->where('due_date', '>', $date->toDateTimeString())
+            ->whereNotExists(function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('users_assignments')
+                    ->whereRaw('users_assignments.assignment_id = assignments.id')
+                    ->where('users_assignments.user_id', '=', $this->id);
+            });
+
+        $timeline = DB::table('users_assignments')
+            ->select(DB::raw('assignment_id, point, null, created_at as date,  \'assignment\' as type'))
+            ->where('user_id', '=', $this->id)
+            ->union($waiting_assignments)
+            ->orderBy('date', 'desc')
+            ->get();
+
+        return $timeline;
+    }
+
     public function subjects()
     {
         return $this->hasMany(Subject::class);
@@ -64,11 +91,11 @@ class User extends Model implements AuthenticatableContract,
 
     public function assignments()
     {
-        return $this->belongsToMany(Assignment::class, 'users_assignments', 'user_id', 'assignment_id');
+        return $this->belongsToMany(Assignment::class, 'users_assignments', 'user_id', 'assignment_id')->withTimestamps();
     }
 
     public function answers()
     {
-        return $this->belongsToMany(Answer::class, 'users_answers', 'user_id', 'answer_id');
+        return $this->belongsToMany(Answer::class, 'users_answers', 'user_id', 'answer_id')->withTimestamps();
     }
 }

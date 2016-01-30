@@ -78,7 +78,7 @@ class AssignmentController extends Controller
         $assignment->due_date = $request->due_date;
         $assignment->subject()->associate($subject);
         $assignment->save();
-        $assignment->knowledgeunits()->sync(Input::get('knowledgeunits'));
+        $assignment->knowledgeunits()->attach(Input::get('knowledgeunits'));
 
         return redirect('assignments/subjects/'.$subject_id);
     }
@@ -87,8 +87,8 @@ class AssignmentController extends Controller
     {
         $point = 0;
         $answers = Input::get('answers');
-        $request->user()->assignments()->sync(array($assignment_id));
-        $request->user()->answers()->sync($answers);
+        $request->user()->assignments()->attach(array($assignment_id));
+        $request->user()->answers()->attach($answers);
 
         foreach($answers as $answer_id) {
             $answer = Answer::find($answer_id);

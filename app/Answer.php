@@ -19,6 +19,6 @@ class Answer extends Model {
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_answers', 'user_id', 'answer_id');
+        return $this->belongsToMany(User::class, 'users_answers', 'user_id', 'answer_id')->withTimestamps();
     }
 }

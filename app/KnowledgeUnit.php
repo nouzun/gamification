@@ -25,6 +25,6 @@ class KnowledgeUnit extends Model
 
     public function assignments()
     {
-        return $this->belongsToMany(Assignment::class, 'quiz', 'assignment_id', 'knowledgeunit_id');
+        return $this->belongsToMany(Assignment::class, 'quiz', 'assignment_id', 'knowledgeunit_id')->withTimestamps();
     }
 }

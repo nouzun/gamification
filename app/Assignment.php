@@ -41,7 +41,7 @@ class Assignment extends Model
 
     public function knowledgeunits()
     {
-        return $this->belongsToMany(KnowledgeUnit::class, 'quiz', 'assignment_id', 'knowledgeunit_id');
+        return $this->belongsToMany(KnowledgeUnit::class, 'quiz', 'assignment_id', 'knowledgeunit_id')->withTimestamps();
     }
 
     public function subject()
@@ -51,6 +51,6 @@ class Assignment extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_assignments', 'user_id', 'assignment_id');
+        return $this->belongsToMany(User::class, 'users_assignments', 'user_id', 'assignment_id')->withTimestamps();
     }
 }
