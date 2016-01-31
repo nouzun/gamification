@@ -12,12 +12,15 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Carbon\Carbon;
+use Codesleeve\Stapler\ORM\StaplerableInterface;
+use Codesleeve\Stapler\ORM\EloquentTrait;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
-                                    CanResetPasswordContract
+                                    CanResetPasswordContract,
+                                    StaplerableInterface
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Authenticatable, Authorizable, CanResetPassword, EloquentTrait;
 
     /**
      * The database table used by the model.
@@ -31,7 +34,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['avatar', 'name', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -41,6 +44,17 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
     protected $appends = ['points', 'timeline'];
+
+    public function __construct(array $attributes = array()) {
+        $this->hasAttachedFile('avatar', [
+            'styles' => [
+                'medium' => '300x300',
+                'thumb' => '100x100'
+            ]
+        ]);
+
+        parent::__construct($attributes);
+    }
 
     function getPointsAttribute() {
 
