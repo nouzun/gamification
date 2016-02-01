@@ -32,8 +32,25 @@ class Authenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
+        if(!$this->auth->check())
+        {
+            return redirect()->route('auth.login')
+                ->with('status', 'success')
+                ->with('message', 'Please login.');
+        }
+
+        if($role == 'all')
+        {
+            return $next($request);
+        }
+
+        if( $this->auth->guest() || !$this->auth->user()->hasRole($role))
+        {
+            abort(403);
+        }
+        /*
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
@@ -41,7 +58,7 @@ class Authenticate
                 return redirect()->guest('auth/login');
             }
         }
-
+        */
         return $next($request);
     }
 }

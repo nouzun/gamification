@@ -6,6 +6,7 @@
             <br /><br /><br />
                @section ('login_panel_title','Please Sign In')
                @section ('login_panel_body')
+                   <!--
                         <form role="form">
                             <fieldset>
                                 <div class="form-group">
@@ -19,11 +20,14 @@
                                         <input name="remember" type="checkbox" value="Remember Me">Remember Me
                                     </label>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
                                 <a href="{{ url ('') }}" class="btn btn-lg btn-success btn-block">Login</a>
                             </fieldset>
                         </form>
-                    
+                    -->
+                <form action="#" class="form-signin">
+                    <p class="or-social">Or Use Social Login</p>
+                    <a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg btn-primary btn-block google" type="submit">Google</a>
+                </form>
                 @endsection
                 @include('widgets.panel', array('as'=>'login', 'header'=>true))
             </div>

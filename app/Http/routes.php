@@ -15,10 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('/', function()
-{
+
+Route::get('/', ['middleware' => 'auth:all', function() {
+    // Only authenticated users may enter...
     return View::make('home');
-});
+}]);
 
 Route::get('/charts', function()
 {
@@ -76,15 +77,37 @@ Route::get('/login', function()
     return View::make('login');
 });
 
+$s = 'social.';
+Route::get('/social/redirect/{provider}',   ['as' => $s . 'redirect',   'uses' => 'Auth\AuthController@getSocialRedirect']);
+Route::get('/social/handle/{provider}',     ['as' => $s . 'handle',     'uses' => 'Auth\AuthController@getSocialHandle']);
+
 Route::get('/documentation', function()
 {
     return View::make('documentation');
 });
 
 // Authentication routes...
-Route::get('/auth/login', 'Auth\AuthController@getLogin');
-Route::post('/auth/login', 'Auth\AuthController@postLogin');
-Route::get('/auth/logout', 'Auth\AuthController@getLogout');
+$a = 'auth.';
+Route::get('/login',            ['as' => $a . 'login',          'uses' => 'Auth\AuthController@getLogin']);
+Route::post('/login',           ['as' => $a . 'login-post',     'uses' => 'Auth\AuthController@postLogin']);
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrator'], function()
+{
+    $a = 'admin.';
+    Route::get('/', ['as' => $a . 'home', 'uses' => 'AdminController@getHome']);
+});
+
+Route::group(['prefix' => 'user', 'middleware' => 'auth:user'], function()
+{
+    $a = 'user.';
+    Route::get('/', ['as' => $a . 'home', 'uses' => 'UserController@getHome']);
+});
+
+Route::group(['middleware' => 'auth:all'], function()
+{
+    $a = 'authenticated.';
+    Route::get('/logout', ['as' => $a . 'logout', 'uses' => 'Auth\AuthController@getLogout']);
+});
 
 // Registration routes...
 Route::get('/auth/register', 'Auth\AuthController@getRegister');
