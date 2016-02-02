@@ -48,7 +48,8 @@ class Authenticate
 
         if( $this->auth->guest() || !$this->auth->user()->hasRole($role))
         {
-            abort(403);
+            //return response('Unauthorized.', 401);
+            abort(403, 'Unauthorized action.');
         }
         /*
         if ($this->auth->guest()) {

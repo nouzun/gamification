@@ -19,7 +19,7 @@ class QuestionController extends Controller
 
     public function __construct(QuestionRepository $questions)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:administrator');
         $this->questions = $questions;
     }
 

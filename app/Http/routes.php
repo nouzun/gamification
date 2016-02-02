@@ -72,11 +72,6 @@ Route::get('/blank', function()
     return View::make('blank');
 });
 
-Route::get('/login', function()
-{
-    return View::make('login');
-});
-
 $s = 'social.';
 Route::get('/social/redirect/{provider}',   ['as' => $s . 'redirect',   'uses' => 'Auth\AuthController@getSocialRedirect']);
 Route::get('/social/handle/{provider}',     ['as' => $s . 'handle',     'uses' => 'Auth\AuthController@getSocialHandle']);
@@ -94,13 +89,17 @@ Route::post('/login',           ['as' => $a . 'login-post',     'uses' => 'Auth\
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrator'], function()
 {
     $a = 'admin.';
-    Route::get('/', ['as' => $a . 'home', 'uses' => 'AdminController@getHome']);
+    Route::get('/', ['as' => $a . 'home', 'uses' => 'UserController@showCurrent']);
+    //Route::get('/', ['as' => $a . 'home', 'uses' => 'AdminController@getHome']);
 });
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth:user'], function()
+Route::group(['prefix' => 'user', 'middleware' => 'auth:all'], function()
 {
-    $a = 'user.';
-    Route::get('/', ['as' => $a . 'home', 'uses' => 'UserController@getHome']);
+    $a = 'profile.';
+    Route::get('/', ['as' => $a . 'show', 'uses' => 'UserController@showCurrent']);
+    Route::get('/{user_id}', ['as' => $a . 'show', 'uses' => 'UserController@show']);
+    Route::get('/{user_id}/edit', ['as' => $a . 'edit', 'uses' => 'UserController@edit']);
+    Route::post('/{user_id}/edit', ['as' => $a . 'edit', 'uses' => 'UserController@store']);
 });
 
 Route::group(['middleware' => 'auth:all'], function()

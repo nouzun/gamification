@@ -20,7 +20,7 @@ class AnswerController extends Controller
 
     public function __construct(AnswerRepository $answers)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:administrator');
         $this->answers = $answers;
     }
 

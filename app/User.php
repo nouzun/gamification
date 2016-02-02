@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Log;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +35,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['avatar', 'name', 'email', 'password'];
+    protected $fillable = ['avatar', 'first_name', 'last_name', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -84,6 +85,7 @@ class User extends Model implements AuthenticatableContract,
 
         Log::info('$points: '.$points);
 
+        if (!is_numeric($points)) $points = 0;
         /*
             $point = DB::select('SELECT point FROM users_assignments WHERE user_id=? AND assignment_id=?',
                 [Auth::user()->id, $this->id]);
@@ -160,5 +162,11 @@ class User extends Model implements AuthenticatableContract,
     public function social()
     {
         return $this->hasMany(Social::class);
+    }
+
+    public function isCurrent()
+    {
+        if (Auth::guest()) return false;
+        return Auth::user()->id == $this->id;
     }
 }

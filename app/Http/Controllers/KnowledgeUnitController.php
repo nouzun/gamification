@@ -18,7 +18,7 @@ class KnowledgeUnitController extends Controller
 
     public function __construct(KnowledgeUnitRepository $knowledeUnits)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:administrator');
         $this->knowledgeUnits = $knowledeUnits;
     }
 

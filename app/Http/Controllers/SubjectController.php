@@ -15,7 +15,7 @@ class SubjectController extends Controller
 
     public function __construct(SubjectRepository $subjects)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:administrator');
         $this->subjects = $subjects;
     }
 

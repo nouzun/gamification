@@ -27,7 +27,7 @@
                         </form>
                     -->
 				<form action="#" class="form-signin">
-					<p class="or-social">Or Use Social Login</p>
+					<p class="or-social">Use Social Login</p>
 					<a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg btn-primary btn-block google" type="submit">Google</a>
 				</form>
 				@endsection

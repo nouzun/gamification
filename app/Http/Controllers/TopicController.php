@@ -16,7 +16,7 @@ class TopicController extends Controller
 
     public function __construct(TopicRepository $topics)
     {
-        $this->middleware('auth');
+        $this->middleware('auth:administrator');
         $this->topics = $topics;
     }
 
