@@ -71,6 +71,10 @@
                         </a>
                     </div>
                 </div>
+                <div class="text-center" style="margin-top: -20px"><h4>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h4></div>
+                @include('includes.avatar', ['user' => Auth::user()])
+
+                <!--
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
@@ -93,6 +97,7 @@
                         </a>
                     </div>
                 </div>
+                -->
                 <!--
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-red">
@@ -276,11 +281,12 @@
 
                     @section ('leader_board_panel_title','Leader Board')
                     @section ('leader_board_panel_body')
-                        You have
-                        <button type="button" class="btn btn-danger btn-circle    btn-lg   ">
-                            {{ Auth::user()->points }}
-                        </button>
-                        points.
+
+                        <ul class="list-group ">
+                        @foreach($top_users as $selected_user)
+                            <li class="list-group-item">{{ $selected_user->first_name }} {{ $selected_user->last_name }} <span class="pull-right"><strong>{{ $selected_user->points }}</strong></span></li>
+                        @endforeach
+                        </ul>
                     @endsection
                     @include('widgets.panel', array('header'=>true, 'as'=>'leader_board'))
 

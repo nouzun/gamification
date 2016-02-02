@@ -44,13 +44,14 @@ class AuthController extends Controller {
         {
             if( $this->auth->user()->hasRole('user'))
             {
-                return redirect('/');
-                //return redirect()->route('user.home');
+                //return redirect('/');
+                return redirect()->route('user.home');
             }
 
             if( $this->auth->user()->hasRole('administrator'))
             {
-                return redirect('/');
+                return redirect()->route('admin.home');
+                //return redirect('/');
             }
 
         }
@@ -147,7 +148,7 @@ class AuthController extends Controller {
                 $newSocialUser->email              = $user->email;
                 $name = explode(' ', $user->name);
                 $newSocialUser->first_name         = isset($name[0]) ? $name[0] : "";
-                $newSocialUser->last_name          = isset($name[1]) ? $name[1] : "";
+                $newSocialUser->last_name          = isset($name[2]) ? $name[2] : (isset($name[1]) ? $name[1] : "");
                 $newSocialUser->save();
 
                 $socialData = new Social;
@@ -178,7 +179,7 @@ class AuthController extends Controller {
 
         if( $this->auth->user()->hasRole('administrator'))
         {
-            return redirect()->route('/');
+            return redirect('/');
         }
 
         return App::abort(500);

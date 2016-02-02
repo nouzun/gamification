@@ -16,10 +16,7 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/', ['middleware' => 'auth:all', function() {
-    // Only authenticated users may enter...
-    return View::make('home');
-}]);
+Route::get('/', 'HomeController@index');
 
 Route::get('/charts', function()
 {
@@ -95,8 +92,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:administrator'], functi
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:all'], function()
 {
-    $a = 'profile.';
-    Route::get('/', ['as' => $a . 'show', 'uses' => 'UserController@showCurrent']);
+    $a = 'user.';
+    Route::get('/', ['as' => $a . 'home', 'uses' => 'UserController@showCurrent']);
     Route::get('/{user_id}', ['as' => $a . 'show', 'uses' => 'UserController@show']);
     Route::get('/{user_id}/edit', ['as' => $a . 'edit', 'uses' => 'UserController@edit']);
     Route::post('/{user_id}/edit', ['as' => $a . 'edit', 'uses' => 'UserController@store']);
