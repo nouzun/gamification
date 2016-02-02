@@ -17,6 +17,7 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
+                <!--
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -65,92 +66,55 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-messages -->
                 </li>
+                -->
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                   
-                                        <div>
-                                        @include('widgets.progress', array('animated'=> true, 'class'=>'success', 'value'=>'40'))
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                   
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                   
-                                        <div>
-                                        @include('widgets.progress', array('animated'=> true, 'class'=>'info', 'value'=>'20'))
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                   
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    
-                                        <div>
-                                        @include('widgets.progress', array('animated'=> true, 'class'=>'warning', 'value'=>'60'))
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                   
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    
-                                        <div>
-                                        @include('widgets.progress', array('animated'=> true,'class'=>'danger', 'value'=>'80'))
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
+                        @foreach(\App\Subject::all() as $index => $subject)
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p>
+                                            <strong>{{ $subject->title }}</strong>
+                                            <span class="pull-right text-muted">{{($subject->assignmentDoneCount / count($subject->assignments) * 100)}}% Complete </span>
+                                        </p>
+
+                                            <div>
+                                                @if ($index % 4 == 0)
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'success', 'value'=> ($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                @elseif($index % 4 == 1)
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'info', 'value'=>($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                @elseif($index % 4 == 2)
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'warning', 'value'=>($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                @else
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'danger', 'value'=>($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                @endif
+                                                <span class="sr-only">{{($subject->assignmentDoneCount / count($subject->assignments) * 100)}}% Complete (success)</span>
+
+                                            </div>
+
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        @endforeach
+                        <!--
                         <li>
                             <a class="text-center" href="#">
                                 <strong>See All Tasks</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
+                        -->
                     </ul>
                     <!-- /.dropdown-tasks -->
                 </li>
                 <!-- /.dropdown -->
+                <!--
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -208,8 +172,8 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-alerts -->
                 </li>
+                -->
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -218,8 +182,8 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="{{url('/user')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
+                        <!--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>-->
                         <li class="divider"></li>
                         <li><a href="{{ url ('/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>

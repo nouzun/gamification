@@ -35,4 +35,6 @@ class HomeController extends Controller
 
         return $top_users;
     }
+
+
 }
