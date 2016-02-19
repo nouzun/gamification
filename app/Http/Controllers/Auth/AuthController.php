@@ -54,6 +54,12 @@ class AuthController extends Controller {
                 //return redirect('/');
             }
 
+            if( $this->auth->user()->hasRole('super'))
+            {
+                return redirect()->route('admin.home');
+                //return redirect('/');
+            }
+
         }
         else
         {
@@ -178,6 +184,11 @@ class AuthController extends Controller {
         }
 
         if( $this->auth->user()->hasRole('administrator'))
+        {
+            return redirect('/');
+        }
+
+        if( $this->auth->user()->hasRole('super'))
         {
             return redirect('/');
         }

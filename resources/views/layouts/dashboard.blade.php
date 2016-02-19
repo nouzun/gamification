@@ -211,14 +211,17 @@
                         <li {{ (Request::is('/') ? 'class="active"' : '') }}>
                             <a href="{{ url ('') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
+                        <li {{ (Request::is('/') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('') }}"><i class="fa fa-th"></i> Course Content</a>
+                        </li>
+                        <li {{ (Request::is('/') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('/assignments') }}"><i class="fa fa-star"></i> Assignments</a>
+                        </li>
                         <li >
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Gamification<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Admin Panel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('/subjects') }}">Subjects</a>
-                                </li>
-                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/assignments') }}">Assignments</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

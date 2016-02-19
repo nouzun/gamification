@@ -49,7 +49,8 @@ class Authenticate
         if( $this->auth->guest() || !$this->auth->user()->hasRole($role))
         {
             //return response('Unauthorized.', 401);
-            abort(403, 'Unauthorized action.');
+            //abort(403, 'Unauthorized action.');
+            return redirect('/');
         }
         /*
         if ($this->auth->guest()) {

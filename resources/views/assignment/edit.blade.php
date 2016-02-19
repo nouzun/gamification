@@ -142,9 +142,13 @@
                 <div class='col-sm-4'>
                     <div class="form-group">
                         <div class='input-group date' id='div_datetimepicker'>
-                            <input type='date' class="form-control" name="due_date" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type='date' class="form-control" name="due_date" min="{{ $today }}" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                                23:59
                             </span>
                         </div>
                     </div>

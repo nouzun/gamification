@@ -159,7 +159,7 @@
                                     </div>
                                     <div class="timeline-panel">
                                         <div class="timeline-heading">
-                                            <h4 class="timeline-title">Oh my! Less than 2 days!</h4>
+                                            <h4 class="timeline-title">Less than 2 days!</h4>
                                             <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }} </small>
                                             </p>
                                         </div>

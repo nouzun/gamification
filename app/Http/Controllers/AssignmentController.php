@@ -8,6 +8,7 @@ use App\KnowledgeUnit;
 use App\Repositories\AssignmentRepository;
 use App\Subject;
 use App\Topic;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Log;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class AssignmentController extends Controller
 {
@@ -41,8 +41,10 @@ class AssignmentController extends Controller
     public function indexWithInstance(Request $request, $subject_id)
     {
         $subject = Subject::find($subject_id);
+        $mytime = Carbon::now();
         $data = array(
             'subjectOnly'  => $subject,
+            'today' => $mytime->toDateString(),
         );
         return view('assignment.edit', $data);
     }
@@ -75,7 +77,7 @@ class AssignmentController extends Controller
     {
         $subject = Subject::find($subject_id);
         $assignment = new Assignment();
-        $assignment->due_date = $request->due_date;
+        $assignment->due_date = $request->due_date.' 23:59';
         $assignment->subject()->associate($subject);
         $assignment->save();
         $assignment->knowledgeunits()->attach(Input::get('knowledgeunits'));

@@ -96,11 +96,13 @@ class User extends Model implements AuthenticatableContract,
     function getTimelineAttribute() {
         $date = new Carbon;
         $date->subDays(2);
+        $today = Carbon::now();
 
         // Assignments that need to be completed in 2 days
         $waiting_assignments = DB::table('assignments')
             ->select(DB::raw('id, point, created_at, due_date as date, \'reminder\' as type'))
             ->where('due_date', '>', $date->toDateTimeString())
+            ->where('due_date', '>=', $today->toDateTimeString())
             ->whereNotExists(function($query)
             {
                 $query->select(DB::raw(1))
