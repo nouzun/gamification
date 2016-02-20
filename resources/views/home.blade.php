@@ -283,9 +283,11 @@
                     @section ('leader_board_panel_body')
 
                         <ul class="list-group ">
-                        @foreach($top_users as $selected_user)
-                            <li class="list-group-item">{{ $selected_user->first_name }} {{ $selected_user->last_name }} <span class="pull-right"><strong>{{ $selected_user->points }}</strong></span></li>
-                        @endforeach
+                            @if (count($top_users) > 0)
+                                @foreach($top_users as $selected_user)
+                                    <li class="list-group-item">{{ $selected_user->first_name }} {{ $selected_user->last_name }} <span class="pull-right"><strong>{{ $selected_user->points }}</strong></span></li>
+                                @endforeach
+                            @endif
                         </ul>
                     @endsection
                     @include('widgets.panel', array('header'=>true, 'as'=>'leader_board'))

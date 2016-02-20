@@ -9,8 +9,9 @@ class Topic extends Model
     protected $attributes = array(
         'title' => '',
         'description' => '',
+        'topic_content' => '',
     );
-    protected $fillable = ['title','description'];
+    protected $fillable = ['title','description','topic_content'];
     // Knowledge Units will be here
     public function knowledgeunits()
     {

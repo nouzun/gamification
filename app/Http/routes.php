@@ -109,6 +109,12 @@ Route::group(['middleware' => 'auth:all'], function()
 Route::get('/auth/register', 'Auth\AuthController@getRegister');
 Route::post('/auth/register', 'Auth\AuthController@postRegister');
 
+// Course content
+Route::get('/content', function()
+{
+    return View::make('content');
+});
+
 // Subjects
 Route::get('/subjects', 'SubjectController@index');
 Route::post('/subjects', 'SubjectController@store');

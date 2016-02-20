@@ -80,9 +80,13 @@
                                     <div>
                                         <p>
                                             <strong>{{ $subject->title }}</strong>
-                                            <span class="pull-right text-muted">{{($subject->assignmentDoneCount / count($subject->assignments) * 100)}}% Complete </span>
+                                            @if (count($subject->assignments)>0)
+                                                <span class="pull-right text-muted">{{($subject->assignmentDoneCount / count($subject->assignments) * 100)}}% Complete </span>
+                                            @else
+                                                <br />There's no assignment yet!
+                                            @endif
                                         </p>
-
+                                        @if (count($subject->assignments)>0)
                                             <div>
                                                 @if ($index % 4 == 0)
                                                     @include('widgets.progress', array('animated'=> true, 'class'=>'success', 'value'=> ($subject->assignmentDoneCount / count($subject->assignments) * 100)))
@@ -96,7 +100,7 @@
                                                 <span class="sr-only">{{($subject->assignmentDoneCount / count($subject->assignments) * 100)}}% Complete (success)</span>
 
                                             </div>
-
+                                        @endif
                                     </div>
                                 </a>
                             </li>
@@ -212,7 +216,7 @@
                             <a href="{{ url ('') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li {{ (Request::is('/') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('') }}"><i class="fa fa-th"></i> Course Content</a>
+                            <a href="{{ url ('/content') }}"><i class="fa fa-th"></i> Course Content</a>
                         </li>
                         <li {{ (Request::is('/') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/assignments') }}"><i class="fa fa-star"></i> Assignments</a>

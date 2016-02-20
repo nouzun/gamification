@@ -64,6 +64,7 @@ class TopicController extends Controller
         $topic = new Topic();
         $topic->title = $request->title;
         $topic->description = $request->description;
+        $topic->topic_content = $request->topic_content;
 
         $topic->subject()->associate($subject);
         $topic->save();

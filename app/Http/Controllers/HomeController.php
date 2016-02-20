@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function index(){
         $top_users = $this->leaderBoard();
 
-        $data["top_users"] = $top_users;
+        $data["top_users"] = (empty($top_users) ? null : $top_users);
 
         return view('home', $data);
     }

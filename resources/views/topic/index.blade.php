@@ -21,6 +21,10 @@
 */
                 window.location = "{{ url('/') }}" + '/subjects/' + subject_id + '/topics';
             });
+
+            $('#topic-content').summernote({
+                height: "400px"
+            });
         });
     </script>
 @stop
@@ -113,7 +117,7 @@
 
                     <!-- Topic Title -->
             <div class="form-group">
-                <label for="task-name" class="col-sm-3 control-label">Title</label>
+                <label for="task-name" class="col-sm-2 control-label">Title</label>
 
                 <div class="col-sm-6">
                     <input type="text" name="title" id="topic-title" class="form-control">
@@ -122,16 +126,26 @@
 
             <!-- Topic Description -->
             <div class="form-group">
-                <label for="task-name" class="col-sm-3 control-label">Description</label>
+                <label for="task-name" class="col-sm-2 control-label">Description</label>
 
                 <div class="col-sm-6">
                     <input type="text" name="description" id="topic-description" class="form-control">
                 </div>
             </div>
 
+            <!-- Topic Content -->
+            <div class="form-group">
+                <label for="task-name" class="col-sm-2 control-label">Content</label>
+
+                <div class="col-sm-8">
+                <textarea name="topic_content" id="topic-content" rows="18" class="form-control">
+                </textarea>
+                </div>
+            </div>
+
             <!-- Add Topic Button -->
             <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
+                <div class="col-sm-offset-2 col-sm-6">
                     <button type="submit" class="btn btn-default">
                         <i class="fa fa-plus"></i> Add Topic
                     </button>
