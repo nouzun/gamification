@@ -47,6 +47,13 @@
                             {{$user->email}}
                         </span>
                     </div>
+                    <div class="row">
+                        <label class="col-lg-3 control-label">Role:</label>
+                        @foreach( $user->roles as $role )
+                            <span>{{ $role->name }}</span>
+                            <br />
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
