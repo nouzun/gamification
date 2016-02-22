@@ -16,7 +16,7 @@ class CreateKnowledgeUnitsTable extends Migration
             $table->increments('id');
             $table->integer('topic_id')->index();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

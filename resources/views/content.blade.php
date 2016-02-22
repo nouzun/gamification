@@ -49,9 +49,14 @@
     <div class="lesson-box">
         @foreach(\App\Subject::all() as $s_index => $subject)
             <div class="subject-box">
-                <div class="subject-title"><h4>{{ $subject->title }}</h4></div>
+                <div class="subject-title">
+                    <h4>
+                        {{ $subject->title }} <br/>
+                        <small>{{ $subject->description }}</small>
+                    </h4>
+                </div>
                 @foreach($subject->topics as $t_index => $topic)
-                    <div class="topic-box"><span class="topic-icon fa fa-play-circle-o"></span> {{ $topic->title }}</div>
+                    <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id) }}"><div class="topic-box"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</div></a>
                 @endforeach
             </div>
         @endforeach

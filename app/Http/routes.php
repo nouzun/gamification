@@ -132,6 +132,9 @@ Route::delete('/assignment/{subject}', 'AssignmentController@destroy');
 Route::get('/topics', 'TopicController@index');
 Route::get('/subjects/{subject_id}/topics', 'TopicController@indexWithInstance');
 Route::post('/subjects/{subject_id}/topics', 'TopicController@store');
+Route::get('/subjects/{subject_id}/topics/{topic_id}', 'TopicController@show');
+Route::get('/subjects/{subject_id}/topics/{topic_id}/edit', 'TopicController@edit');
+Route::post('/subjects/{subject_id}/topics/{topic_id}/edit', 'TopicController@update');
 Route::delete('/topic/{topic}', 'TopicController@destroy');
 
 // Knowledge Units

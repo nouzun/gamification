@@ -42,3 +42,8 @@ ul.tree li {
 ul.tree li:nth-last-of-type(1) {
     background: url(../images/lastnode.png) no-repeat;
 }
+
+.navigation {
+    margin-top: 20px;
+}
+

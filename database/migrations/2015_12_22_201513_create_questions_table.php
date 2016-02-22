@@ -16,7 +16,7 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->integer('knowledge_unit_id')->index();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

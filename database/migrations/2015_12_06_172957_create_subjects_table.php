@@ -16,7 +16,7 @@ class CreateSubjectsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

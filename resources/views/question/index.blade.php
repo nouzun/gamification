@@ -9,15 +9,13 @@
     </script>
     @stop
 @section('page_heading_tree')
-    <ul class="tree">
-        <li>{{ $subject->title }}</li>
-        <ul>
-            <li>{{ $topic->title }}</li>
-            <ul>
-                <li>{{ $knowledge_unit->title }}</li>
-            </ul>
-        </ul>
-    </ul>
+    <div class="navigation">
+        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
+        <span class="fa fa-chevron-right"></span>
+        <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
+        <span class="fa fa-chevron-right"></span>
+        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/') }}">{{ $knowledge_unit->title }}</a>
+    </div>
     @stop
 @section('page_heading','Questions')
 @section('section')
@@ -75,7 +73,7 @@
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 
-                                    <button>Delete Question</button>
+                                    <button class="btn btn-danger">Delete Question</button>
                                 </form>
                             </td>
                         </tr>

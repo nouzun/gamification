@@ -29,9 +29,9 @@
     </script>
 @stop
 @section('page_heading_tree')
-    <ul class="tree">
-        <li>{{ $subject->title }}</li>
-    </ul>
+    <div class="navigation">
+        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
+    </div>
 @stop
 @section('page_heading')
     Topics
@@ -82,27 +82,30 @@
                         @foreach ($topics as $topic)
                             <tr>
                                 <!-- Topic Name -->
-                                <td class="table-text">
+                                <td class="table-text col-md-2">
                                     <div>{{ $topic->title }}</div>
                                 </td>
                                 <!-- Topic Description -->
-                                <td class="table-text">
+                                <td class="table-text col-md-3">
                                     <div>{{ $topic->description }}</div>
                                 </td>
-                                <td class="table-text">
+                                <td class="table-text col-md-2">
                                     @foreach ($topic->knowledgeunits as $knowledgeunit)
                                         <div>{{ $knowledgeunit->title }}</div>
                                     @endforeach
                                     <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}">Add new Knowledge Unit</a>
                                 </td>
                                 <!-- Delete Button -->
-                                <td>
-                                    <form action="{{ url('/topic', $topic->id) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
+                                <td class="col-md-2">
+                                    <div class="btn-group">
+                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/edit') }}" type="button" class="btn btn-default">Edit Topic</a>
+                                        <form action="{{ url('/topic', $topic->id) }}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
 
-                                        <button>Delete Topic</button>
-                                    </form>
+                                            <a class="btn btn-danger">Delete Topic</a>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

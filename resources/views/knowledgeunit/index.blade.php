@@ -6,12 +6,11 @@
     </script>
 @stop
 @section('page_heading_tree')
-    <ul class="tree">
-        <li>{{ $subject->title }}</li>
-        <ul>
-            <li>{{ $topic->title }}</li>
-        </ul>
-    </ul>
+    <div class="navigation">
+        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
+        <span class="fa fa-chevron-right"></span>
+        <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
+    </div>
 @stop
 @section('page_heading')
     Knowledge Units

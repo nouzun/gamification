@@ -43,7 +43,7 @@
                                 @foreach ($subject->topics as $topic)
                                     <div>{{ $topic->title }}</div>
                                 @endforeach
-                                <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/') }}">Add new Topic</a>
+                                <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}">Add new Topic</a>
                             </td>
                             <td class="table-text">
                                 @foreach ($subject->assignments as $assignment)
@@ -57,7 +57,7 @@
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 
-                                    <button>Delete Subject</button>
+                                    <button class="btn btn-danger">Delete Subject</button>
                                 </form>
                             </td>
                         </tr>
