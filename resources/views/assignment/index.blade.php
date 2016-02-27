@@ -94,24 +94,26 @@
                                 <h4 class="name-margin headline-2-text">{{ $subject->title }}</h4>
                             </div>
                             @foreach ($subject->assignments as $assignment)
-                                    <a href="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
                                 @if ( $assignment->done == 1 )
                                     <div class="row assignment horizontal-box hover-color headline-1-text text-muted">
                                 @else
                                     <div class="row assignment horizontal-box hover-color headline-1-text">
                                 @endif
+                                    <a href="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
                                         <div class="col-sm-5 od-item">
                                             <span class="fa fa-star od-icon"></span>
                                             <span>{{ $subject->title }}: Assignment {{ $assignment->id }}</span>
                                         </div>
+                                    </a>
                                         <div class="col-sm-3 od-item">
                                             Due: {{ date('F d, Y', strtotime($assignment->due_date)) }}
                                         </div>
                                         <div class="col-sm-2 od-item">
+                                            @if ( ! empty($assignment->point) )
                                             Point: {{ $assignment->point }}
+                                            @endif
                                         </div>
                                     </div>
-                                </a>
                             @endforeach
                         </div>
                     </div>

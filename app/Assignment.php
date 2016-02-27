@@ -32,10 +32,9 @@ class Assignment extends Model
             ->where('assignment_id', '=', $this->id)
             ->pluck('point');
 
-        /*
-            $point = DB::select('SELECT point FROM users_assignments WHERE user_id=? AND assignment_id=?',
-                [Auth::user()->id, $this->id]);
-        */
+
+        Log::info('111 $point: '.$point);
+
         return $point;
     }
 
