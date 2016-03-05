@@ -11,7 +11,6 @@ use App\Role;
 use Input, Validator, Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\CaptchaTrait;
-use Log;
 
 class AuthController extends Controller {
 
@@ -145,8 +144,6 @@ class AuthController extends Controller {
 
         $user = Socialite::driver( $provider )->user();
 
-        Log::info('$user->name: '.$user->name);
-
         $socialUser = null;
 
         //Check is this email belongs to OZU
@@ -178,9 +175,6 @@ class AuthController extends Controller {
                 $username = explode(".", $parts[0]);
                 $alt_name = ucfirst($username[0]);
                 $alt_last = ucfirst($username[1]);
-
-                Log::info('$username[0]: '.$username[0]);
-                Log::info('$alt_name: '.$alt_name);
 
                 $name = explode(' ', $user->name);
                 $newSocialUser->first_name         = (isset($name[0]) && !empty($name[0])) ? $name[0] : $alt_name;

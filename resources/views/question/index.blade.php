@@ -64,7 +64,7 @@
                                         <div>{!! $answer->description !!}</div>
                                     @endif
                                 @endforeach
-                                <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers') }}">Add new Answer</a>
+                                <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers') }}"><i class="fa fa-edit"></i> Answers</a>
 
                             </td>
                             <!-- Delete Button -->

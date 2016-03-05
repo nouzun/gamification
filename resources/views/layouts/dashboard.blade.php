@@ -232,7 +232,6 @@
                             <!-- /.nav-second-level -->
                         </li>
                     @endif
-                    @if (Auth::user()->hasRole('super'))
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->
@@ -312,7 +311,6 @@
                         <li {{ (Request::is('*documentation') ? 'class="active"' : '') }}>
                             <a href="{{ url ('documentation') }}"><i class="fa fa-file-word-o fa-fw"></i> Documentation</a>
                         </li>
-                    @endif
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

@@ -93,7 +93,7 @@
                                     @foreach ($topic->knowledgeunits as $knowledgeunit)
                                         <div>{{ $knowledgeunit->title }}</div>
                                     @endforeach
-                                    <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}">Add new Knowledge Unit</a>
+                                    <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}"><i class="fa fa-edit"></i> Knowledge Units</a>
                                 </td>
                                 <!-- Delete Button -->
                                 <td class="col-md-2">
