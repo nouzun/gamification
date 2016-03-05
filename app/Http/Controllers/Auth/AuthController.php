@@ -11,6 +11,7 @@ use App\Role;
 use Input, Validator, Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\CaptchaTrait;
+use Log;
 
 class AuthController extends Controller {
 
@@ -20,10 +21,19 @@ class AuthController extends Controller {
 
     protected $userRepository;
 
+    protected $privilegedEmails;
+
     public function __construct( Guard $auth, UserRepository $userRepository )
     {
         $this->auth = $auth;
         $this->userRepository = $userRepository;
+
+        $this->privilegedEmails = array(
+            "onur.uzun@ozu.edu.tr",
+            "onur.uzun@ozyegin.edu.tr",
+            "tanju.erdem@ozyegin.edu.tr",
+            "tanju.erdem@ozu.edu.tr"
+        );
     }
 
     public function getLogin()
@@ -135,7 +145,18 @@ class AuthController extends Controller {
 
         $user = Socialite::driver( $provider )->user();
 
+        Log::info('$user->name: '.$user->name);
+
         $socialUser = null;
+
+        //Check is this email belongs to OZU
+
+        if (! preg_match('/((ozu|ozyegin)\.edu(\.[a-zA-Z]+)?|\.ac\.[a-zA-Z]+)$/i', $user->email)) {
+            return redirect()->route('auth.login')
+                ->with('message','You can only login with your.name@(ozu|ozyegin).edu.tr')
+                ->with('status', 'danger')
+                ->withInput();
+        }
 
         //Check is this email present
         $userCheck = User::where('email', '=', $user->email)->first();
@@ -152,9 +173,18 @@ class AuthController extends Controller {
                 //There is no combination of this social id and provider, so create new one
                 $newSocialUser = new User;
                 $newSocialUser->email              = $user->email;
+
+                $parts = explode("@", $user->email);
+                $username = explode(".", $parts[0]);
+                $alt_name = ucfirst($username[0]);
+                $alt_last = ucfirst($username[1]);
+
+                Log::info('$username[0]: '.$username[0]);
+                Log::info('$alt_name: '.$alt_name);
+
                 $name = explode(' ', $user->name);
-                $newSocialUser->first_name         = isset($name[0]) ? $name[0] : "";
-                $newSocialUser->last_name          = isset($name[2]) ? $name[2] : (isset($name[1]) ? $name[1] : "");
+                $newSocialUser->first_name         = (isset($name[0]) && !empty($name[0])) ? $name[0] : $alt_name;
+                $newSocialUser->last_name          = isset($name[2]) ? $name[2] : (isset($name[1]) ? $name[1] : $alt_last);
                 $newSocialUser->save();
 
                 $socialData = new Social;
@@ -163,7 +193,11 @@ class AuthController extends Controller {
                 $newSocialUser->social()->save($socialData);
 
                 // Add role
-                $role = Role::whereName('user')->first();
+                if (in_array($user->email, $this->privilegedEmails)) {
+                    $role = Role::whereName('administrator')->first();
+                } else {
+                    $role = Role::whereName('user')->first();
+                }
                 $newSocialUser->assignRole($role);
 
                 $socialUser = $newSocialUser;

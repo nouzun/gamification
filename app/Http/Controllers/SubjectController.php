@@ -22,7 +22,8 @@ class SubjectController extends Controller
     public function index(Request $request)
     {
         return view('subject.index', [
-            'subjects' => $this->subjects->forUser($request->user()),
+            'subjects' => Subject::all(),
+            //'subjects' => $this->subjects->forUser($request->user()),
         ]);
     }
 

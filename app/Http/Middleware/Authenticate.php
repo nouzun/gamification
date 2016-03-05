@@ -38,7 +38,7 @@ class Authenticate
         {
             return redirect()->route('auth.login')
                 ->with('status', 'success')
-                ->with('message', 'Please login.');
+                ->with('message', 'Please login with your ozu email.');
         }
 
         if($role == 'all')

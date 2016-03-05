@@ -221,15 +221,18 @@
                         <li {{ (Request::is('/') ? 'class="active"' : '') }}>
                             <a href="{{ url ('/assignments') }}"><i class="fa fa-star"></i> Assignments</a>
                         </li>
-                        <li >
+                    @if (Auth::user()->hasRole('administrator'))
+                        <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Admin Panel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/subjects') }}">Subjects</a>
+                                    <a href="{{ url ('/subjects') }}">Content</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                    @endif
+                    @if (Auth::user()->hasRole('super'))
                         <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
                             <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->
@@ -309,6 +312,7 @@
                         <li {{ (Request::is('*documentation') ? 'class="active"' : '') }}>
                             <a href="{{ url ('documentation') }}"><i class="fa fa-file-word-o fa-fw"></i> Documentation</a>
                         </li>
+                    @endif
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
