@@ -115,6 +115,12 @@ Route::get('/content', function()
     return View::make('content');
 });
 
+// Game
+Route::get('/game', function()
+{
+    return View::make('game/index');
+});
+
 // Subjects
 Route::get('/subjects', 'SubjectController@index');
 Route::post('/subjects', 'SubjectController@store');
