@@ -78,6 +78,7 @@
                                 </td>
                                 <!-- Delete Button -->
                                 <td>
+                                    <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit Knowledge Unit</a>
                                     <form action="{{ url('/topic', $knowledge_unit->id) }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}

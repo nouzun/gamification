@@ -53,12 +53,15 @@
                             </td>
                             <!-- Delete Button -->
                             <td>
-                                <form action="{{ url('/subject', $subject->id) }}" method="POST">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
+                                <div class="btn-group">
+                                    <a href="{{ url('/subjects/'.$subject->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit Subject</a>
+                                    <form action="{{ url('/subject', $subject->id) }}" method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
 
-                                    <button class="btn btn-danger">Delete Subject</button>
-                                </form>
+                                        <button class="btn btn-danger">Delete Subject</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

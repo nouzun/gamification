@@ -98,7 +98,7 @@
                                 <!-- Delete Button -->
                                 <td class="col-md-2">
                                     <div class="btn-group">
-                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/edit') }}" type="button" class="btn btn-default">Edit Topic</a>
+                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit Topic</a>
                                         <form action="{{ url('/topic', $topic->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
