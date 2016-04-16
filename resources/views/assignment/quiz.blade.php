@@ -115,9 +115,9 @@
                                             <div class="answer">
                                         @endif
                                         @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
-                                            <input type="checkbox" name="answers[]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}" checked="checked">
+                                            <input type="checkbox" name="answers[{{$index}}]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}" checked="checked">
                                         @else
-                                            <input type="checkbox" name="answers[]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}">
+                                            <input type="checkbox" name="answers[{{$index}}]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}">
                                         @endif
                                             <span class="answer-text"> {!! $answer->description !!} </span>
                                         </div>
@@ -134,9 +134,9 @@
                                             <div class="answer">
                                         @endif
                                         @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
-                                            <input type="radio" name="answers[]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}" checked="checked">
+                                            <input type="radio" name="answers[{{$index}}]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}" checked="checked">
                                         @else
-                                            <input type="radio" name="answers[]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}">
+                                            <input type="radio" name="answers[{{$index}}]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}">
                                         @endif
                                             <span class="answer-text"> {!! $answer->description !!} </span>
                                         </div>

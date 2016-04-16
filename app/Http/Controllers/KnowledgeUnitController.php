@@ -55,6 +55,7 @@ class KnowledgeUnitController extends Controller
         $knowledgeUnit = new KnowledgeUnit();
         $knowledgeUnit->title = $request->title;
         $knowledgeUnit->description = $request->description;
+        $knowledgeUnit->difficulty_level = $request->difficulty_level;
 
         $knowledgeUnit->topic()->associate($topic);
         $knowledgeUnit->save();

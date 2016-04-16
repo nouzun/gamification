@@ -39,6 +39,7 @@
                         <thead>
                         <th>Knowledge Units</th>
                         <th>Description</th>
+                        <th>Difficult Level</th>
                         <th>Questions</th>
                         <th>&nbsp;</th>
                         </thead>
@@ -47,13 +48,27 @@
                         <tbody>
                         @foreach ($knowledgeunits as $knowledge_unit)
                             <tr>
-                                <!-- Topic Name -->
+                                <!-- Knowledge Unit Name -->
                                 <td class="table-text">
                                     <div>{{ $knowledge_unit->title }}</div>
                                 </td>
-                                <!-- Topic Description -->
+                                <!-- Knowledge Unit Description -->
                                 <td class="table-text">
                                     <div>{{ $knowledge_unit->description }}</div>
+                                </td>
+                                <!-- Knowledge Unit Difficult Level -->
+                                <td class="table-text">
+                                    <div>
+                                        @if ($knowledge_unit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
+                                            Easy
+                                        @elseif($knowledge_unit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
+                                            Medium
+                                        @elseif($knowledge_unit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
+                                            Hard
+                                        @else
+                                            Not defined
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="table-text">
                                     @foreach ($knowledge_unit->questions as $question)
@@ -67,7 +82,7 @@
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 
-                                        <button>Delete Knowledge Unit</button>
+                                        <button class="btn btn-danger">Delete Knowledge Unit</button>
                                     </form>
                                 </td>
                             </tr>
@@ -96,6 +111,24 @@
 
                 <div class="col-sm-6">
                     <input type="text" name="description" id="knowledgeunit-description" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="task-name" class="col-sm-3 control-label">Difficulty Level</label>
+
+                <div class="col-sm-6">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                            <input name="difficulty_level" id="knowledgeunit-difficulty_level_easy" type="radio" value="1">Easy
+                        </label>
+                        <label class="btn btn-primary">
+                            <input name="difficulty_level" id="knowledgeunit-difficulty_level_medium" type="radio" value="2">Medium
+                        </label>
+                        <label class="btn btn-primary">
+                            <input name="difficulty_level" id="knowledgeunit-difficulty_level_hard" type="radio" value="3">Hard
+                        </label>
+                    </div>
                 </div>
             </div>
 

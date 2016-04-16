@@ -17,6 +17,7 @@ class CreateKnowledgeUnitsTable extends Migration
             $table->integer('topic_id')->index();
             $table->string('title');
             $table->text('description');
+            $table->integer('difficulty_level');
             $table->timestamps();
         });
     }
