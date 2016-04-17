@@ -64,4 +64,27 @@ class QuestionController extends Controller
 
         return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions');
     }
+
+    public function edit(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
+    {
+        $subject = Subject::find($subject_id);
+        $topic = Topic::find($topic_id);
+        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+        $question = Question::find($question_id);
+        $data["subject"] = $subject;
+        $data["topic"] = $topic;
+        $data["knowledge_unit"] = $knowledgeunit;
+        $data["question"] = $question;
+
+        return view('question.edit', $data);
+    }
+
+    public function update(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
+    {
+        $question = Question::find($question_id);
+        $question->title = $request->title;
+        $question->description = $request->description;
+        $question->save();
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions');
+    }
 }

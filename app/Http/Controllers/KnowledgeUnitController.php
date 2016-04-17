@@ -62,4 +62,25 @@ class KnowledgeUnitController extends Controller
 
         return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
     }
+
+    public function edit(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
+    {
+        $subject = Subject::find($subject_id);
+        $topic = Topic::find($topic_id);
+        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+        $data["subject"] = $subject;
+        $data["topic"] = $topic;
+        $data["knowledge_unit"] = $knowledgeunit;
+
+        return view('knowledgeunit.edit', $data);
+    }
+
+    public function update(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
+    {
+        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+        $knowledgeunit->title = $request->title;
+        $knowledgeunit->description = $request->description;
+        $knowledgeunit->save();
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
+    }
 }

@@ -43,6 +43,23 @@ class SubjectController extends Controller
         return redirect('/subjects');
     }
 
+    public function edit(Request $request, $subject_id)
+    {
+        $subject = Subject::find($subject_id);
+        $data["subject"] = $subject;
+
+        return view('subject.edit', $data);
+    }
+
+    public function update(Request $request, $subject_id)
+    {
+        $subject = Subject::find($subject_id);
+        $subject->title = $request->title;
+        $subject->description = $request->description;
+        $subject->save();
+        return redirect('/subjects');
+    }
+
     public function destroy(Request $request, Subject $subject)
     {
         $this->authorize('destroy', $subject);

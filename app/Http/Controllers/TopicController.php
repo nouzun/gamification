@@ -60,16 +60,6 @@ class TopicController extends Controller
         return view('topic.show', $data);
     }
 
-    public function edit(Request $request, $subject_id, $topic_id)
-    {
-        $subject = Subject::find($subject_id);
-        $topic = Topic::find($topic_id);
-        $data["subject"] = $subject;
-        $data["topic"] = $topic;
-
-        return view('topic.edit', $data);
-    }
-
     public function store(Request $request, $subject_id)
     {
         $this->validate($request, [
@@ -89,6 +79,16 @@ class TopicController extends Controller
         $topic->save();
 
         return redirect('subjects/'.$subject_id.'/topics');
+    }
+
+    public function edit(Request $request, $subject_id, $topic_id)
+    {
+        $subject = Subject::find($subject_id);
+        $topic = Topic::find($topic_id);
+        $data["subject"] = $subject;
+        $data["topic"] = $topic;
+
+        return view('topic.edit', $data);
     }
 
     public function update(Request $request, $subject_id, $topic_id)

@@ -124,6 +124,8 @@ Route::get('/game', function()
 // Subjects
 Route::get('/subjects', 'SubjectController@index');
 Route::post('/subjects', 'SubjectController@store');
+Route::get('/subjects/{subject_id}/edit', 'SubjectController@edit');
+Route::post('/subjects/{subject_id}/edit', 'SubjectController@update');
 Route::delete('/subject/{subject}', 'SubjectController@destroy');
 
 // Assignments
@@ -146,14 +148,20 @@ Route::delete('/topic/{topic}', 'TopicController@destroy');
 // Knowledge Units
 Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits', 'KnowledgeUnitController@indexWithInstance');
 Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits', 'KnowledgeUnitController@store');
+Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/edit', 'KnowledgeUnitController@edit');
+Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/edit', 'KnowledgeUnitController@update');
 Route::delete('/knowledgeunits/{knowledgeunit_id}', 'KnowledgeUnitController@destroy');
 
 // Questions
 Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions', 'QuestionController@indexWithInstance');
 Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions', 'QuestionController@store');
+Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/edit', 'QuestionController@edit');
+Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/edit', 'QuestionController@update');
 Route::delete('/questions/{question_id}', 'QuestionController@destroy');
 
 // Answers
 Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers', 'AnswerController@indexWithInstance');
 Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers', 'AnswerController@store');
+Route::get('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@edit');
+Route::post('/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@update');
 Route::delete('/answers/{answer_id}', 'AnswerController@destroy');
