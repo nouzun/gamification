@@ -7,7 +7,9 @@ class SubjectSeeder extends Seeder{
 
     public function run(){
         DB::table('subjects')->delete();
-
+        /*
+         *
+         *
         Subject::create([
             'user_id' => 1,
             'title'   => 'Programming Strategies',
@@ -21,9 +23,7 @@ class SubjectSeeder extends Seeder{
         ]);
 
 
-        /*
-         *
-         *         Subject::create([
+       Subject::create([
             'user_id' => 1,
             'title'   => 'Data Structures and Algorithms',
             'description'   => 'To learn techniques for the design and analysis of algorithms using fundamental data structures.'

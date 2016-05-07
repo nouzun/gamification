@@ -29,7 +29,7 @@ class AnswerController extends Controller
 
     }
 
-    public function indexWithInstance(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
+    public function indexWithInstance(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
     {
         $data = array(
             'answers'  => $this->answers->forQuestion($question_id),
@@ -48,7 +48,7 @@ class AnswerController extends Controller
         return view('answer.index', $data);
     }
 
-    public function store(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
+    public function store(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
     {
         $this->validate($request, [
             'description' => 'required',
@@ -63,10 +63,10 @@ class AnswerController extends Controller
         $answer->question()->associate($question);
         $answer->save();
 
-        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
+        return redirect('/lecture/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
 
-    public function edit(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
+    public function edit(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
     {
         $subject = Subject::find($subject_id);
         $topic = Topic::find($topic_id);
@@ -82,19 +82,19 @@ class AnswerController extends Controller
         return view('answer.edit', $data);
     }
 
-    public function update(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
+    public function update(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
     {
         $answer = Answer::find($answer_id);
         $answer->correct = $request->correct ?  $request->correct : 0;
         $answer->description = $request->description;
         $answer->save();
-        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
+        return redirect('/lecture/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
 
-    public function destroy(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
+    public function destroy(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
     {
         $answer = Answer::find($answer_id);
         $answer->delete();
-        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
+        return redirect('/lecture/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
 }

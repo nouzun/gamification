@@ -9,16 +9,18 @@
 @stop
 @section('page_heading_tree')
     <div class="navigation">
-        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
+        <a href="{{ url('/lectures/') }}">{{ $lecture->title }}</a>
         <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
+        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/') }}">{{ $subject->title }}</a>
         <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/') }}">{{ $knowledge_unit->title }}</a>
+        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
         <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/') }}">{{ $question->title }}</a>
+        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/') }}">{{ $knowledge_unit->title }}</a>
+        <span class="fa fa-chevron-right"></span>
+        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/') }}">{{ $question->title }}</a>
         <!--
         <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers') }}">{{ $answer->id }}</a>
+        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers') }}">{{ $answer->id }}</a>
         -->
     </div>
 @stop
@@ -27,7 +29,7 @@
     @stop
 @section('section')
     <!-- Edit Answer Form -->
-    <form action="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers/'.$answer->id.'/edit') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lecture/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers/'.$answer->id.'/edit') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
         <!-- Answer Description -->

@@ -121,9 +121,9 @@ class User extends Model implements AuthenticatableContract,
         return $timeline;
     }
 
-    public function subjects()
+    public function lectures()
     {
-        return $this->hasMany(Subject::class);
+        return $this->hasMany(Lecture::class);
     }
 
     public function assignments()

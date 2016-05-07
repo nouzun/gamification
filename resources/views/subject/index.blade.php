@@ -67,7 +67,7 @@
     @endif
 
     <!-- New Subject Form -->
-    <form action="{{ url('/subjects') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lectures'.$lecture->id.'/subjects') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
                 <!-- Subject Title -->

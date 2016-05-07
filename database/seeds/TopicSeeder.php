@@ -7,7 +7,9 @@ class TopicSeeder extends Seeder{
 
     public function run(){
         DB::table('topics')->delete();
-
+        /*
+         *
+         *
         Topic::create([
             'subject_id' => 1,
             'title'   => 'Objects and ADTs',
@@ -44,5 +46,7 @@ class TopicSeeder extends Seeder{
             'title'   => 'Stacks',
             'description'   => 'Another way of storing data is in a stack. A stack is generally implemented with only two principle operations (apart from a constructor and destructor methods)'
         ]);
+
+        */
     }
 }

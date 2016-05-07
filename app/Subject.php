@@ -39,9 +39,9 @@ class Subject extends Model
         return $this->hasMany(Topic::class);
     }
 
-    public function user()
+    public function lecture()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Lecture::class);
     }
 
     public function assignments()

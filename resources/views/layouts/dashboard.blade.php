@@ -226,7 +226,7 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Admin Panel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/subjects') }}">Content</a>
+                                    <a href="{{ url ('/lectures') }}">Content</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lecture;
 use App\Repositories\SubjectRepository;
 use App\Subject;
 use Illuminate\Http\Request;
@@ -27,45 +28,50 @@ class SubjectController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $lecture_id)
     {
         $this->validate($request, [
             'title' => 'required',
             'description' => 'required',
         ]);
 
-        $request->user()->subjects()->create([
-            'title' => $request->title,
-            'description' => $request->description,
-        ]);
+        $lecture = Lecture::find($lecture_id);
+        Log::info('$subject_id: '.$lecture->title);
+        $subject = new Subject();
+        $subject->title = $request->title;
+        $subject->description = $request->description;
 
+        $subject->lecture()->associate($lecture);
+        $subject->save();
 
-        return redirect('/subjects');
+        return redirect('/lecture/'.$lecture_id.'/subjects');
     }
 
-    public function edit(Request $request, $subject_id)
+    public function edit(Request $request, $lecture_id, $subject_id)
     {
+        $lecture = Lecture::find($lecture_id);
         $subject = Subject::find($subject_id);
+        $data["lecture"] = $lecture;
         $data["subject"] = $subject;
 
         return view('subject.edit', $data);
     }
 
-    public function update(Request $request, $subject_id)
+    public function update(Request $request, $lecture_id, $subject_id)
     {
         $subject = Subject::find($subject_id);
         $subject->title = $request->title;
         $subject->description = $request->description;
         $subject->save();
-        return redirect('/subjects');
+        return redirect('/lecture/'.$lecture_id.'/subjects');
     }
 
-    public function destroy(Request $request, $subject_id)
+    public function destroy(Request $request, $lecture_id, $subject_id)
     {
         $subject = Subject::find($subject_id);
 
         $subject->delete();
 
-        return redirect('/subjects');
+        return redirect('/lecture/'.$lecture_id.'/subjects');
     }
 }
