@@ -27,4 +27,13 @@ class Question extends Model
         return $this->answers()
             ->where('answers.correct', '=', 1);
     }
+
+    // this is a recommended way to declare event handlers
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($question) { // before delete() method call this
+            $question->answers()->delete();
+        });
+    }
 }

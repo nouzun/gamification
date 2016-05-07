@@ -83,4 +83,13 @@ class KnowledgeUnitController extends Controller
         $knowledgeunit->save();
         return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
     }
+
+    public function destroy(Request $request, $subject_id, $topic_id, $knowledgeunit_id)
+    {
+        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+
+        $knowledgeunit->delete();
+
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
+    }
 }

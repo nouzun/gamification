@@ -60,9 +60,9 @@ class SubjectController extends Controller
         return redirect('/subjects');
     }
 
-    public function destroy(Request $request, Subject $subject)
+    public function destroy(Request $request, $subject_id)
     {
-        $this->authorize('destroy', $subject);
+        $subject = Subject::find($subject_id);
 
         $subject->delete();
 

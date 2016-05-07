@@ -44,7 +44,7 @@
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
-
+    <!--
     <div class="form-group">
         <label>Subjects</label>
         <select class="select-subjects form-control">
@@ -57,7 +57,7 @@
             @endforeach
         </select>
     </div>
-
+-->
     @if( ! empty($subject) )
         <!-- Current Tasks -->
         @if (count($topics) > 0)
@@ -86,7 +86,7 @@
                                     <div>{{ $topic->title }}</div>
                                 </td>
                                 <!-- Topic Description -->
-                                <td class="table-text col-md-3">
+                                <td class="table-text col-md-4">
                                     <div>{{ $topic->description }}</div>
                                 </td>
                                 <td class="table-text col-md-2">
@@ -97,14 +97,9 @@
                                 </td>
                                 <!-- Delete Button -->
                                 <td class="col-md-2">
-                                    <div class="btn-group">
-                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit Topic</a>
-                                        <form action="{{ url('/topic', $topic->id) }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('DELETE') }}
-
-                                            <a class="btn btn-danger">Delete Topic</a>
-                                        </form>
+                                    <div class="btn-group pull-right">
+                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                     </div>
                                 </td>
                             </tr>

@@ -58,13 +58,10 @@
                             </td>
                             <!-- Delete Button -->
                             <td>
-                                    <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers/'. $answer->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit Answer</a>
-                                    <form action="{{ url('/answer', $answer->id) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-
-                                        <button class="btn btn-danger">Delete Answer</button>
-                                    </form>
+                                <div class="btn-group pull-right">
+                                    <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers/'. $answer->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers/'. $answer->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

@@ -87,4 +87,11 @@ class QuestionController extends Controller
         $question->save();
         return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions');
     }
+
+    public function destroy(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
+    {
+        $question = Question::find($question_id);
+        $question->delete();
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions');
+    }
 }

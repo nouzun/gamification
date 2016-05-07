@@ -90,4 +90,11 @@ class AnswerController extends Controller
         $answer->save();
         return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
+
+    public function destroy(Request $request, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
+    {
+        $answer = Answer::find($answer_id);
+        $answer->delete();
+        return redirect('subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
+    }
 }

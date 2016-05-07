@@ -52,15 +52,10 @@
                                 <a href="{{ url('/assignments/subjects/'.$subject->id) }}"><i class="fa fa-edit"></i> Assignments</a>
                             </td>
                             <!-- Delete Button -->
-                            <td>
-                                <div class="btn-group">
-                                    <a href="{{ url('/subjects/'.$subject->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit Subject</a>
-                                    <form action="{{ url('/subject', $subject->id) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-
-                                        <button class="btn btn-danger">Delete Subject</button>
-                                    </form>
+                            <td class="col-sm-3">
+                                <div class="btn-group pull-right">
+                                    <a href="{{ url('/subjects/'.$subject->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{{ url('/subjects/'.$subject->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                 </div>
                             </td>
                         </tr>

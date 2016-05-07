@@ -101,12 +101,12 @@ class TopicController extends Controller
         return redirect('subjects/'.$subject_id.'/topics');
     }
 
-    public function destroy(Request $request, Topic $topic)
+    public function destroy(Request $request, $subject_id, $topic_id)
     {
-        $this->authorize('destroy', $topic);
+        $topic = Topic::find($topic_id);
 
         $topic->delete();
 
-        return redirect('/topics');
+        return redirect('subjects/'.$subject_id.'/topics');
     }
 }

@@ -15,10 +15,11 @@ class SubjectPolicy
      *
      * @return void
      */
-
+/*
     public function destroy(User $user, Subject $subject)
     {
         Log::info('Showing user profile for user: '.$subject->user_id.' $user->id: ' . $user->id);
         return $user->id === $subject->user_id;
     }
+*/
 }

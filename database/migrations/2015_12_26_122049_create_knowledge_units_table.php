@@ -19,6 +19,7 @@ class CreateKnowledgeUnitsTable extends Migration
             $table->text('description');
             $table->integer('difficulty_level');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
