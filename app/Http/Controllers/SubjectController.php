@@ -28,6 +28,17 @@ class SubjectController extends Controller
         ]);
     }
 
+    public function indexWithInstance(Request $request, $lecture_id)
+    {
+        if(isset($lecture_id)) {
+            $lecture = Lecture::find($lecture_id);
+            $data["lecture"] = $lecture;
+            //$data["subjects"] = $this->subjects->forLectures($lecture_id);
+        }
+
+        return view('subject.index', $data);
+    }
+
     public function store(Request $request, $lecture_id)
     {
         $this->validate($request, [
@@ -36,7 +47,7 @@ class SubjectController extends Controller
         ]);
 
         $lecture = Lecture::find($lecture_id);
-        Log::info('$subject_id: '.$lecture->title);
+        //Log::info('$subject_id: '.$lecture->title);
         $subject = new Subject();
         $subject->title = $request->title;
         $subject->description = $request->description;
@@ -44,7 +55,7 @@ class SubjectController extends Controller
         $subject->lecture()->associate($lecture);
         $subject->save();
 
-        return redirect('/lecture/'.$lecture_id.'/subjects');
+        return redirect('/lectures/'.$lecture_id.'/subjects');
     }
 
     public function edit(Request $request, $lecture_id, $subject_id)

@@ -13,10 +13,10 @@ class SubjectRepository
      * @param  User  $user
      * @return Collection
      */
-    public function forUser(User $user)
+    public function forLectures($lecture_id)
     {
         return Subject::with('topics')
-            ->where('subjects.user_id', $user->id)
+            ->where('subjects.lecture_id', $lecture_id)
             ->orderBy('created_at', 'asc')
             ->get();
     }

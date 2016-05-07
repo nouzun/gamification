@@ -129,7 +129,7 @@ Route::post('/lectures/{lecture_id}/edit', 'LectureController@update');
 Route::get('/lectures/{lecture_id}/destroy', 'LectureController@destroy');
 
 // Subjects
-Route::get('/lectures/{lecture_id}/subjects', 'SubjectController@index');
+Route::get('/lectures/{lecture_id}/subjects', 'SubjectController@indexWithInstance');
 Route::post('/lectures/{lecture_id}/subjects', 'SubjectController@store');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/edit', 'SubjectController@edit');
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/edit', 'SubjectController@update');

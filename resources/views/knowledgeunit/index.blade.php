@@ -7,9 +7,7 @@
 @stop
 @section('page_heading_tree')
     <div class="navigation">
-        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
+        {!! $nav !!}
     </div>
 @stop
 @section('page_heading')
@@ -24,7 +22,7 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
 
-    @if( ! empty($topic) )
+    @if( ! empty($knowledgeunits) )
         <!-- Current Knowledge Units -->
         @if (count($knowledgeunits) > 0)
             <div class="panel panel-default">
@@ -74,13 +72,13 @@
                                     @foreach ($knowledge_unit->questions as $question)
                                         <div>{{ $question->title }}</div>
                                     @endforeach
-                                    <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
+                                    <a href="{{ url('/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
                                 </td>
                                 <!-- Delete Button -->
                                 <td>
                                     <div class="btn-group pull-right">
-                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
-                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                                        <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -91,7 +89,7 @@
             </div>
         @endif
         <!-- New Knowledge Unit Form -->
-        <form action="{{ url('/subjects/'.$topic->subject_id.'/topics/'. $topic->id .'/knowledgeunits') }}" method="POST" class="form-horizontal">
+        <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'. $topic_id .'/knowledgeunits') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
                     <!-- Knowledge Unit Title -->
@@ -118,7 +116,7 @@
                 <div class="col-sm-6">
                     <div class="btn-group" data-toggle="buttons">
                         <label class="btn btn-primary active">
-                            <input name="difficulty_level" id="knowledgeunit-difficulty_level_easy" type="radio" value="1">Easy
+                            <input name="difficulty_level" id="knowledgeunit-difficulty_level_easy" type="radio" value="1" checked="checked">Easy
                         </label>
                         <label class="btn btn-primary">
                             <input name="difficulty_level" id="knowledgeunit-difficulty_level_medium" type="radio" value="2">Medium

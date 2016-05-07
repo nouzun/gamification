@@ -30,7 +30,7 @@
 @stop
 @section('page_heading_tree')
     <div class="navigation">
-        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
+        {!! $nav !!}
     </div>
 @stop
 @section('page_heading')
@@ -44,21 +44,8 @@
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
-    <!--
-    <div class="form-group">
-        <label>Subjects</label>
-        <select class="select-subjects form-control">
-            @foreach ($subjects as $s)
-                @if( ! empty($subject) && $subject->id == $s->id )
-                    <option value="{{ $s->id }}" selected="selected">{{ $s->title  }}</option>
-                @else
-                    <option value="{{ $s->id }}">{{ $s->title  }}</option>
-                @endif
-            @endforeach
-        </select>
-    </div>
--->
-    @if( ! empty($subject) )
+
+    @if( ! empty($topics) )
         <!-- Current Tasks -->
         @if (count($topics) > 0)
             <div class="panel panel-default">
@@ -93,13 +80,13 @@
                                     @foreach ($topic->knowledgeunits as $knowledgeunit)
                                         <div>{{ $knowledgeunit->title }}</div>
                                     @endforeach
-                                    <a href="{{ url('/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}"><i class="fa fa-edit"></i> Knowledge Units</a>
+                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$topic->subject_id.'/topics/'.$topic->id.'/knowledgeunits') }}"><i class="fa fa-edit"></i> Knowledge Units</a>
                                 </td>
                                 <!-- Delete Button -->
                                 <td class="col-md-2">
                                     <div class="btn-group pull-right">
-                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
-                                        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                                        <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                        <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -110,7 +97,7 @@
             </div>
         @endif
         <!-- New Topic Form -->
-        <form action="{{ url('/subjects/'.$subject->id.'/topics') }}" method="POST" class="form-horizontal">
+        <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
                     <!-- Topic Title -->

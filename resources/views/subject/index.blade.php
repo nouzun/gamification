@@ -9,7 +9,7 @@
     @include('common.errors')
 
     <!-- Current Tasks -->
-    @if (count($subjects) > 0)
+    @if (count($lecture->subjects) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
                 Current Subjects
@@ -29,33 +29,33 @@
 
                     <!-- Table Body -->
                     <tbody>
-                    @foreach ($subjects as $subject)
+                    @foreach ($lecture->subjects as $subject)
                         <tr>
                             <!-- Subject Name -->
-                            <td class="table-text">
+                            <td class="table-text col-md-2">
                                 <div>{{ $subject->title }}</div>
                             </td>
                             <!-- Subject Description -->
-                            <td class="table-text">
+                            <td class="table-text col-md-3">
                                 <div>{{ $subject->description }}</div>
                             </td>
-                            <td class="table-text">
+                            <td class="table-text col-md-2">
                                 @foreach ($subject->topics as $topic)
                                     <div>{{ $topic->title }}</div>
                                 @endforeach
-                                <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}"><i class="fa fa-edit"></i> Topics</a>
+                                <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') }}"><i class="fa fa-edit"></i> Topics</a>
                             </td>
-                            <td class="table-text">
+                            <td class="table-text col-md-2">
                                 @foreach ($subject->assignments as $assignment)
                                     <div>Assignment {{ $assignment->id }}</div>
                                 @endforeach
                                 <a href="{{ url('/assignments/subjects/'.$subject->id) }}"><i class="fa fa-edit"></i> Assignments</a>
                             </td>
                             <!-- Delete Button -->
-                            <td class="col-sm-3">
+                            <td class="col-md-3">
                                 <div class="btn-group pull-right">
-                                    <a href="{{ url('/subjects/'.$subject->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
-                                    <a href="{{ url('/subjects/'.$subject->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                 </div>
                             </td>
                         </tr>
@@ -67,7 +67,7 @@
     @endif
 
     <!-- New Subject Form -->
-    <form action="{{ url('/lectures'.$lecture->id.'/subjects') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lectures/'.$lecture->id.'/subjects') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
                 <!-- Subject Title -->

@@ -9,9 +9,7 @@
 @stop
 @section('page_heading_tree')
     <div class="navigation">
-        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
+        {!! $nav !!}
     </div>
 @stop
 @section('page_heading')
@@ -19,7 +17,7 @@
     @stop
 @section('section')
     <!-- Edit Topic Form -->
-    <form action="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/edit') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic->id.'/edit') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
                 <!-- Topic Title -->
