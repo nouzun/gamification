@@ -10,15 +10,7 @@
     @stop
 @section('page_heading_tree')
     <div class="navigation">
-        <a href="{{ url('/lectures/') }}">{{ $lecture->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/') }}">{{ $subject->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/') }}">{{ $knowledge_unit->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/') }}">{{ $question->title }}</a>
+        {!! $nav !!}
     </div>
     @stop
 @section('page_heading','Answers')
@@ -61,8 +53,8 @@
                             <!-- Delete Button -->
                             <td>
                                 <div class="btn-group pull-right">
-                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers/'. $answer->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
-                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/answers/'. $answer->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers/'. $answer->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers/'. $answer->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                 </div>
                             </td>
                         </tr>
@@ -74,7 +66,7 @@
         @endif
 
     <!-- New Answer Form -->
-    <form action="{{ url('/lectures/'.$lecture->id.'/subjects/'.$topic->subject_id.'/topics/'. $topic->id .'/knowledgeunits/'. $knowledge_unit->id .'/questions/'.$question->id.'/answers') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'. $topic_id .'/knowledgeunits/'. $knowledgeunit_id .'/questions/'.$question_id.'/answers') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
         <!-- Answer Description -->

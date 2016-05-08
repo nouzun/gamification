@@ -33,7 +33,14 @@ class KnowledgeUnitController extends Controller
         $lecture = Lecture::find($lecture_id);
         $subject = Subject::find($subject_id);
         $topic = Topic::find($topic_id);
-        $data["nav"] = "<a href=\"" . url('/lectures/'). "\">". $lecture->title ."</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"". url('/lectures/'.$lecture->id.'/subjects/') ."\">" . $subject->title . "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"". url('/subjects/'.$subject->id.'/topics/') ."\">". $topic->title. "</a>";
+        $data["nav"] = "<a href=\"" . url('/lectures/'). "\">".
+            $lecture->title ."</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/') ."\">" .
+            $subject->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') ."\">".
+            $topic->title.
+            "</a>";
         $data["lecture_id"] = $lecture_id;
         $data["subject_id"] = $subject_id;
         $data["topic_id"] = $topic_id;

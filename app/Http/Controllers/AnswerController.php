@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\KnowledgeUnit;
+use App\Lecture;
 use App\Question;
 use App\Repositories\AnswerRepository;
 use App\Subject;
@@ -31,19 +32,34 @@ class AnswerController extends Controller
 
     public function indexWithInstance(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id)
     {
-        $data = array(
-            'answers'  => $this->answers->forQuestion($question_id),
-        );
+        $lecture = Lecture::find($lecture_id);
+        $subject = Subject::find($subject_id);
+        $topic = Topic::find($topic_id);
+        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+        $question = Question::find($question_id);
+        if(isset($question_id)) {
+            $data["nav"] = "<a href=\"" . url('/lectures/'). "\">".
+                $lecture->title .
+                "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+                url('/lectures/'.$lecture->id.'/subjects/') ."\">" .
+                $subject->title .
+                "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+                url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') ."\">".
+                $topic->title .
+                "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+                url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits') ."\">".
+                $knowledgeunit->title .
+                "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+                url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/questions') ."\">".
+                $question->title .
+                "</a>";
 
-        if(isset($knowledgeunit_id)) {
-            $subject = Subject::find($subject_id);
-            $topic = Topic::find($topic_id);
-            $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
-            $question = Question::find($question_id);
-            $data["subject"] = $subject;
-            $data["topic"] = $topic;
-            $data["knowledge_unit"] = $knowledgeunit;
-            $data["question"] = $question;
+            $data["lecture_id"] = $lecture_id;
+            $data["subject_id"] = $subject_id;
+            $data["topic_id"] = $topic_id;
+            $data["knowledgeunit_id"] = $knowledgeunit_id;
+            $data["question_id"] = $question_id;
+            $data["answers"] = $this->answers->forQuestion($question_id);
         }
         return view('answer.index', $data);
     }
@@ -63,20 +79,38 @@ class AnswerController extends Controller
         $answer->question()->associate($question);
         $answer->save();
 
-        return redirect('/lecture/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
+        return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
 
     public function edit(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
     {
+        $lecture = Lecture::find($lecture_id);
         $subject = Subject::find($subject_id);
         $topic = Topic::find($topic_id);
         $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
         $question = Question::find($question_id);
         $answer = Answer::find($answer_id);
-        $data["subject"] = $subject;
-        $data["topic"] = $topic;
-        $data["knowledge_unit"] = $knowledgeunit;
-        $data["question"] = $question;
+        $data["nav"] = "<a href=\"" . url('/lectures/'). "\">".
+            $lecture->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/') ."\">" .
+            $subject->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') ."\">".
+            $topic->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits') ."\">".
+            $knowledgeunit->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/questions') ."\">".
+            $question->title .
+            "</a>";
+
+        $data["lecture_id"] = $lecture_id;
+        $data["subject_id"] = $subject_id;
+        $data["topic_id"] = $topic_id;
+        $data["knowledgeunit_id"] = $knowledgeunit_id;
+        $data["question_id"] = $question_id;
         $data["answer"] = $answer;
 
         return view('answer.edit', $data);
@@ -88,13 +122,13 @@ class AnswerController extends Controller
         $answer->correct = $request->correct ?  $request->correct : 0;
         $answer->description = $request->description;
         $answer->save();
-        return redirect('/lecture/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
+        return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
 
     public function destroy(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $question_id, $answer_id)
     {
         $answer = Answer::find($answer_id);
         $answer->delete();
-        return redirect('/lecture/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
+        return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question_id.'/answers');
     }
 }

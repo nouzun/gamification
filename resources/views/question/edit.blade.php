@@ -2,20 +2,14 @@
 @section('page-script')
     <script type="text/javascript">
         $( document ).ready(function() {
-            var markupStr = $("#question-content").val();
-            $('#question-content').summernote('code', markupStr);
+            var markupStr = $("#question-description").val();
+            $('#question-description').summernote('code', markupStr);
         });
     </script>
 @stop
 @section('page_heading_tree')
     <div class="navigation">
-        <a href="{{ url('/subjects/') }}">{{ $subject->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/') }}">{{ $topic->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/') }}">{{ $knowledge_unit->title }}</a>
-        <span class="fa fa-chevron-right"></span>
-        <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/') }}">{{ $question->title }}</a>
+        {!! $nav !!}
     </div>
 @stop
 @section('page_heading')
@@ -23,7 +17,7 @@
     @stop
 @section('section')
     <!-- Edit Question Form -->
-    <form action="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledge_unit->id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
         <!-- Question Title -->

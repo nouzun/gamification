@@ -47,7 +47,12 @@ class TopicController extends Controller
         if(isset($subject_id)) {
             $lecture = Lecture::find($lecture_id);
             $subject = Subject::find($subject_id);
-            $data["nav"] = "<a href=\"" . url('/lectures/'). "\">". $lecture->title ."</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"". url('/lectures/'.$lecture->id.'/subjects/') ."\">" . $subject->title . "</a>";
+            $data["nav"] = "<a href=\"" .
+                url('/lectures/'). "\">".
+                $lecture->title ."</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+                url('/lectures/'.$lecture->id.'/subjects/') ."\">" .
+                $subject->title .
+                "</a>";
             $data["lecture_id"] = $lecture_id;
             $data["subject_id"] = $subject_id;
             $data["topics"] = $this->topics->forSubject($subject_id);

@@ -72,7 +72,7 @@
                                     @foreach ($knowledge_unit->questions as $question)
                                         <div>{{ $question->title }}</div>
                                     @endforeach
-                                    <a href="{{ url('/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
+                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
                                 </td>
                                 <!-- Delete Button -->
                                 <td>
