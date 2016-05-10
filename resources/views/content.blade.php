@@ -47,18 +47,20 @@
 @section('page_heading','Course Content')
 @section('section')
     <div class="lesson-box">
-        @foreach(\App\Subject::all() as $s_index => $subject)
-            <div class="subject-box">
-                <div class="subject-title">
-                    <h4>
-                        {{ $subject->title }} <br/>
-                        <small>{{ $subject->description }}</small>
-                    </h4>
+        @foreach(\App\Lecture::all() as $l_index => $lecture)
+            @foreach($lecture->subjects as $s_index => $subject)
+                <div class="subject-box">
+                    <div class="subject-title">
+                        <h4>
+                            {{ $subject->title }} <br/>
+                            <small>{{ $subject->description }}</small>
+                        </h4>
+                    </div>
+                    @foreach($subject->topics as $t_index => $topic)
+                        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id) }}"><div class="topic-box"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</div></a>
+                    @endforeach
                 </div>
-                @foreach($subject->topics as $t_index => $topic)
-                    <a href="{{ url('/subjects/'.$subject->id.'/topics/'.$topic->id) }}"><div class="topic-box"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</div></a>
-                @endforeach
-            </div>
+            @endforeach
         @endforeach
     </div>
 @stop
