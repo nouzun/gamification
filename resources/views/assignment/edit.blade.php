@@ -107,19 +107,15 @@
                         </td>
                         <td class="table-text">
                             @foreach ($assignment->knowledgeunits as $knowledgeunit)
-                                <div>{{ $knowledgeunit->title }}</div>
+                                <div>{{ $knowledgeunit->title }} <i>({{ $knowledgeunit->topic->title }})</i></div>
                             @endforeach
-                            <a href="{{ url('/subjects/'.$subjectOnly->id.'') }}">Edit Knowledge Units</a>
-
                         </td>
                         <!-- Delete Button -->
-                        <td>
-                            <form action="{{ url('/assignment', $assignment->id) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-
-                                <button>Delete Assignment</button>
-                            </form>
+                        <td class="col-md-3">
+                            <div class="btn-group pull-right">
+                                <a href="{{ url('/lectures/'.$subjectOnly->lecture->id.'/subjects/'.$subjectOnly->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                <a href="{{ url('/lectures/'.$subjectOnly->lecture->id.'/subjects/'.$subjectOnly->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -131,15 +127,15 @@
     <!-- New Assignment Form -->
     <form action="{{ url('/assignments/subjects/'.$subjectOnly->id) }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
-        <div class="col-sm-12" >
+        <div class="col-md-12" >
             <div class="row">
                 {{  $subjectOnly->title  }}
             </div>
             <div class="row">
-                <div class='col-sm-2'>
+                <div class='col-md-2'>
                     Due Date:
                 </div>
-                <div class='col-sm-4'>
+                <div class='col-md-4'>
                     <div class="form-group">
                         <div class='input-group date' id='div_datetimepicker'>
                             <span class="input-group-addon">
@@ -155,10 +151,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class='col-sm-2'>
+                <div class='col-md-2'>
                     Knowledge Units:
                 </div>
-                <div class='col-sm-4'>
+                <div class='col-md-10'>
                     @foreach ($subjectOnly->topics as $topic)
                         @foreach ($topic->knowledgeunits as $knowledgeunit)
                             <div class="row">
@@ -172,9 +168,10 @@
                 </div>
             </div>
         </div>
+
         <!-- Add Assignment Button -->
         <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-6">
+            <div class="col-md-offset-2 col-md-6">
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-plus"></i> Create new Assignment
                 </button>

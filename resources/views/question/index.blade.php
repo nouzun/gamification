@@ -45,14 +45,14 @@
                     @foreach ($questions as $question)
                         <tr>
                             <!-- Topic Name -->
-                            <td class="table-text">
+                            <td class="table-text col-md-1">
                                 <div>{{ $question->title }}</div>
                             </td>
                             <!-- Topic Description -->
-                            <td class="table-text">
+                            <td class="table-text col-md-5">
                                 <div>{!! $question->description !!}</div>
                             </td>
-                            <td class="table-text">
+                            <td class="table-text col-md-2">
                                 @foreach ($question->answers as $answer)
                                     @if ($answer->correct == 1)
                                         <div class="text-success">{!! $answer->description !!}<span class="fa fa-check"></span></div>
@@ -64,7 +64,7 @@
 
                             </td>
                             <!-- Delete Button -->
-                            <td>
+                            <td class="col-md-2">
                                 <div class="btn-group pull-right">
                                     <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
                                     <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
