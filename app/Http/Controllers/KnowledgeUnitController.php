@@ -77,7 +77,18 @@ class KnowledgeUnitController extends Controller
         $subject = Subject::find($subject_id);
         $topic = Topic::find($topic_id);
         $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
-        $data["nav"] = "<a href=\"" . url('/lectures/'). "\">". $lecture->title ."</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"". url('/lectures/'.$lecture->id.'/subjects/') ."\">" . $subject->title . "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"". url('/subjects/'.$subject->id.'/topics/') ."\">". $topic->title. "</a>";
+        $data["nav"] = "<a href=\"" . url('/lectures/'). "\">".
+            $lecture->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/') ."\">" .
+            $subject->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') ."\">".
+            $topic->title .
+            "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
+            url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits') ."\">".
+            $knowledgeunit->title .
+            "</a>";
         $data["lecture_id"] = $lecture_id;
         $data["subject_id"] = $subject_id;
         $data["topic_id"] = $topic_id;
@@ -91,6 +102,7 @@ class KnowledgeUnitController extends Controller
         $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
         $knowledgeunit->title = $request->title;
         $knowledgeunit->description = $request->description;
+        $knowledgeunit->difficulty_level = $request->difficulty_level;
         $knowledgeunit->save();
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
     }
