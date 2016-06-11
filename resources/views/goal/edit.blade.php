@@ -3,40 +3,40 @@
 @stop
 @section('page_heading_tree')
     <div class="navigation">
-        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/') }}">{{ $subject->title }}</a>
+        <a href="{{ url('/lectures/'.$lecture->id.'/goals/') }}">{{ $goal->title }}</a>
     </div>
 @stop
 @section('page_heading')
-    Edit Subject
+    Edit Goal
 @stop
 @section('section')
-    <!-- Edit Subject Form -->
-    <form action="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/edit') }}" method="POST" class="form-horizontal">
+    <!-- Edit Goal Form -->
+    <form action="{{ url('/lectures/'.$lecture->id.'/goals/'.$goal->id.'/edit') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
-        <!-- Subject Title -->
+        <!-- Goal Title -->
         <div class="form-group">
             <label for="task-name" class="col-sm-2 control-label">Title</label>
 
             <div class="col-sm-6">
-                <input type="text" name="title" id="subject-title" class="form-control" value="{{ $subject->title }}">
+                <input type="text" name="title" id="goal-title" class="form-control" value="{{ $goal->title }}">
             </div>
         </div>
 
-        <!-- Subject Description -->
+        <!-- Goal Description -->
         <div class="form-group">
             <label for="task-name" class="col-sm-2 control-label">Description</label>
 
             <div class="col-sm-6">
-                <input type="text" name="description" id="subject-description" class="form-control" value="{{ $subject->description }}">
+                <input type="text" name="description" id="goal-description" class="form-control" value="{{ $goal->description }}">
             </div>
         </div>
 
-        <!-- Update Subject Button -->
+        <!-- Update Goal Button -->
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-6">
                 <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Update Subject
+                    <i class="fa fa-plus"></i> Update Goal
                 </button>
             </div>
         </div>

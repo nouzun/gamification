@@ -135,6 +135,13 @@ Route::get('/lectures/{lecture_id}/subjects/{subject_id}/edit', 'SubjectControll
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/edit', 'SubjectController@update');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/destroy', 'SubjectController@destroy');
 
+// Goals
+Route::get('/lectures/{lecture_id}/goals', 'GoalController@indexWithInstance');
+Route::post('/lectures/{lecture_id}/goals', 'GoalController@store');
+Route::get('/lectures/{lecture_id}/goals/{goal_id}/edit', 'GoalController@edit');
+Route::post('/lectures/{lecture_id}/goals/{goal_id}/edit', 'GoalController@update');
+Route::get('/lectures/{lecture_id}/goals/{goal_id}/destroy', 'GoalController@destroy');
+
 // Assignments
 Route::get('/assignments', 'AssignmentController@index');
 Route::get('/assignments/subjects/{subject_id}', 'AssignmentController@indexWithInstance');

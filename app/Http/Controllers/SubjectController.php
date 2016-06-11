@@ -74,7 +74,7 @@ class SubjectController extends Controller
         $subject->title = $request->title;
         $subject->description = $request->description;
         $subject->save();
-        return redirect('/lecture/'.$lecture_id.'/subjects');
+        return redirect('/lectures/'.$lecture_id.'/subjects');
     }
 
     public function destroy(Request $request, $lecture_id, $subject_id)
@@ -83,6 +83,6 @@ class SubjectController extends Controller
 
         $subject->delete();
 
-        return redirect('/lecture/'.$lecture_id.'/subjects');
+        return redirect('/lectures/'.$lecture_id.'/subjects');
     }
 }

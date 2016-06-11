@@ -48,4 +48,9 @@ class Subject extends Model
     {
         return $this->hasMany(Assignment::class);
     }
+
+    public function goals()
+    {
+        return $this->belongsToMany(Goal::class, 'goals_subjects', 'subject_id', 'goal_id')->withTimestamps();
+    }
 }

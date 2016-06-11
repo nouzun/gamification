@@ -20,6 +20,11 @@ class Lecture extends Model
         return $this->hasMany(Subject::class);
     }
 
+    public function goals()
+    {
+        return $this->hasMany(Goal::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
