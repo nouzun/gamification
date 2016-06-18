@@ -137,6 +137,7 @@ Route::get('/lectures/{lecture_id}/subjects/{subject_id}/destroy', 'SubjectContr
 
 // Goals
 Route::get('/lectures/{lecture_id}/goals', 'GoalController@indexWithInstance');
+Route::get('/lectures/{lecture_id}/goalsandsubjects', 'GoalController@connection');
 Route::post('/lectures/{lecture_id}/goals', 'GoalController@store');
 Route::get('/lectures/{lecture_id}/goals/{goal_id}/edit', 'GoalController@edit');
 Route::post('/lectures/{lecture_id}/goals/{goal_id}/edit', 'GoalController@update');

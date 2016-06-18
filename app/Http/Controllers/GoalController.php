@@ -33,6 +33,16 @@ class GoalController extends Controller
         return view('goal.index', $data);
     }
 
+    public function connection(Request $request, $lecture_id)
+    {
+        if(isset($lecture_id)) {
+            $lecture = Lecture::find($lecture_id);
+            $data["lecture"] = $lecture;
+        }
+
+        return view('goal.connection', $data);
+    }
+
     public function store(Request $request, $lecture_id)
     {
         $this->validate($request, [
