@@ -6,7 +6,7 @@
         table.sortable td{
             vertical-align: top;
         }
-        #draggable, #sortable {
+        #draggable, #droppable {
             border: 1px solid #eee;
             width: 142px;
             min-height: 20px;
@@ -16,59 +16,49 @@
             float: left;
             margin-right: 10px;
         }
-        #draggable li, #sortable li {
+        #draggable li {
             margin: 0 5px 5px 5px;
             padding: 5px;
             font-size: 1.2em;
             width: 120px;
         }
+        #droppable li {
+            margin: 0 5px 5px 5px;
+            padding: 5px;
+            font-size: 1.2em;
+            width: 120px;
+        }
+
     </style>
     <script>
         $(function() {
-            var sortableIn = 1;
             $( ".draggableItem" ).draggable({
-                connectToSortable: "#sortable",
                 helper: "clone"
-                /*
-                remove: function(event, ui) {
-                    ui.item.clone().switchClass('ui-state-default', 'ui-state-highlight').appendTo('#sortable2');
-                    $(this).sortable('cancel');
-                }*/
             }).disableSelection();
 
-            $( "#sortable" ).sortable({
-                over: function(e, ui) { sortableIn = 1; },
-                out: function(e,i) { sortableIn = 0; },
-                beforeStop: function (event, ui) {
-                    if ($(ui.item).parents('#draggable').length == 0) { // Remove if its not in sortable1 list
-                        if (sortableIn == 0) {
-                            ui.item.remove();
-                        }
-                    }
+            $( ".connectedDroppable" ).droppable({
+                hoverClass: 'ui-state-hover',
+                drop: function(event, ui) {
+                    tag=ui.draggable;
+                    $(this).append(tag.clone().attr("id", "copysubject-" + tag.attr("id")).switchClass('ui-state-default', 'ui-state-highlight').append('<span class="pull-right"><i class="fa fa-times"></i></span>'));
                 },
-                start: function(event, ui) {
-                    /*
-                     if ($(ui.item).parents('#sortable1').length > 0) {
-                     $(ui.item).addClass('dropped');
-                     } else {
-                     $(ui.item).addClass('sorted');
-                     }
-                     */
+                accept: function(draggable) {
+                    return $(this).find("#copysubject-" + draggable.attr("id")).length == 0;
                 },
                 stop: function(event, ui) {
-                    /*
-                     if ($(ui.item).parents('#sortable1').length > 0) {
-                     $(ui.item).switchClass('ui-state-highlight', 'ui-state-default');
-                     } else {
-                     $(ui.item).switchClass('ui-state-default', 'ui-state-highlight');
-                     }
-                     //$(this).sortable('cancel');
 
-                     $(ui.item).removeClass('sorted');
-                     $(ui.item).removeClass('dropped');
-                     */
+                     if ($(ui.item).parents('.connectedDroppable').length > 0) {
+                         $(ui.item).switchClass('ui-state-default', 'ui-state-highlight');
+
+                     } else {
+                         $(ui.item).switchClass('ui-state-highlight', 'ui-state-default');
+                     }
                 }
             }).disableSelection();
+
+            $("ul.connectedDroppable ").on('click','li .fa-times',function(){
+                $(this).closest('li').remove();
+            });
 
         });
     </script>
@@ -99,15 +89,15 @@
                     </tr>
                     <tr>
                         <td>
-                            <ul id="draggable" class="connectedSortable">
+                            <ul id="draggable">
                                 @foreach ($lecture->subjects as $subject)
-                                    <li class="draggableItem ui-state-default">{{ $subject->title }}</li>
+                                    <li id="subject-{{ $subject->id }}" class="draggableItem ui-state-default">{{ $subject->title }}</li>
                                 @endforeach
                             </ul>
                         </td>
                         @foreach ($lecture->goals as $goal)
                             <td>
-                                <ul id="sortable" class="connectedSortable">
+                                <ul id="droppable" class="connectedDroppable">
                                 </ul>
                             </td>
                         @endforeach
