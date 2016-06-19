@@ -29,15 +29,19 @@
             width: 120px;
         }
 
+        i.fa {
+            cursor: pointer;
+        }
+
     </style>
     <script>
         $(function() {
             $( ".draggableItem" ).draggable({
-                helper: "clone"
+                helper: "clone",
+                cursor: "crosshair"
             }).disableSelection();
 
             $( ".connectedDroppable" ).droppable({
-                hoverClass: 'ui-state-hover',
                 drop: function(event, ui) {
                     tag=ui.draggable;
                     $(this).append(tag.clone().attr("id", "copysubject-" + tag.attr("id")).switchClass('ui-state-default', 'ui-state-highlight').append('<span class="pull-right"><i class="fa fa-times"></i></span>'));
