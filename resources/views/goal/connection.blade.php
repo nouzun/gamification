@@ -73,7 +73,17 @@
             }).disableSelection();
 
             $("ul.connectedDroppable ").on('click','li .fa-times',function(){
-                $(this).closest('li').remove();
+                var li_subject = $(this).closest('li');
+                var subject_id = li_subject.attr("data");
+                var goal_id = li_subject.parents('.connectedDroppable').attr("data");
+                $.ajax({
+                    type: "POST",
+                    url: APP_URL + '/lectures/' + {{ $lecture->id }} + '/goalsandsubjects/destroy',
+                    data: {goal_id:goal_id, subject_id:subject_id},
+                    success: function( msg ) {
+                        li_subject.remove();
+                    }
+                });
             });
 
             $( '#btn_save-connections' ).on('click', function(e) {
@@ -130,6 +140,9 @@
                         @foreach ($lecture->goals as $goal)
                             <td>
                                 <ul data="{{ $goal->id }}" class="connectedDroppable">
+                                    @foreach ($goal->subjects as $subject)
+                                        <li id="subject-{{ $subject->id }}" data="{{ $subject->id }}" class="draggableItem ui-state-highlight">{{ $subject->title }}<span class="pull-right"><i class="fa fa-times"></i></span></li>
+                                    @endforeach
                                 </ul>
                             </td>
                         @endforeach

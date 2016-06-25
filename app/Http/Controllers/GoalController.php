@@ -54,6 +54,16 @@ class GoalController extends Controller
         return $request->goal_id. " -- " . $request->subject_id;
     }
 
+    public function connectionDestroy(Request $request, $lecture_id)
+    {
+
+        $goal = Goal::find($request->goal_id);
+        $subject = Subject::find($request->subject_id);
+
+        $goal->subjects()->detach($subject);
+        return $request->goal_id. " -- " . $request->subject_id;
+    }
+
     public function store(Request $request, $lecture_id)
     {
         $this->validate($request, [

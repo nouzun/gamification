@@ -51,6 +51,6 @@ class Subject extends Model
 
     public function goals()
     {
-        return $this->belongsToMany(Goal::class, 'goals_subjects', 'subject_id', 'goal_id')->withTimestamps();
+        return $this->belongsToMany(Goal::class, 'goals_subjects', 'goal_id', 'subject_id')->withTimestamps();
     }
 }
