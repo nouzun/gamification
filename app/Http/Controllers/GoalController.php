@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lecture;
 use App\Goal;
+use App\Subject;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -41,6 +42,16 @@ class GoalController extends Controller
         }
 
         return view('goal.connection', $data);
+    }
+
+    public function connectionStore(Request $request, $lecture_id)
+    {
+
+        $goal = Goal::find($request->goal_id);
+        $subject = Subject::find($request->subject_id);
+
+        $goal->subjects()->attach($subject);
+        return $request->goal_id. " -- " . $request->subject_id;
     }
 
     public function store(Request $request, $lecture_id)

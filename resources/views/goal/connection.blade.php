@@ -6,7 +6,7 @@
         table.sortable td{
             vertical-align: top;
         }
-        #draggable, #droppable {
+        #draggable, .connectedDroppable {
             border: 1px solid #eee;
             width: 142px;
             min-height: 20px;
@@ -22,7 +22,7 @@
             font-size: 1.2em;
             width: 120px;
         }
-        #droppable li {
+        .connectedDroppable li {
             margin: 0 5px 5px 5px;
             padding: 5px;
             font-size: 1.2em;
@@ -45,6 +45,18 @@
                 drop: function(event, ui) {
                     tag=ui.draggable;
                     $(this).append(tag.clone().attr("id", "copysubject-" + tag.attr("id")).switchClass('ui-state-default', 'ui-state-highlight').append('<span class="pull-right"><i class="fa fa-times"></i></span>'));
+
+                    var goal_id = $(this).attr("data");
+                    var subject_id = tag.attr("data");
+
+                    $.ajax({
+                        type: "POST",
+                        url: APP_URL + '/lectures/' + {{ $lecture->id }} + '/goalsandsubjects',
+                        data: {goal_id:goal_id, subject_id:subject_id},
+                        success: function( msg ) {
+                            alert( msg );
+                        }
+                    });
                 },
                 accept: function(draggable) {
                     return $(this).find("#copysubject-" + draggable.attr("id")).length == 0;
@@ -64,6 +76,22 @@
                 $(this).closest('li').remove();
             });
 
+            $( '#btn_save-connections' ).on('click', function(e) {
+                /*
+                e.preventDefault();
+                var name = $('#name').val();
+                var message = $('#message').val();
+                var postid = $('#post_id').val();
+                $.ajax({
+                    type: "POST",
+                    url: host+'/comment/add',
+                    data: {name:name, message:message, post_id:postid}
+                    success: function( msg ) {
+                        alert( msg );
+                    }
+                });
+                */
+            });
         });
     </script>
 
@@ -95,18 +123,23 @@
                         <td>
                             <ul id="draggable">
                                 @foreach ($lecture->subjects as $subject)
-                                    <li id="subject-{{ $subject->id }}" class="draggableItem ui-state-default">{{ $subject->title }}</li>
+                                    <li id="subject-{{ $subject->id }}" data="{{ $subject->id }}" class="draggableItem ui-state-default">{{ $subject->title }}</li>
                                 @endforeach
                             </ul>
                         </td>
                         @foreach ($lecture->goals as $goal)
                             <td>
-                                <ul id="droppable" class="connectedDroppable">
+                                <ul data="{{ $goal->id }}" class="connectedDroppable">
                                 </ul>
                             </td>
                         @endforeach
                     </tr>
                 </table>
+                <!--
+                <div class="pull-right">
+                    <a id="btn_save-connections"  href="" type="button" class="btn btn-default"><i class="fa fa-save"></i> Save Connections</a>
+                </div>
+                -->
             </div>
         </div>
     @endif

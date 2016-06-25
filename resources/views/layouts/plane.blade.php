@@ -6,6 +6,7 @@
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8"/>
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>GF | Ozu</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -23,7 +24,14 @@
 	<script type="text/javascript" src="{{ asset('assets/bootstrap-datepicker-master/dist/js/bootstrap-datepicker.min.js') }}"></script>
 	<link rel="stylesheet" href="{{ asset("assets/bootstrap-datepicker-master/dist/css/bootstrap-datepicker.css") }}" />
 	<link rel="stylesheet" href="{{ asset("assets/stylesheets/tree.css") }}" />
-
+	<script type="text/javascript">
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		var APP_URL = {!! json_encode(url('/')) !!};
+	</script>
 	@yield('page-script')
 </head>
 <body>
