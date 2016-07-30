@@ -54,6 +54,7 @@
                             <!-- Delete Button -->
                             <td class="col-sm-3">
                                 <div class="btn-group pull-right">
+                                    <a href="{{ url('/lectures/'.$lecture->id.'/goalsandsubjects') }}" type="button" class="btn btn-info"><i class="fa fa-random"></i> S&G</a>
                                     <a href="{{ url('/lectures/'.$lecture->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
                                     <a href="{{ url('/lectures/'.$lecture->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                 </div>

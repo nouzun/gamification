@@ -33,6 +33,10 @@
             cursor: pointer;
         }
 
+        .draggableItem{
+            cursor: move;
+        }
+
     </style>
     <script>
         $(function() {
@@ -44,7 +48,7 @@
             $( ".connectedDroppable" ).droppable({
                 drop: function(event, ui) {
                     tag=ui.draggable;
-                    $(this).append(tag.clone().attr("id", "copysubject-" + tag.attr("id")).switchClass('ui-state-default', 'ui-state-highlight').append('<span class="pull-right"><i class="fa fa-times"></i></span>'));
+                    $(this).append(tag.clone().attr("id", "copysubject-" + tag.attr("data")).removeClass('draggableItem').switchClass('ui-state-default', 'ui-state-highlight').append('<span class="pull-right"><i class="fa fa-times"></i></span>'));
 
                     var goal_id = $(this).attr("data");
                     var subject_id = tag.attr("data");
@@ -54,12 +58,12 @@
                         url: APP_URL + '/lectures/' + {{ $lecture->id }} + '/goalsandsubjects',
                         data: {goal_id:goal_id, subject_id:subject_id},
                         success: function( msg ) {
-                            alert( msg );
+                            //alert( msg );
                         }
                     });
                 },
                 accept: function(draggable) {
-                    return $(this).find("#copysubject-" + draggable.attr("id")).length == 0;
+                    return $(this).find("#copysubject-" + draggable.attr("data")).length == 0;
                 },
                 stop: function(event, ui) {
 
@@ -141,7 +145,7 @@
                             <td>
                                 <ul data="{{ $goal->id }}" class="connectedDroppable">
                                     @foreach ($goal->subjects as $subject)
-                                        <li id="subject-{{ $subject->id }}" data="{{ $subject->id }}" class="draggableItem ui-state-highlight">{{ $subject->title }}<span class="pull-right"><i class="fa fa-times"></i></span></li>
+                                        <li id="copysubject-{{ $subject->id }}" data="{{ $subject->id }}" class="ui-state-highlight">{{ $subject->title }}<span class="pull-right"><i class="fa fa-times"></i></span></li>
                                     @endforeach
                                 </ul>
                             </td>

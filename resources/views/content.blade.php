@@ -4,27 +4,27 @@
         .lesson-box {
             border: 1px solid rgba(0,0,0,0.1);
             background-color: #fff;
+            margin-bottom: 0px;
         }
         .subject-box {
-            padding-bottom: 18px;
+            margin-bottom: 0px;
         }
         .subject-title {
             margin-left: 24px;
             margin-right: 24px;
-            margin-bottom: 10px;
-            padding-top: 30px;
+            margin-bottom: 20px;
+            margin-top: 30px;
         }
 
         .lesson-box .subject-box:not(:first-child) {
-            border-top: 1px solid rgba(0,0,0,0.12);
+            border-top: 0px solid rgba(0,0,0,0.12);
         }
 
         .topic-box {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            padding-left: 30px;
-            padding-right: 30px;
-            margin: 0;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            margin-left: 30px;
+            margin-right: 30px;
             overflow: visible;
         }
 
@@ -57,8 +57,35 @@
                         </h4>
                     </div>
                     @foreach($subject->topics as $t_index => $topic)
-                        <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id) }}"><div class="topic-box"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</div></a>
-                    @endforeach
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id) }}"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @foreach($topic->knowledgeunits as $ku_index => $knowledgeunit)
+                                    <div class="col-sm-2">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                @if ($knowledgeunit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
+                                                    Easy
+                                                @elseif($knowledgeunit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
+                                                    Medium
+                                                @elseif($knowledgeunit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
+                                                    Hard
+                                                @else
+                                                    Not defined
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
                 </div>
             @endforeach
         @endforeach
