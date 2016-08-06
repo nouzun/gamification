@@ -50,6 +50,14 @@ class LectureController extends Controller
         return view('lecture.edit', $data);
     }
 
+    public function content(Request $request, $lecture_id)
+    {
+        $lecture = Lecture::find($lecture_id);
+        $data["lecture"] = $lecture;
+
+        return view('lecture.content', $data);
+    }
+
     public function update(Request $request, $lecture_id)
     {
         $lecture = Lecture::find($lecture_id);

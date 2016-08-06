@@ -215,18 +215,32 @@
                         <li {{ (Request::is('/') ? 'class="active"' : '') }}>
                             <a href="{{ url ('') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-                        <li {{ (Request::is('/') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('/content') }}"><i class="fa fa-th"></i> Course Content</a>
+                        <li>
+                            <a href="#"><i class="fa fa-th"></i> Course Content<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                @foreach(\App\Lecture::all() as $lecture)
+                                    <li {{ (Request::is('*content') ? 'class="active"' : '') }}>
+                                        <a href="{{ url ('/lectures/'.$lecture->id.'/content') }}">{{ $lecture->title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </li>
-                        <li {{ (Request::is('/') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('/assignments') }}"><i class="fa fa-star"></i> Assignments</a>
+                        <li>
+                            <a href="#"><i class="fa fa-star"></i> Assignments<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                @foreach(\App\Lecture::all() as $lecture)
+                                    <li {{ (Request::is('*assignments') ? 'class="active"' : '') }}>
+                                        <a href="{{ url ('/lectures/'.$lecture->id.'/assignments') }}">{{ $lecture->title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </li>
                     @if (Auth::user()->hasRole('administrator'))
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Admin Panel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/lectures') }}">Content</a>
+                                <li {{ (Request::is('*manage') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/lectures/manage') }}">Content</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

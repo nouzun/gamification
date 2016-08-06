@@ -95,7 +95,7 @@
         </div>
     @endif
     <div>{{ count($questionsAll) }} questions</div>
-    <form action="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'. $assignment->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
+    <form action="{{ url('/lectures/'.$subject->lecture_id.'/assignments/subjects/'.$subject->id.'/quiz/'. $assignment->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
         {{ csrf_field() }}
         <div class="col-sm-12">
             @foreach ($questionsAll as $index => $question)

@@ -122,11 +122,13 @@ Route::get('/game', function()
 });
 
 // Lectures
-Route::get('/lectures', 'LectureController@index');
+Route::get('/lectures/manage', 'LectureController@index');
 Route::post('/lectures', 'LectureController@store');
 Route::get('/lectures/{lecture_id}/edit', 'LectureController@edit');
 Route::post('/lectures/{lecture_id}/edit', 'LectureController@update');
 Route::get('/lectures/{lecture_id}/destroy', 'LectureController@destroy');
+Route::get('/lectures/{lecture_id}/content', 'LectureController@content');
+Route::get('/lectures/{lecture_id}/assignments', 'LectureController@assignment');
 
 // Subjects
 Route::get('/lectures/{lecture_id}/subjects', 'SubjectController@indexWithInstance');
@@ -146,12 +148,12 @@ Route::post('/lectures/{lecture_id}/goals/{goal_id}/edit', 'GoalController@updat
 Route::get('/lectures/{lecture_id}/goals/{goal_id}/destroy', 'GoalController@destroy');
 
 // Assignments
-Route::get('/assignments', 'AssignmentController@index');
-Route::get('/assignments/subjects/{subject_id}', 'AssignmentController@indexWithInstance');
-Route::get('/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@indexWithQuiz');
-Route::post('/assignments/subjects/{subject_id}', 'AssignmentController@store');
-Route::post('/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@storeQuiz');
-Route::delete('/assignment/{subject}', 'AssignmentController@destroy');
+Route::get('/lectures/{lecture_id}/assignments', 'AssignmentController@index');
+Route::get('/lectures/{lecture_id}/assignments/subjects/{subject_id}', 'AssignmentController@indexWithInstance');
+Route::get('/lectures/{lecture_id}/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@indexWithQuiz');
+Route::post('/lectures/{lecture_id}/assignments/subjects/{subject_id}', 'AssignmentController@store');
+Route::post('/lectures/{lecture_id}/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@storeQuiz');
+Route::delete('/lectures/{lecture_id}/assignment/{subject}', 'AssignmentController@destroy');
 
 // Topics
 Route::get('/topics', 'TopicController@index');

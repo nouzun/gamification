@@ -84,7 +84,7 @@
     @include('common.errors')
 
     <div class="col-sm-12">
-        @if( ! empty($subjects) )
+
 
             @foreach ($subjects as $subject)
                 @if (count($subject->assignments) > 0)
@@ -99,7 +99,7 @@
                                 @else
                                     <div class="row assignment horizontal-box hover-color headline-1-text">
                                 @endif
-                                    <a href="{{ url('/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
+                                    <a href="{{ url('/lectures/'.$subject->lecture_id.'/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
                                         <div class="col-sm-5 od-item">
                                             <span class="fa fa-star od-icon"></span>
                                             <span>{{ $subject->title }}: Assignment {{ $assignment->id }}</span>
@@ -119,7 +119,7 @@
                     </div>
                 @endif
             @endforeach
-        @endif
+
     </div>
 
 </div>

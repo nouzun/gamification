@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Assignment;
-use App\KnowledgeUnit;
+use App\Lecture;
 use App\Repositories\AssignmentRepository;
 use App\Subject;
-use App\Topic;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Log;
@@ -27,10 +25,11 @@ class AssignmentController extends Controller
         $this->assignments = $assignments;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $lecture_id)
     {
-        $subjects = Subject::all();
-
+        $lecture = Lecture::find($lecture_id);
+        $subjects = $lecture->subjects()->get();
+        Log::info('$lecture_id: '.$lecture_id);
         $data = array(
             'subjects'  => $subjects,
         );
@@ -38,7 +37,7 @@ class AssignmentController extends Controller
         return view('assignment.index', $data);
     }
 
-    public function indexWithInstance(Request $request, $subject_id)
+    public function indexWithInstance(Request $request, $lecture_id, $subject_id)
     {
         $subject = Subject::find($subject_id);
         $mytime = Carbon::now();
@@ -49,7 +48,7 @@ class AssignmentController extends Controller
         return view('assignment.edit', $data);
     }
 
-   public function indexWithQuiz(Request $request, $subject_id, $assignment_id)
+   public function indexWithQuiz(Request $request, $lecture_id, $subject_id, $assignment_id)
    {
        $assignment = Assignment::find($assignment_id);
 
@@ -73,7 +72,7 @@ class AssignmentController extends Controller
 
     }
 
-    public function store(Request $request, $subject_id)
+    public function store(Request $request, $lecture_id, $subject_id)
     {
         $subject = Subject::find($subject_id);
         $assignment = new Assignment();
@@ -82,10 +81,10 @@ class AssignmentController extends Controller
         $assignment->save();
         $assignment->knowledgeunits()->attach(Input::get('knowledgeunits'));
 
-        return redirect('assignments/subjects/'.$subject_id);
+        return redirect('/lectures/'.$lecture_id.'/assignments/subjects/'.$subject_id);
     }
 
-    public function storeQuiz(Request $request, $subject_id, $assignment_id)
+    public function storeQuiz(Request $request, $lecture_id, $subject_id, $assignment_id)
     {
         $point = 0;
         $answers = Input::get('answers');
@@ -100,6 +99,6 @@ class AssignmentController extends Controller
         }
         DB::update('UPDATE (users_assignments) SET point=? WHERE user_id=? AND assignment_id=?',
             [$point, $request->user()->id, $assignment_id]);
-        return redirect('assignments');
+        return redirect('/lectures/'.$lecture_id.'/assignments');
     }
 }
