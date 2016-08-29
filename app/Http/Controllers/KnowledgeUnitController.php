@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
+use App\Assignment;
 use App\KnowledgeUnit;
 use App\Lecture;
 use App\Repositories\KnowledgeUnitRepository;
 use App\Subject;
 use App\Topic;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Log;
 use Illuminate\Http\Request;
 
@@ -50,6 +55,27 @@ class KnowledgeUnitController extends Controller
         return view('knowledgeunit.index', $data);
     }
 
+    public function indexWithQuiz(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id)
+    {
+        $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
+        $questionsAll = new Collection;
+
+        $questionsAll = $questionsAll->merge($knowledgeunit->questions()->get());
+
+        $data = array(
+            'knowledgeunit'  => $knowledgeunit,
+            'questionsAll' => $questionsAll,
+        );
+        if(isset($subject_id)) {
+            $subject = Subject::find($subject_id);
+            $topic = Topic::find($topic_id);
+            $data["subject"] = $subject;
+            $data["topic"] = $topic;
+        }
+        return view('knowledgeunit.quiz', $data);
+
+    }
+
     public function store(Request $request, $lecture_id, $subject_id, $topic_id)
     {
         $this->validate($request, [
@@ -57,7 +83,7 @@ class KnowledgeUnitController extends Controller
             'description' => 'required',
         ]);
 
-
+        //$subject = Subject::find($subject_id);
         $topic = Topic::find($topic_id);
         Log::info('$topic_id: '.$topic->title);
         $knowledgeUnit = new KnowledgeUnit();
@@ -67,8 +93,32 @@ class KnowledgeUnitController extends Controller
 
         $knowledgeUnit->topic()->associate($topic);
         $knowledgeUnit->save();
-
+/*
+        $assignment = new Assignment();
+        $assignment->subject()->associate($subject);
+        $assignment->topic()->associate($topic);
+        $assignment->save();
+        $assignment->knowledgeunits()->attach($knowledgeUnit->id);
+*/
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
+    }
+
+    public function storeQuiz(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id)
+    {
+        $point = 0;
+        $answers = Input::get('answers');
+        $request->user()->knowledgeunits()->attach(array($knowledgeunit_id));
+        $request->user()->answers()->attach($answers);
+
+        foreach($answers as $answer_id) {
+            $answer = Answer::find($answer_id);
+            if ($answer->correct) {
+                $point++;
+            }
+        }
+        DB::update('UPDATE (users_knowledgeunits) SET point=? WHERE user_id=? AND knowledgeunit_id=?',
+            [$point, $request->user()->id, $knowledgeunit_id]);
+        return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/quiz');
     }
 
     public function edit(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id)

@@ -49,7 +49,7 @@
                                 @foreach ($subject->assignments as $assignment)
                                     <div>Assignment {{ $assignment->id }}</div>
                                 @endforeach
-                                <a href="{{ url('/assignments/subjects/'.$subject->id) }}"><i class="fa fa-edit"></i> Assignments</a>
+                                <a href="{{ url('/lectures/'.$lecture->id.'/assignments/subjects/'.$subject->id) }}"><i class="fa fa-edit"></i> Assignments</a>
                             </td>
                             <!-- Delete Button -->
                             <td class="col-md-3">

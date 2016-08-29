@@ -219,7 +219,7 @@
                             <a href="#"><i class="fa fa-th"></i> Course Content<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 @foreach(\App\Lecture::all() as $lecture)
-                                    <li {{ (Request::is('*content') ? 'class="active"' : '') }}>
+                                    <li {{ (Request::is('/lectures/'.$lecture->id.'/*') ? 'class="active"' : '') }}>
                                         <a href="{{ url ('/lectures/'.$lecture->id.'/content') }}">{{ $lecture->title }}</a>
                                     </li>
                                 @endforeach

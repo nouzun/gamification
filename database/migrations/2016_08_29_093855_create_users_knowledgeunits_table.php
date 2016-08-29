@@ -12,7 +12,12 @@ class CreateUsersKnowledgeunitsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('users_knowledgeunits', function (Blueprint $table) {
+            $table->integer('user_id');
+            $table->integer('knowledgeunit_id');
+            $table->integer('point');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +27,6 @@ class CreateUsersKnowledgeunitsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('users_knowledgeunits');
     }
 }
