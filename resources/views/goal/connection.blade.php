@@ -8,8 +8,8 @@
         }
         #draggable, .connectedDroppable {
             border: 1px solid #eee;
-            width: 142px;
-            min-height: 20px;
+            width: 100%;
+            min-height: 100px;
             list-style-type: none;
             margin: 0;
             padding: 5px 0 0 0;
@@ -106,6 +106,8 @@
                 });
                 */
             });
+            $("td:odd").css("background-color", "#eeeeee");
+            $("th:odd").css("background-color", "#eeeeee");
         });
     </script>
 

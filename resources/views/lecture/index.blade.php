@@ -23,7 +23,7 @@
                     <th>Lectures</th>
                     <th>Description</th>
                     <th>Subjects</th>
-                    <th>Goals</th>
+                    <th>Learning Outcomes</th>
                     <th>&nbsp;</th>
                     </thead>
 
@@ -41,13 +41,13 @@
                             </td>
                             <td class="table-text">
                                 @foreach ($lecture->subjects as $subject)
-                                    <div>{{ $subject->title }}</div>
+                                    <div>&bull; {{ $subject->title }}</div>
                                 @endforeach
                                 <a href="{{ url('/lectures/'.$lecture->id.'/subjects/') }}"><i class="fa fa-edit"></i> Subjects</a>
                             </td>
                             <td class="table-text">
                                 @foreach ($lecture->goals as $goal)
-                                    <div>{{ $goal->title }}</div>
+                                    <div>&bull; {{ $goal->title }}</div>
                                 @endforeach
                                 <a href="{{ url('/lectures/'.$lecture->id.'/goals/') }}"><i class="fa fa-edit"></i> Goals</a>
                             </td>
