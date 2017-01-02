@@ -123,6 +123,15 @@ Route::get('/game', function()
 
 // Lectures
 Route::get('/lectures/manage', 'LectureController@index');
+Route::get('/lectures/toolbox', 'LectureController@toolbox');
+Route::get('/lectures/{lecture_id}/toolbox/rewarding', 'LectureController@toolbox_rewarding');
+Route::post('/lectures/{lecture_id}/toolbox/store', 'LectureController@toolbox_store');
+Route::get('/lectures/{lecture_id}/toolbox/achievement', 'LectureController@toolbox_achievement');
+Route::get('/lectures/{lecture_id}/toolbox/level', 'LectureController@toolbox_level');
+Route::get('/lectures/{lecture_id}/toolbox/quest', 'LectureController@toolbox_quest');
+Route::get('/lectures/{lecture_id}/toolbox/leaderboard', 'LectureController@toolbox_leaderboard');
+
+
 Route::post('/lectures', 'LectureController@store');
 Route::get('/lectures/{lecture_id}/edit', 'LectureController@edit');
 Route::post('/lectures/{lecture_id}/edit', 'LectureController@update');

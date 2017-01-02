@@ -17,6 +17,12 @@ class CreateLecturesTable extends Migration
             $table->integer('user_id')->index();
             $table->string('title');
             $table->text('description');
+            $table->integer('g_index');
+            $table->boolean('g_rewarding');
+            $table->boolean('g_achievement');
+            $table->boolean('g_level');
+            $table->boolean('g_quest');
+            $table->boolean('g_leaderboard');
             $table->timestamps();
             $table->softDeletes();
         });

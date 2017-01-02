@@ -26,6 +26,60 @@ class LectureController extends Controller
         ]);
     }
 
+    public function toolbox(Request $request)
+    {
+        return view('lecture.toolbox', [
+            'lectures' => Lecture::all(),
+        ]);
+    }
+
+    public function toolbox_rewarding(Request $request)
+    {
+        return view('lecture.toolbox_rewarding', [
+            'lectures' => Lecture::all(),
+        ]);
+    }
+
+    public function toolbox_achievement(Request $request)
+    {
+        return view('lecture.toolbox_achievement', [
+            'lectures' => Lecture::all(),
+        ]);
+    }
+
+    public function toolbox_level(Request $request)
+    {
+        return view('lecture.toolbox_level', [
+            'lectures' => Lecture::all(),
+        ]);
+    }
+
+    public function toolbox_quest(Request $request)
+    {
+        return view('lecture.toolbox_quest', [
+            'lectures' => Lecture::all(),
+        ]);
+    }
+
+    public function toolbox_leaderboard(Request $request)
+    {
+        return view('lecture.toolbox_leaderboard', [
+            'lectures' => Lecture::all(),
+        ]);
+    }
+
+    public function toolbox_store(Request $request, $lecture_id)
+    {
+        $enable = $request->enable;
+        $module = $request->module;
+
+        $lecture = Lecture::find($lecture_id);
+        $lecture[$module] = $enable;
+        $lecture->save();
+
+        return $enable;
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [

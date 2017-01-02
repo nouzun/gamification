@@ -240,7 +240,10 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Admin Panel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*manage') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('/lectures/manage') }}">Content</a>
+                                    <a href="{{ url ('/lectures/manage') }}">Lesson Preparation</a>
+                                </li>
+                                <li {{ (Request::is('*toolbox') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/lectures/toolbox') }}">Gamification Toolbox</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
