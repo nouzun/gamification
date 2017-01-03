@@ -130,12 +130,12 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->belongsToMany(Assignment::class, 'users_assignments', 'user_id', 'assignment_id')->withTimestamps();
     }
-
+/*
     public function knowledgeunits()
     {
         return $this->belongsToMany(Assignment::class, 'users_knowledgeunits', 'user_id', 'knowledgeunit_id')->withTimestamps();
     }
-
+*/
     public function answers()
     {
         return $this->belongsToMany(Answer::class, 'users_answers', 'user_id', 'answer_id')->withTimestamps();

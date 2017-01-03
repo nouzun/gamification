@@ -51,7 +51,7 @@ class QuestionController extends Controller
                 $knowledgeunit->title .
                 "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
                 url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/assignments/'.$assignment->id.'/questions') ."\">".
-                "Assignment " . $assignment->difficulty_level . '</a>';
+                level2Text($assignment->difficulty_level) ." Assignment" . '</a>';
 
             $data["lecture_id"] = $lecture_id;
             $data["subject_id"] = $subject_id;
@@ -104,7 +104,7 @@ class QuestionController extends Controller
             $knowledgeunit->title .
             "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"" .
             url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/assignments/'.$assignment_id.'/questions') ."\">".
-            "Assignment " . $assignment->difficulty_level .
+            level2Text($assignment->difficulty_level) ." Assignment" .
             "</a> <span class=\"fa fa-chevron-right\"></span>".
             $question->title;
 

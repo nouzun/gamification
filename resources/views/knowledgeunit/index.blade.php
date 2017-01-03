@@ -58,16 +58,8 @@
 
                                     @foreach ($knowledge_unit->assignments as $assignment)
                                         <div>
-                                            @if ($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
-                                                Easy
-                                            @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
-                                                Medium
-                                            @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
-                                                Hard
-                                            @else
-                                                Not defined
-                                            @endif
-                                                <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/assignments/'.$assignment->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
+                                            {{ level2Text($assignment->difficulty_level) }}
+                                            <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/assignments/'.$assignment->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
                                         </div>
                                     @endforeach
                                 </td>

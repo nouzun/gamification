@@ -53,7 +53,7 @@ class AnswerController extends Controller
                 $knowledgeunit->title .
                 "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
                 url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/assignments/'.$assignment->id.'/questions') ."\">".
-                "Assignment " . $assignment->difficulty_level .
+                level2Text($assignment->difficulty_level) ." Assignment" .
                 "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
                 url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/assignments/'.$assignment->id.'/questions/'.$question->id) ."\">".
                 $question->title .
@@ -110,7 +110,7 @@ class AnswerController extends Controller
             $knowledgeunit->title .
             "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
             url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/assignments/'.$assignment->id.'/questions') ."\">".
-            "Assignment " . $assignment->difficulty_level .
+            level2Text($assignment->difficulty_level) ." Assignment" .
             "</a> <span class=\"fa fa-chevron-right\"></span> <a href=\"".
             url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id.'/assignments/'.$assignment->id.'/questions/'.$question->id) ."\">".
             $question->title .

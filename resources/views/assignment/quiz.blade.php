@@ -2,7 +2,7 @@
 @section('page-script')
     <script type="text/javascript">
         $(document).ready(function() {
-            var done = {{ $knowledgeunit->done }};
+            var done = {{ $assignment->done }};
             if (done == 1) {
                 $('#form-quiz').find(':input').prop('disabled', true);
             }
@@ -75,12 +75,8 @@
     </style>
     @stop
 @section('page_heading_tree')
-    <div>
-        {{ $subject->title }}
-        <span class="fa fa-chevron-right"></span>
-        {{ $topic->title }}
-        <span class="fa fa-chevron-right"></span>
-        {{ $knowledgeunit->title }}
+    <div class="navigation">
+        {!! $nav !!}
     </div>
     @stop
 @section('page_heading','Quiz')
@@ -91,13 +87,13 @@
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
-    @if ( $knowledgeunit->done == 1 )
+    @if ( $assignment->done == 1 )
         <div class="alert alert-success " role="alert">
-            <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this knowledge unit and earned <strong>{{ $knowledgeunit->point }}</strong> points.
+            <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this assignment and earned <strong>{{ $assignment->point }}</strong> points.
         </div>
     @endif
     <div>{{ count($questionsAll) }} questions</div>
-    <form action="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/topics/'.$knowledgeunit->topic_id.'/knowledgeunits/'. $knowledgeunit->id.'/quiz' ) }}" method="POST" class="form-horizontal" id ="form-quiz">
+    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'. $knowledgeunit_id.'/assignments/'.$assignment->id.'/quiz' ) }}" method="POST" class="form-horizontal" id ="form-quiz">
         {{ csrf_field() }}
         <div class="col-sm-12">
             @foreach ($questionsAll as $index => $question)
@@ -111,12 +107,12 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        @if ($knowledgeunit->done && $answer->correct)
+                                        @if ($assignment->done && $answer->correct)
                                             <div class="answer answer-success">
                                         @else
                                             <div class="answer">
                                         @endif
-                                        @if ( $knowledgeunit->done && Auth::User()->answers->contains($answer->id) )
+                                        @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
                                             <input type="checkbox" name="answers[{{$index}}]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}" checked="checked">
                                         @else
                                             <input type="checkbox" name="answers[{{$index}}]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}">
@@ -130,12 +126,12 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        @if ($knowledgeunit->done && $answer->correct)
+                                        @if ($assignment->done && $answer->correct)
                                             <div class="answer answer-success">
                                         @else
                                             <div class="answer">
                                         @endif
-                                        @if ( $knowledgeunit->done && Auth::User()->answers->contains($answer->id) )
+                                        @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
                                             <input type="radio" name="answers[{{$index}}]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}" checked="checked">
                                         @else
                                             <input type="radio" name="answers[{{$index}}]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}">
@@ -150,11 +146,11 @@
                 </div>
             @endforeach
         </div>
-        @if ( $knowledgeunit->done != 1 )
+        @if ( $assignment->done != 1 )
         <div class="form-group">
             <div class="col-sm-12" style="text-align: right">
                 <button type="submit" class="btn btn-default">
-                    <i class="fa fa-send"></i> Submit Quiz
+                    <i class="fa fa-send"></i> Submit Assignment
                 </button>
             </div>
         </div>

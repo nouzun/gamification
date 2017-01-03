@@ -82,15 +82,7 @@
                                                     <div class="col-xs-2 col-sm-2">
                                                         <div class="panel panel-default">
                                                             <div class="panel-body">
-                                                                @if ($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
-                                                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/quiz') }}">Easy</a>
-                                                                @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
-                                                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/quiz') }}">Medium</a>
-                                                                @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
-                                                                    Hard
-                                                                @else
-                                                                    Not defined
-                                                                @endif
+                                                                <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/assignments/'.$assignment->id.'/quiz') }}">{{ level2Text($assignment->difficulty_level) }}</a>
                                                                 @if($assignment->done)
                                                                     <i class="fa fa-check"></i>
                                                                 @endif

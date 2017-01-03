@@ -175,12 +175,14 @@ Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/destr
 
 // Knowledge Units
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits', 'KnowledgeUnitController@indexWithInstance');
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/quiz', 'KnowledgeUnitController@indexWithQuiz');
-Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/quiz', 'KnowledgeUnitController@storeQuiz');
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits', 'KnowledgeUnitController@store');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/edit', 'KnowledgeUnitController@edit');
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/edit', 'KnowledgeUnitController@update');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/destroy', 'KnowledgeUnitController@destroy');
+
+//Assignments
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/quiz', 'AssignmentController@index');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/quiz', 'AssignmentController@store');
 
 // Questions
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions', 'QuestionController@indexWithInstance');
