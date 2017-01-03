@@ -30,6 +30,7 @@ class Topic extends Model
         } else {
             Log::info('111 $this->id: '.$this->id.' $previousTopicID: '.$previousTopicID);
 
+            /*
             $easyKUofPreviousTopic = KnowledgeUnit::where('topic_id', '=', $previousTopicID)
                 ->where('difficulty_level', '=', '1')
                 ->pluck('id');
@@ -38,7 +39,8 @@ class Topic extends Model
                 ->where('user_id', '=', Auth::user()->id)
                 ->where('knowledgeunit_id', '=', $easyKUofPreviousTopic)
                 ->first();
-
+*/
+            $is_done_query = 1;
             if (!is_null($is_done_query)) {
                 $enable = 1;
             }
@@ -50,16 +52,6 @@ class Topic extends Model
     public function knowledgeunits()
     {
         return $this->hasMany(KnowledgeUnit::class);
-    }
-
-    public function assignments()
-    {
-        return $this->hasMany(Assignment::class);
-    }
-
-    public function knowledgeunits_level($level)
-    {
-        return $this->hasMany(KnowledgeUnit::class)->where('difficulty_level', $level);
     }
 
     public function subject()

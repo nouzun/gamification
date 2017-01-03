@@ -11,10 +11,10 @@ class QuestionRepository
      * @param  Knowledge Unit $knowledgeunit_id
      * @return Collection
      */
-    public function forKnowledgeUnit($knowledgeunit_id)
+    public function forAssignment($assigment_id)
     {
         return Question::with("answers")
-            ->where('questions.knowledge_unit_id', $knowledgeunit_id)
+            ->where('questions.assignment_id', $assigment_id)
             ->orderBy('created_at', 'asc')
             ->get();
     }

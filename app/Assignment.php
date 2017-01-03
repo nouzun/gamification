@@ -38,19 +38,21 @@ class Assignment extends Model
         return $point;
     }
 
+    // Questions will be here
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    /*
     public function knowledgeunits()
     {
         return $this->belongsToMany(KnowledgeUnit::class, 'quiz', 'assignment_id', 'knowledgeunit_id')->withTimestamps();
     }
-
-    public function subject()
+    */
+    public function knowledgeunit()
     {
-        return $this->belongsTo(Subject::class);
-    }
-
-    public function topic()
-    {
-        return $this->belongsTo(Topic::class);
+        return $this->belongsTo(KnowledgeUnit::class);
     }
 
     public function users()

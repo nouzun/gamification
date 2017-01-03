@@ -37,8 +37,7 @@
                         <thead>
                         <th>Knowledge Units</th>
                         <th>Description</th>
-                        <th>Difficult Level</th>
-                        <th>Questions</th>
+                        <th>Assignments</th>
                         <th>&nbsp;</th>
                         </thead>
 
@@ -56,23 +55,21 @@
                                 </td>
                                 <!-- Knowledge Unit Difficult Level -->
                                 <td class="table-text">
-                                    <div>
-                                        @if ($knowledge_unit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
-                                            Easy
-                                        @elseif($knowledge_unit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
-                                            Medium
-                                        @elseif($knowledge_unit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
-                                            Hard
-                                        @else
-                                            Not defined
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="table-text">
-                                    @foreach ($knowledge_unit->questions as $question)
-                                        <div>{{ $question->title }}</div>
+
+                                    @foreach ($knowledge_unit->assignments as $assignment)
+                                        <div>
+                                            @if ($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
+                                                Easy
+                                            @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
+                                                Medium
+                                            @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
+                                                Hard
+                                            @else
+                                                Not defined
+                                            @endif
+                                                <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/assignments/'.$assignment->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
+                                        </div>
                                     @endforeach
-                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledge_unit->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
                                 </td>
                                 <!-- Delete Button -->
                                 <td>
@@ -110,6 +107,7 @@
                 </div>
             </div>
 
+<!--
             <div class="form-group">
                 <label for="task-name" class="col-sm-3 control-label">Difficulty Level</label>
 
@@ -127,7 +125,7 @@
                     </div>
                 </div>
             </div>
-
+-->
             <!-- Add Knowledge Unit Button -->
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">

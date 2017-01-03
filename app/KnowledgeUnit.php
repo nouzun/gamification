@@ -44,12 +44,6 @@ class KnowledgeUnit extends Model
 
     protected $fillable = ['title','description'];
 
-    // Questions will be here
-    public function questions()
-    {
-        return $this->hasMany(Question::class);
-    }
-
     public function topic()
     {
         return $this->belongsTo(Topic::class);
@@ -57,9 +51,19 @@ class KnowledgeUnit extends Model
 
     public function assignments()
     {
-        return $this->belongsToMany(Assignment::class, 'quiz', 'assignment_id', 'knowledgeunit_id')->withTimestamps();
+        return $this->hasMany(Assignment::class);
     }
 
+    public function assignments_level($level)
+    {
+        return $this->hasMany(Assignment::class)->where('difficulty_level', $level);
+    }
+/*
+    public function assignments()
+    {
+        return $this->belongsToMany(Assignment::class, 'quiz', 'assignment_id', 'knowledgeunit_id')->withTimestamps();
+    }
+*/
     public function users()
     {
         return $this->belongsToMany(User::class, 'users_knowledgeunits', 'user_id', 'knowledgeunit_id')->withTimestamps();

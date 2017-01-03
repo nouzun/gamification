@@ -34,6 +34,10 @@
             float: none;
         }
 
+        .col-centered{
+            text-align: center;
+        }
+
         a.disabled {
             text-decoration:none;
             pointer-events: none;
@@ -77,14 +81,14 @@
                             <td class="table-text col-md-3">
                                 <div>{{ $lecture->title }}</div>
                             </td>
-                            <!-- Lecture Description -->
+                            <!-- Gameness Index -->
                             <td class="table-text col-md-2">
-                                <div></div>
+                                <div>3 / 5</div>
                             </td>
                             <td class="table-text">
                                 <div class="col-sm-10">
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3 col-centered">
                                             <img src="{{ asset('images/modules/reward.png') }}" />
                                         </div>
                                         <div class="col-sm-2">
@@ -95,7 +99,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3 col-centered">
                                             <img src="{{ asset('images/modules/achievement.png') }}" />
                                         </div>
                                         <div class="col-sm-2">
@@ -106,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3 col-centered">
                                             <img src="{{ asset('images/modules/level.png') }}" />
                                         </div>
                                         <div class="col-sm-2">
@@ -117,7 +121,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3 col-centered">
                                             <img src="{{ asset('images/modules/quest.png') }}" />
                                         </div>
                                         <div class="col-sm-2">
@@ -129,7 +133,7 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-3 col-centered">
                                             <img src="{{ asset('images/modules/leaderboard.png') }}" />
                                         </div>
                                         <div class="col-sm-2">

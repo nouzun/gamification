@@ -13,7 +13,7 @@ class KnowledgeUnitRepository
      */
     public function forTopic($topic_id)
     {
-        return KnowledgeUnit::with("questions")
+        return KnowledgeUnit::with("assignments")
             ->where('knowledge_units.topic_id', $topic_id)
             ->orderBy('created_at', 'asc')
             ->get();

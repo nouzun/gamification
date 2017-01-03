@@ -23,7 +23,6 @@
                     <th>Subjects</th>
                     <th>Description</th>
                     <th>Topics</th>
-                    <th>Assignments</th>
                     <th>&nbsp;</th>
                     </thead>
 
@@ -44,12 +43,6 @@
                                     <div>{{ $topic->title }}</div>
                                 @endforeach
                                 <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') }}"><i class="fa fa-edit"></i> Topics</a>
-                            </td>
-                            <td class="table-text col-md-2">
-                                @foreach ($subject->assignments as $assignment)
-                                    <div>Assignment {{ $assignment->id }}</div>
-                                @endforeach
-                                <a href="{{ url('/lectures/'.$lecture->id.'/assignments/subjects/'.$subject->id) }}"><i class="fa fa-edit"></i> Assignments</a>
                             </td>
                             <!-- Delete Button -->
                             <td class="col-md-3">

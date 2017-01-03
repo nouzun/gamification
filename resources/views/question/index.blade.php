@@ -60,14 +60,14 @@
                                         <div>{!! $answer->description !!}</div>
                                     @endif
                                 @endforeach
-                                <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/answers') }}"><i class="fa fa-edit"></i> Answers</a>
+                                <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'. $assignment_id .'/questions/'.$question->id.'/answers') }}"><i class="fa fa-edit"></i> Answers</a>
 
                             </td>
                             <!-- Delete Button -->
                             <td class="col-md-2">
                                 <div class="btn-group pull-right">
-                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
-                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
+                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'. $assignment_id .'/questions/'.$question->id.'/edit') }}" type="button" class="btn btn-default"><i class="fa fa-edit"></i> Edit</a>
+                                    <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'. $assignment_id .'/questions/'.$question->id.'/destroy') }}" type="button" class="btn btn-danger"><i class="fa fa-trash-o"></i> Delete</a>
                                 </div>
                             </td>
                         </tr>
@@ -79,7 +79,7 @@
         @endif
 
             <!-- New Question Form -->
-    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'. $topic_id .'/knowledgeunits/'. $knowledgeunit_id .'/questions') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'. $topic_id .'/knowledgeunits/'. $knowledgeunit_id .'/assignments/'. $assignment_id .'/questions') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
 
                 <!-- Question Title -->

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input;
 use Log;
 use App\Http\Requests;
 
-class AssignmentController extends Controller
+class QuizController extends Controller
 {
     protected $assignments;
 

@@ -44,11 +44,6 @@ class Subject extends Model
         return $this->belongsTo(Lecture::class);
     }
 
-    public function assignments()
-    {
-        return $this->hasMany(Assignment::class);
-    }
-
     public function goals()
     {
         return $this->belongsToMany(Goal::class, 'goals_subjects', 'goal_id', 'subject_id')->withTimestamps();

@@ -63,34 +63,45 @@
                         <div class="@if(!$topic->enable) disabled @endif">
                             <div class="col-sm-12">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
                                                 <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/content') }}"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</a>
                                             </div>
                                         </div>
-                                    </div>
-                                    @foreach($topic->knowledgeunits as $ku_index => $knowledgeunit)
-                                            <div class="col-sm-2">
-                                                <div class="panel panel-default">
-                                                    <div class="panel-body">
-                                                        @if ($knowledgeunit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
-                                                            <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/quiz') }}">Easy</a>
-                                                        @elseif($knowledgeunit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
-                                                            <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/quiz') }}">Medium</a>
-                                                        @elseif($knowledgeunit->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
-                                                            Hard
-                                                        @else
-                                                            Not defined
-                                                        @endif
-                                                        @if($knowledgeunit->done)
-                                                            <i class="fa fa-check"></i>
-                                                        @endif
+                                        @foreach($topic->knowledgeunits as $ku_index => $knowledgeunit)
+                                            <div class="row">
+                                                <div class="col-xs-5 col-sm-5 col-sm-offset-1">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-body">
+                                                            {{$knowledgeunit->title}}
+                                                        </div>
                                                     </div>
-
                                                 </div>
+                                                @foreach($knowledgeunit->assignments as $assignment)
+                                                    <div class="col-xs-2 col-sm-2">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-body">
+                                                                @if ($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_EASY'))
+                                                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/quiz') }}">Easy</a>
+                                                                @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_MEDIUM'))
+                                                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/quiz') }}">Medium</a>
+                                                                @elseif($assignment->difficulty_level == Config::get('constants.KNOWLEDGEUNIT_DIFFICULTY_LEVEL_HARD'))
+                                                                    Hard
+                                                                @else
+                                                                    Not defined
+                                                                @endif
+                                                                @if($assignment->done)
+                                                                    <i class="fa fa-check"></i>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                    @endforeach
+                                        @endforeach
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

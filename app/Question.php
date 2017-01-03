@@ -12,9 +12,9 @@ class Question extends Model
     );
     protected $fillable = ['title','description'];
 
-    public function knowledge_unit()
+    public function assignment()
     {
-        return $this->belongsTo(KnowledgeUnit::class);
+        return $this->belongsTo(Assignment::class);
     }
 
     public function answers()

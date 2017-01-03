@@ -183,15 +183,15 @@ Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/know
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/destroy', 'KnowledgeUnitController@destroy');
 
 // Questions
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions', 'QuestionController@indexWithInstance');
-Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions', 'QuestionController@store');
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/edit', 'QuestionController@edit');
-Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/edit', 'QuestionController@update');
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/destroy', 'QuestionController@destroy');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions', 'QuestionController@indexWithInstance');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions', 'QuestionController@store');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/edit', 'QuestionController@edit');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/edit', 'QuestionController@update');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/destroy', 'QuestionController@destroy');
 
 // Answers
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers', 'AnswerController@indexWithInstance');
-Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers', 'AnswerController@store');
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@edit');
-Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@update');
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/questions/{question_id}/answers/{answer_id}/destroy', 'AnswerController@destroy');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers', 'AnswerController@indexWithInstance');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers', 'AnswerController@store');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@edit');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@update');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers/{answer_id}/destroy', 'AnswerController@destroy');

@@ -32,6 +32,7 @@
             </div>
         </div>
 
+        <!--
         <div class="form-group">
             <label for="task-name" class="col-sm-2 control-label">Difficulty Level</label>
 
@@ -49,7 +50,7 @@
                 </div>
             </div>
         </div>
-
+        -->
         <!-- Update Knowledge Unit Button -->
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-6">

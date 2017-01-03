@@ -58,13 +58,12 @@ class KnowledgeUnitController extends Controller
     public function indexWithQuiz(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id)
     {
         $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
-        $questionsAll = new Collection;
+        //$questionsAll = new Collection;
 
-        $questionsAll = $questionsAll->merge($knowledgeunit->questions()->get());
+        //$questionsAll = $questionsAll->merge($knowledgeunit->questions()->get());
 
         $data = array(
             'knowledgeunit'  => $knowledgeunit,
-            'questionsAll' => $questionsAll,
         );
         if(isset($subject_id)) {
             $subject = Subject::find($subject_id);
@@ -89,17 +88,10 @@ class KnowledgeUnitController extends Controller
         $knowledgeUnit = new KnowledgeUnit();
         $knowledgeUnit->title = $request->title;
         $knowledgeUnit->description = $request->description;
-        $knowledgeUnit->difficulty_level = $request->difficulty_level;
 
         $knowledgeUnit->topic()->associate($topic);
         $knowledgeUnit->save();
-/*
-        $assignment = new Assignment();
-        $assignment->subject()->associate($subject);
-        $assignment->topic()->associate($topic);
-        $assignment->save();
-        $assignment->knowledgeunits()->attach($knowledgeUnit->id);
-*/
+
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
     }
 
@@ -152,7 +144,6 @@ class KnowledgeUnitController extends Controller
         $knowledgeunit = KnowledgeUnit::find($knowledgeunit_id);
         $knowledgeunit->title = $request->title;
         $knowledgeunit->description = $request->description;
-        $knowledgeunit->difficulty_level = $request->difficulty_level;
         $knowledgeunit->save();
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
     }
