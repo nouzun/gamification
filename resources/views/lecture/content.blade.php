@@ -98,6 +98,21 @@
                             </div>
                         </div>
                     @endforeach
+                    @if ($lecture->g_quest)
+                        @foreach($subject->quizzes as $q_index => $quiz)
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a href="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/quiz/'.$quiz->id.'/') }}">
+                                            <div class="alert alert-warning">
+                                                <span class="topic-icon fa fa-star"></span>Quiz {{ ($q_index + 1) }}
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             @endforeach
     </div>
