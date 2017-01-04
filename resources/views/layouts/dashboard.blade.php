@@ -80,24 +80,23 @@
                                     <div>
                                         <p>
                                             <strong>{{ $subject->title }}</strong>
-                                            @if (count($subject->assignments)>0)
-                                                <span class="pull-right text-muted">{{($subject->assignmentDoneCount / count($subject->assignments) * 100)}}% Complete </span>
-                                            @else
+                                            @if ($subject->assignmentTotal == 0)
                                                 <br />There's no assignment yet!
                                             @endif
                                         </p>
-                                        @if (count($subject->assignments)>0)
-                                            <div>
+                                        @if ($subject->assignmentTotal > 0)
+                                            <div>&nbsp;
+                                                <span class="pull-right text-muted">{{number_format($subject->assignmentDoneCount / $subject->assignmentTotal * 100, 2)}}% Completed </span>
                                                 @if ($index % 4 == 0)
-                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'success', 'value'=> ($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'success', 'value'=> ($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
                                                 @elseif($index % 4 == 1)
-                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'info', 'value'=>($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'info', 'value'=>($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
                                                 @elseif($index % 4 == 2)
-                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'warning', 'value'=>($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'warning', 'value'=>($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
                                                 @else
-                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'danger', 'value'=>($subject->assignmentDoneCount / count($subject->assignments) * 100)))
+                                                    @include('widgets.progress', array('animated'=> true, 'class'=>'danger', 'value'=>($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
                                                 @endif
-                                                <span class="sr-only">{{($subject->assignmentDoneCount / count($subject->assignments) * 100)}}% Complete (success)</span>
+                                                <span class="sr-only">{{number_format($subject->assignmentDoneCount / $subject->assignmentTotal * 100, 2)}}% Completed</span>
 
                                             </div>
                                         @endif

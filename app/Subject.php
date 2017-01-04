@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Log;
 
 class Subject extends Model
 {
@@ -17,16 +18,50 @@ class Subject extends Model
     );
     protected $fillable = ['title','description'];
 
-    protected $appends = ['assignmentDoneCount'];
+    protected $appends = ['assignmentDoneCount', 'assignmentTotal'];
+
+    function getAssignmentTotalAttribute() {
+        $numberOfTotalAssignment = DB::table('assignments')
+            ->select(DB::raw('COUNT(id) as numberOfTotalAssignment'))
+            ->whereIn('assignments.knowledge_unit_id', function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('knowledge_units')
+                    ->whereIn('topic_id', function($query)
+                    {
+                        $query->select(DB::raw(1))
+                            ->from('topics')
+                            ->where('topics.subject_id', '=', $this->id);
+                    });
+            })
+            ->pluck('numberOfTotalAssignment');
+
+        if (!is_numeric($numberOfTotalAssignment)) $numberOfTotalAssignment = 0;
+
+        Log::info('$numberOfTotalAssignment: '.$numberOfTotalAssignment);
+
+        return $numberOfTotalAssignment;
+    }
 
     function getAssignmentDoneCountAttribute() {
         $numberOfFinishedAssignment = DB::table('users_assignments')
             ->leftJoin('assignments', 'users_assignments.assignment_id', '=', 'assignments.id')
             ->select(DB::raw('COUNT(assignments.id) as numberOfFinishedAssignment'))
             ->where('user_id', '=', Auth::user()->id)
-            ->where('assignments.subject_id', '=', $this->id)
-            ->groupBy('assignments.subject_id')
+            ->whereIn('assignments.knowledge_unit_id', function($query)
+            {
+                $query->select(DB::raw(1))
+                    ->from('knowledge_units')
+                    ->whereIn('topic_id', function($query)
+                    {
+                        $query->select(DB::raw(1))
+                            ->from('topics')
+                            ->where('topics.subject_id', '=', $this->id);
+                    });
+            })
             ->pluck('numberOfFinishedAssignment');
+
+        Log::info('querty: '.$numberOfFinishedAssignment);
 
         if (!is_numeric($numberOfFinishedAssignment)) $numberOfFinishedAssignment = 0;
 
