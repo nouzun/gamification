@@ -100,4 +100,22 @@ class QuizController extends Controller
             [$point, $request->user()->id, $assignment_id]);
         return redirect('/lectures/'.$lecture_id.'/assignments');
     }
+
+    public function storeQuizAnswers(Request $request, $lecture_id, $subject_id, $quiz_id)
+    {
+        $point = 0;
+        $answers = Input::get('answers');
+        $request->user()->quizzes()->attach(array($quiz_id));
+        $request->user()->answers()->attach($answers);
+
+        foreach($answers as $answer_id) {
+            $answer = Answer::find($answer_id);
+            if ($answer->correct) {
+                $point++;
+            }
+        }
+        DB::update('UPDATE (users_quizzes) SET point=? WHERE user_id=? AND quiz_id=?',
+            [$point, $request->user()->id, $quiz_id]);
+        return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/quizzes/'.$quiz_id);
+    }
 }

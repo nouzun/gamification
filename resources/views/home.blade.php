@@ -150,10 +150,22 @@
                                             </p>
                                         </div>
                                         <div class="timeline-body">
-                                            <p>You posted Assignment {{ $feed->assignment_id }} and earned <strong>{{ $feed->point }}</strong> point.</p>
+                                            <p>You posted an Assignment {{ $feed->assignment_id }} and earned <strong>{{ $feed->point }}</strong> point.</p>
                                         </div>
                                     </div>
-
+                            @elseif ($feed->type == 'quiz')
+                                    <div class="timeline-badge success"><i class="fa fa-star"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">You finished a Quiz</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }} </small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>You posted a Quiz and earned <strong>{{ $feed->point }}</strong> point.</p>
+                                        </div>
+                                    </div>
                             @elseif ($feed->type == 'reminder')
                                     <div class="timeline-badge warning"><i class="fa fa-bomb"></i>
                                     </div>

@@ -25,13 +25,24 @@ class HomeController extends Controller
 
     public function leaderBoard(){
 
-        $top_users = DB::table('users_assignments')
-            ->leftJoin('users', 'users_assignments.user_id', '=', 'users.id')
-            ->select(DB::raw('user_id, SUM(point) as points, users.first_name, users.last_name'))
-            ->groupBy('user_id')
-            ->orderBy('points', 'desc')
-            ->take(10)
-            ->get();
+        $top_users = DB::select(DB::raw('
+                SELECT id, SUM( t_union.point ) AS points, first_name, last_name
+                FROM users
+                LEFT JOIN (
+                (
+                SELECT user_id, POINT
+                FROM users_assignments
+                )
+                UNION ALL
+                (
+                SELECT user_id, POINT
+                FROM users_quizzes
+                )
+                )t_union ON users.id = t_union.user_id
+                WHERE id = t_union.user_id
+                GROUP BY id
+                ORDER BY points DESC
+                LIMIT 10'));
 
         return $top_users;
     }

@@ -103,7 +103,7 @@
                             <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a href="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/quiz/'.$quiz->id.'/') }}">
+                                        <a href="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/quizzes/'.$quiz->id.'/') }}">
                                             <div class="alert alert-warning">
                                                 <span class="topic-icon fa fa-star"></span>Quiz {{ ($q_index + 1) }}
                                             </div>

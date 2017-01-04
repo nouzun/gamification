@@ -115,9 +115,11 @@
     @endif
     <div class="header">
         <div>{{ count($quiz->questions) }} questions</div>
-        <div>Remaining time <h4 id="clock" style="display: inline-block;"></h4></div>
+        @if ( $quiz->done == 0 )
+            <div>Remaining time <h4 id="clock" style="display: inline-block;"></h4></div>
+        @endif
     </div>
-    <form action="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/quiz/'. $quiz->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
+    <form action="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/quizzes/'. $quiz->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
         {{ csrf_field() }}
         <div class="col-sm-12">
             @foreach ($quiz->questions as $index => $question)

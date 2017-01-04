@@ -159,9 +159,10 @@ Route::get('/lectures/{lecture_id}/goals/{goal_id}/destroy', 'GoalController@des
 // Quizzes
 Route::get('/lectures/quizzes', 'QuizController@manage');
 Route::get('/lectures/{lecture_id}/quizzes', 'QuizController@index');
-Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quiz/{quiz_id}', 'QuizController@indexWithQuiz');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}', 'QuizController@indexWithQuiz');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes', 'QuizController@addQuiz');
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/quiz', 'QuizController@store');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}', 'QuizController@storeQuizAnswers');
 Route::delete('/lectures/{lecture_id}/subjects/{subject_id}/quiz/{quiz_id}', 'QuizController@destroy');
 
 // Topics

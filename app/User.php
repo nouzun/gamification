@@ -78,19 +78,24 @@ class User extends Model implements AuthenticatableContract,
 
     function getPointsAttribute() {
 
-        $points = DB::table('users_assignments')
+        $points_assingments = DB::table('users_assignments')
             ->select(DB::raw('SUM(point) as points'))
             ->where('user_id', '=', $this->id)
             ->pluck('points');
 
-        Log::info('$points: '.$points);
+        if (!is_numeric($points_assingments)) $points_assingments = 0;
 
-        if (!is_numeric($points)) $points = 0;
+        $points_quizzes = DB::table('users_quizzes')
+            ->select(DB::raw('SUM(point) as points'))
+            ->where('user_id', '=', $this->id)
+            ->pluck('points');
+
+        if (!is_numeric($points_quizzes)) $points_quizzes = 0;
         /*
             $point = DB::select('SELECT point FROM users_assignments WHERE user_id=? AND assignment_id=?',
                 [Auth::user()->id, $this->id]);
         */
-        return $points;
+        return $points_assingments + $points_quizzes;
     }
 
     function getTimelineAttribute() {
@@ -111,9 +116,14 @@ class User extends Model implements AuthenticatableContract,
                     ->where('users_assignments.user_id', '=', $this->id);
             });
 
+        $quizzes = DB::table('users_quizzes')
+            ->select(DB::raw('quiz_id, point, null, created_at as date,  \'quiz\' as type'))
+            ->where('user_id', '=', $this->id);
+
         $timeline = DB::table('users_assignments')
             ->select(DB::raw('assignment_id, point, null, created_at as date,  \'assignment\' as type'))
             ->where('user_id', '=', $this->id)
+            ->union($quizzes)
             ->union($waiting_assignments)
             ->orderBy('date', 'desc')
             ->get();
@@ -129,6 +139,11 @@ class User extends Model implements AuthenticatableContract,
     public function assignments()
     {
         return $this->belongsToMany(Assignment::class, 'users_assignments', 'user_id', 'assignment_id')->withTimestamps();
+    }
+
+    public function quizzes()
+    {
+        return $this->belongsToMany(Assignment::class, 'users_quizzes', 'user_id', 'quiz_id')->withTimestamps();
     }
 /*
     public function knowledgeunits()
