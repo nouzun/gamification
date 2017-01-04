@@ -1,12 +1,27 @@
 @extends('layouts.dashboard')
 @section('page-script')
+    <script type="text/javascript" src="{{ asset('assets/jquery.countdown-2.2.0/jquery.countdown.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var done = {{ $assignment->done }};
+            var done = {{ $quiz->done }};
             if (done == 1) {
                 $('#form-quiz').find(':input').prop('disabled', true);
+            } else {
+                var $clock = $('#clock');
+
+                $clock.countdown(getQuizDurationFromNow(), function(event) {
+                    $(this).html(event.strftime('%M:%S'));
+                }).on('finish.countdown', function(event) {
+                    alert("Time's Up!");
+                    $('#form-quiz').find(':input:not(.btn)').prop('disabled', true);
+                });
             }
         });
+        // 15 days from now!
+        function getQuizDurationFromNow() {
+            var duration = {{ $quiz->duration }}; // minutes
+            return new Date(new Date().valueOf() + duration * 60 * 1000);
+        }
     </script>
     <style>
         .question-number {
@@ -72,13 +87,17 @@
             background-color: #dff0d8;
             border-color: #d6e9c6;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
     @stop
 @section('page_heading_tree')
     <div>
         {{ $subject->title }}
         <span class="fa fa-chevron-right"></span>
-        Assignment {{ $assignment->id }}
+        Quiz {{ $quiz->id }}
     </div>
     @stop
 @section('page_heading','Quiz')
@@ -89,16 +108,19 @@
 <div class="panel-body">
     <!-- Display Validation Errors -->
     @include('common.errors')
-    @if ( $assignment->done == 1 )
+    @if ( $quiz->done == 1 )
         <div class="alert alert-success " role="alert">
-            <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this assignment and earned <strong>{{ $assignment->point }}</strong> points.
+            <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this assignment and earned <strong>{{ $quiz->point }}</strong> points.
         </div>
     @endif
-    <div>{{ count($questionsAll) }} questions</div>
-    <form action="{{ url('/lectures/'.$subject->lecture_id.'/assignments/subjects/'.$subject->id.'/quiz/'. $assignment->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
+    <div class="header">
+        <div>{{ count($quiz->questions) }} questions</div>
+        <div>Remaining time <h4 id="clock" style="display: inline-block;"></h4></div>
+    </div>
+    <form action="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/quiz/'. $quiz->id ) }}" method="POST" class="form-horizontal" id ="form-quiz">
         {{ csrf_field() }}
         <div class="col-sm-12">
-            @foreach ($questionsAll as $index => $question)
+            @foreach ($quiz->questions as $index => $question)
                 <div class="row">
                     <div class="col-sm-1">
                         <span class="question-number">{{$index + 1}}.</span>
@@ -109,12 +131,12 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        @if ($assignment->done && $answer->correct)
+                                        @if ($quiz->done && $answer->correct)
                                             <div class="answer answer-success">
                                         @else
                                             <div class="answer">
                                         @endif
-                                        @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
+                                        @if ( $quiz->done && Auth::User()->answers->contains($answer->id) )
                                             <input type="checkbox" name="answers[{{$index}}]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}" checked="checked">
                                         @else
                                             <input type="checkbox" name="answers[{{$index}}]" id="quiz-answer" class="answer-checkbox" value="{{ $answer->id }}">
@@ -128,12 +150,12 @@
                             @foreach ($question->answers as $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
-                                        @if ($assignment->done && $answer->correct)
+                                        @if ($quiz->done && $answer->correct)
                                             <div class="answer answer-success">
                                         @else
                                             <div class="answer">
                                         @endif
-                                        @if ( $assignment->done && Auth::User()->answers->contains($answer->id) )
+                                        @if ( $quiz->done && Auth::User()->answers->contains($answer->id) )
                                             <input type="radio" name="answers[{{$index}}]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}" checked="checked">
                                         @else
                                             <input type="radio" name="answers[{{$index}}]" id="quiz-answer" class="answer-radio" value="{{ $answer->id }}">
@@ -148,7 +170,7 @@
                 </div>
             @endforeach
         </div>
-        @if ( $assignment->done != 1 )
+        @if ( $quiz->done != 1 )
         <div class="form-group">
             <div class="col-sm-12" style="text-align: right">
                 <button type="submit" class="btn btn-default">

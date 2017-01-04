@@ -137,7 +137,7 @@ Route::get('/lectures/{lecture_id}/edit', 'LectureController@edit');
 Route::post('/lectures/{lecture_id}/edit', 'LectureController@update');
 Route::get('/lectures/{lecture_id}/destroy', 'LectureController@destroy');
 Route::get('/lectures/{lecture_id}/content', 'LectureController@content');
-Route::get('/lectures/{lecture_id}/assignments', 'LectureController@assignment');
+Route::get('/lectures/{lecture_id}/assignments', 'QuizController@assignment');
 
 // Subjects
 Route::get('/lectures/{lecture_id}/subjects', 'SubjectController@indexWithInstance');
@@ -156,13 +156,13 @@ Route::get('/lectures/{lecture_id}/goals/{goal_id}/edit', 'GoalController@edit')
 Route::post('/lectures/{lecture_id}/goals/{goal_id}/edit', 'GoalController@update');
 Route::get('/lectures/{lecture_id}/goals/{goal_id}/destroy', 'GoalController@destroy');
 
-// Assignments
-Route::get('/lectures/{lecture_id}/assignments', 'AssignmentController@index');
-Route::get('/lectures/{lecture_id}/assignments/subjects/{subject_id}', 'AssignmentController@indexWithInstance');
-Route::get('/lectures/{lecture_id}/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@indexWithQuiz');
-Route::post('/lectures/{lecture_id}/assignments/subjects/{subject_id}', 'AssignmentController@store');
-Route::post('/lectures/{lecture_id}/assignments/subjects/{subject_id}/quiz/{assignment_id}', 'AssignmentController@storeQuiz');
-Route::delete('/lectures/{lecture_id}/assignment/{subject}', 'AssignmentController@destroy');
+// Quizzes
+Route::get('/lectures/quizzes', 'QuizController@manage');
+Route::get('/lectures/{lecture_id}/quizzes', 'QuizController@index');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quiz/{quiz_id}', 'QuizController@indexWithQuiz');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes', 'QuizController@addQuiz');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/quiz', 'QuizController@store');
+Route::delete('/lectures/{lecture_id}/subjects/{subject_id}/quiz/{quiz_id}', 'QuizController@destroy');
 
 // Topics
 Route::get('/topics', 'TopicController@index');
@@ -191,9 +191,23 @@ Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowl
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/edit', 'QuestionController@update');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/destroy', 'QuestionController@destroy');
 
+// Quiz Questions
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions', 'QuestionController@indexWithQuiz');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions', 'QuestionController@storeWithQuiz');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/edit', 'QuestionController@editWithQuiz');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/edit', 'QuestionController@updateWithQuiz');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/destroy', 'QuestionController@destroyWithQuiz');
+
 // Answers
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers', 'AnswerController@indexWithInstance');
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers', 'AnswerController@store');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@edit');
 Route::post('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@update');
 Route::get('/lectures/{lecture_id}/subjects/{subject_id}/topics/{topic_id}/knowledgeunits/{knowledgeunit_id}/assignments/{assignment_id}/questions/{question_id}/answers/{answer_id}/destroy', 'AnswerController@destroy');
+
+// Quiz Answers
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/answers', 'AnswerController@indexWithQuiz');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/answers', 'AnswerController@storeWithQuiz');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@editWithQuiz');
+Route::post('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@updateWithQuiz');
+Route::get('/lectures/{lecture_id}/subjects/{subject_id}/quizzes/{quiz_id}/questions/{question_id}/answers/{answer_id}/destroy', 'AnswerController@destroyWithQuiz');

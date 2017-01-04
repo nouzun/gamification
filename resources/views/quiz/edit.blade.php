@@ -66,10 +66,10 @@
     <div>
         {{ $subjectOnly->title }}
         <span class="fa fa-chevron-right"></span>
-        Assignments
+        Quizzes
     </div>
     @stop
-@section('page_heading','Assignments')
+@section('page_heading','Quizzes')
 @section('section')
 
 <!-- Bootstrap Boilerplate... -->
@@ -79,7 +79,7 @@
     @include('common.errors')
     <div class="panel panel-default">
         <div class="panel-heading">
-            Current Assignments
+            Current Quizzes
         </div>
 
         <div class="panel-body">
@@ -88,27 +88,30 @@
                 <!-- Table Headings -->
                 <thead>
                 <th>Id</th>
+                <th>Duration</th>
                 <th>Due Date</th>
-                <th>Knowledge Units</th>
+                <th>Questions</th>
                 <th>&nbsp;</th>
                 </thead>
 
                 <!-- Table Body -->
                 <tbody>
-                @foreach ($subjectOnly->assignments as $assignment)
+                @foreach ($subjectOnly->quizzes as $quiz)
                     <tr>
-                        <!-- Topic Name -->
                         <td class="table-text">
-                            <div>{{ $assignment->id }}</div>
-                        </td>
-                        <!-- Topic Description -->
-                        <td class="table-text">
-                            <div>{{ $assignment->due_date }}</div>
+                            <div>{{ $quiz->id }}</div>
                         </td>
                         <td class="table-text">
-                            @foreach ($assignment->knowledgeunits as $knowledgeunit)
-                                <div>{{ $knowledgeunit->title }} <i>({{ $knowledgeunit->topic->title }})</i></div>
+                            <div>{{ $quiz->duration }} min.</div>
+                        </td>
+                        <td class="table-text">
+                            <div>{{ $quiz->due_date }}</div>
+                        </td>
+                        <td class="table-text">
+                            @foreach ($quiz->questions as $question)
+                                <div>{{ $question->title }}</div>
                             @endforeach
+                                <a href="{{ url('/lectures/'.$subjectOnly->lecture->id.'/subjects/'.$subjectOnly->id.'/quizzes/'.$quiz->id.'/questions') }}"><i class="fa fa-edit"></i> Questions</a>
                         </td>
                         <!-- Delete Button -->
                         <td class="col-md-3">
@@ -125,11 +128,29 @@
     </div>
 
     <!-- New Assignment Form -->
-    <form action="{{ url('/assignments/subjects/'.$subjectOnly->id) }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/lectures/'.$subjectOnly->lecture->id.'/subjects/'.$subjectOnly->id.'/quiz') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
         <div class="col-md-12" >
             <div class="row">
                 {{  $subjectOnly->title  }}
+            </div>
+            <div class="row">
+                <div class='col-md-2'>
+                    Duration:
+                </div>
+                <div class='col-md-4'>
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                            <input type='text' class="form-control" name="duration" />
+                            <span class="input-group-addon">
+                                    minutes
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class='col-md-2'>
@@ -150,30 +171,13 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class='col-md-2'>
-                    Knowledge Units:
-                </div>
-                <div class='col-md-10'>
-                    @foreach ($subjectOnly->topics as $topic)
-                        @foreach ($topic->knowledgeunits as $knowledgeunit)
-                            <div class="row">
-                                <div class="checkbox-container">
-                                    <input type="checkbox" name="knowledgeunits[]" id="knowledgeunit" class="input-checkbox" value="{{ $knowledgeunit->id }}">
-                                    <span class="checkbox-text">{{ $topic->title }}: {{ $knowledgeunit->title }} </span>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endforeach
-                </div>
-            </div>
         </div>
 
         <!-- Add Assignment Button -->
         <div class="form-group">
             <div class="col-md-offset-2 col-md-6">
                 <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Create new Assignment
+                    <i class="fa fa-plus"></i> Create new Quiz
                 </button>
             </div>
         </div>

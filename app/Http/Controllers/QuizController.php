@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Assignment;
 use App\Lecture;
-use App\Repositories\AssignmentRepository;
+use App\Quiz;
+use App\Repositories\QuizRepository;
 use App\Subject;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,12 +18,19 @@ use App\Http\Requests;
 
 class QuizController extends Controller
 {
-    protected $assignments;
+    protected $quizzes;
 
-    public function __construct(AssignmentRepository $assignments)
+    public function __construct(QuizRepository $quizzes)
     {
         $this->middleware('auth:all');
-        $this->assignments = $assignments;
+        $this->quizzes = $quizzes;
+    }
+
+    public function manage(Request $request)
+    {
+        return view('quiz.manage', [
+            'lectures' => Lecture::all(),
+        ]);
     }
 
     public function index(Request $request, $lecture_id)
@@ -34,10 +42,10 @@ class QuizController extends Controller
             'subjects'  => $subjects,
         );
 
-        return view('assignment.index', $data);
+        return view('quiz.index', $data);
     }
 
-    public function indexWithInstance(Request $request, $lecture_id, $subject_id)
+    public function addQuiz(Request $request, $lecture_id, $subject_id)
     {
         $subject = Subject::find($subject_id);
         $mytime = Carbon::now();
@@ -45,43 +53,34 @@ class QuizController extends Controller
             'subjectOnly'  => $subject,
             'today' => $mytime->toDateString(),
         );
-        return view('assignment.edit', $data);
+        return view('quiz.edit', $data);
     }
 
-   public function indexWithQuiz(Request $request, $lecture_id, $subject_id, $assignment_id)
+   public function indexWithQuiz(Request $request, $lecture_id, $subject_id, $quiz_id)
    {
-       $assignment = Assignment::find($assignment_id);
-
-       $questionsAll = new Collection;
-
-       foreach ($assignment->knowledgeunits()->get() as $knowledgeunit)
-       {
-           //Log::info('111 $knowledgeunit: '.$knowledgeunit->title);
-           $questionsAll = $questionsAll->merge($knowledgeunit->questions()->get());
-       }
+       $quiz = Quiz::find($quiz_id);
 
        $data = array(
-           'assignment'  => $assignment,
-           'questionsAll' => $questionsAll,
+           'quiz'  => $quiz,
        );
        if(isset($subject_id)) {
            $subject = Subject::find($subject_id);
            $data["subject"] = $subject;
        }
-       return view('assignment.quiz', $data);
+       return view('quiz.quiz', $data);
 
     }
 
     public function store(Request $request, $lecture_id, $subject_id)
     {
         $subject = Subject::find($subject_id);
-        $assignment = new Assignment();
-        $assignment->due_date = $request->due_date.' 23:59';
-        $assignment->subject()->associate($subject);
-        $assignment->save();
-        $assignment->knowledgeunits()->attach(Input::get('knowledgeunits'));
+        $quiz = new Quiz();
+        $quiz->duration = $request->duration;
+        $quiz->due_date = $request->due_date.' 23:59';
+        $quiz->subject()->associate($subject);
+        $quiz->save();
 
-        return redirect('/lectures/'.$lecture_id.'/assignments/subjects/'.$subject_id);
+        return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/quiz');
     }
 
     public function storeQuiz(Request $request, $lecture_id, $subject_id, $assignment_id)

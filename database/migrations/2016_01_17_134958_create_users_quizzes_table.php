@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuizTable extends Migration
+class CreateUsersQuizzesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreateQuizTable extends Migration
      */
     public function up()
     {
-        Schema::create('quiz', function (Blueprint $table) {
-            $table->integer('assignment_id')->index();
-            $table->integer('knowledgeunit_id')->index();
+        Schema::create('users_quizzes', function (Blueprint $table) {
+            $table->integer('user_id');
+            $table->integer('quiz_id');
+            $table->integer('point');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateQuizTable extends Migration
      */
     public function down()
     {
-        Schema::drop('quiz');
+        Schema::drop('users_quizzes');
     }
 }

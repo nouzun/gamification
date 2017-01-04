@@ -48,4 +48,10 @@ class Subject extends Model
     {
         return $this->belongsToMany(Goal::class, 'goals_subjects', 'goal_id', 'subject_id')->withTimestamps();
     }
+
+    public function quizzes()
+    {
+        return $this->hasMany(Quiz::class);
+    }
+
 }

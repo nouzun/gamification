@@ -74,7 +74,7 @@
     @stop
 @section('page_heading_tree')
     @stop
-@section('page_heading','Assignments')
+@section('page_heading','Quizzes')
 @section('section')
 
 <!-- Bootstrap Boilerplate... -->
@@ -87,36 +87,41 @@
 
 
             @foreach ($subjects as $subject)
-                @if (count($subject->assignments) > 0)
+                @if (count($subject->quizzes) > 0)
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="row">
                                 <h4 class="name-margin headline-2-text">{{ $subject->title }}</h4>
                             </div>
-                            @foreach ($subject->assignments as $assignment)
-                                @if ( $assignment->done == 1 )
+                            @foreach ($subject->quizzes as $quiz)
+                                @if ( $quiz->done == 1 )
                                     <div class="row assignment horizontal-box hover-color headline-1-text text-muted">
                                 @else
                                     <div class="row assignment horizontal-box hover-color headline-1-text">
                                 @endif
-                                    <a href="{{ url('/lectures/'.$subject->lecture_id.'/assignments/subjects/'.$subject->id.'/quiz/'.$assignment->id.'/') }}">
-                                        <div class="col-sm-5 od-item">
+                                    <a href="{{ url('/lectures/'.$subject->lecture_id.'/subjects/'.$subject->id.'/quiz/'.$quiz->id.'/') }}">
+                                        <div class="col-sm-3 od-item">
                                             <span class="fa fa-star od-icon"></span>
-                                            <span>{{ $subject->title }}: Assignment {{ $assignment->id }}</span>
+                                            <span>Quiz {{ $quiz->id }}</span>
                                         </div>
                                     </a>
                                         <div class="col-sm-3 od-item">
-                                            Due: {{ date('F d, Y', strtotime($assignment->due_date)) }}
+                                            Duration: {{ $quiz->duration }} minutes
+                                        </div>
+                                        <div class="col-sm-3 od-item">
+                                            Until: {{ date('F d, Y', strtotime($quiz->due_date)) }}
                                         </div>
                                         <div class="col-sm-2 od-item">
-                                            @if ( ! empty($assignment->point) )
-                                            Point: {{ $assignment->point }}
+                                            @if ( ! empty($quiz->point) )
+                                            Point: {{ $quiz->point }}
                                             @endif
                                         </div>
                                     </div>
                             @endforeach
                         </div>
                     </div>
+                @else
+                    There is no quiz available for this course.
                 @endif
             @endforeach
 

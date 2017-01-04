@@ -17,7 +17,11 @@
     @stop
 @section('section')
     <!-- Edit Question Form -->
-    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
+    @if (isset($quiz_id))
+        <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/quizzes/'.$quiz_id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
+    @else
+        <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
+    @endif
         {{ csrf_field() }}
 
         <!-- Question Title -->

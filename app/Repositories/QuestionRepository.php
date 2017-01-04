@@ -18,4 +18,12 @@ class QuestionRepository
             ->orderBy('created_at', 'asc')
             ->get();
     }
+
+    public function forQuiz($quiz_id)
+    {
+        return Question::with("answers")
+            ->where('questions.quiz_id', $quiz_id)
+            ->orderBy('created_at', 'asc')
+            ->get();
+    }
 }

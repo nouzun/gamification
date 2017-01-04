@@ -226,18 +226,18 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-star"></i> Assignments<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-star"></i> Quizzes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 @foreach(\App\Lecture::all() as $lecture)
-                                    <li {{ (Request::is('*assignments') ? 'class="active"' : '') }}>
-                                        <a href="{{ url ('/lectures/'.$lecture->id.'/assignments') }}">{{ $lecture->title }}</a>
+                                    <li {{ (Request::is('*quizzes') ? 'class="active"' : '') }}>
+                                        <a href="{{ url ('/lectures/'.$lecture->id.'/quizzes') }}">{{ $lecture->title }}</a>
                                     </li>
                                 @endforeach
                             </ul>
                         </li>
                     @if (Auth::user()->hasRole('administrator'))
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Admin Panel<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Instructor Panel<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li {{ (Request::is('*manage') ? 'class="active"' : '') }}>
                                     <a href="{{ url ('/lectures/manage') }}">Lesson Preparation</a>

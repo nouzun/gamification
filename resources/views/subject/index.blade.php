@@ -23,6 +23,9 @@
                     <th>Subjects</th>
                     <th>Description</th>
                     <th>Topics</th>
+                    @if ($lecture->g_quest)
+                        <th>Quizzes</th>
+                    @endif
                     <th>&nbsp;</th>
                     </thead>
 
@@ -38,12 +41,20 @@
                             <td class="table-text col-md-3">
                                 <div>{{ $subject->description }}</div>
                             </td>
-                            <td class="table-text col-md-2">
+                            <td class="table-text col-md-3">
                                 @foreach ($subject->topics as $topic)
                                     <div>{{ $topic->title }}</div>
                                 @endforeach
                                 <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/') }}"><i class="fa fa-edit"></i> Topics</a>
                             </td>
+                            @if ($lecture->g_quest)
+                                <td class="table-text col-md-1">
+                                    @foreach ($subject->quizzes as $quiz)
+                                        <div>{{ $quiz->id }}</div>
+                                    @endforeach
+                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/quizzes/') }}"><i class="fa fa-edit"></i> Quizzes</a>
+                                </td>
+                            @endif
                             <!-- Delete Button -->
                             <td class="col-md-3">
                                 <div class="btn-group pull-right">
