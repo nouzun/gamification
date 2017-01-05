@@ -25,22 +25,31 @@ class Topic extends Model
 
         $previousTopicID = Topic::where('id', '<', $this->id)->max('id');
 
+        Log::info('$previousTopicID: '.$previousTopicID);
+
         if (is_null($previousTopicID)) {
             $enable = 1;
         } else {
             Log::info('111 $this->id: '.$this->id.' $previousTopicID: '.$previousTopicID);
 
-            /*
-            $easyKUofPreviousTopic = KnowledgeUnit::where('topic_id', '=', $previousTopicID)
-                ->where('difficulty_level', '=', '1')
-                ->pluck('id');
+            $lastEasyAssignment = DB::table('assignments')
+                ->select(DB::raw('assignments.id'))
+                ->where('difficulty_level', '=', 1)
+                ->whereIn('assignments.knowledge_unit_id', function($query) use ($previousTopicID)
+                {
+                    $query->select(DB::raw('knowledge_units.id'))
+                        ->from('knowledge_units')
+                        ->where('topic_id', '=', $previousTopicID);
+                })
+                ->max('id');
 
-            $is_done_query = DB::table('users_knowledgeunits')
+            Log::info('$lastEasyAssignment: '.$lastEasyAssignment);
+
+            $is_done_query = DB::table('users_assignments')
                 ->where('user_id', '=', Auth::user()->id)
-                ->where('knowledgeunit_id', '=', $easyKUofPreviousTopic)
+                ->where('assignment_id', '=', $lastEasyAssignment)
                 ->first();
-*/
-            $is_done_query = 1;
+
             if (!is_null($is_done_query)) {
                 $enable = 1;
             }

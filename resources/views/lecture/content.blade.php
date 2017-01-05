@@ -60,6 +60,7 @@
                         </h4>
                     </div>
                     @foreach($subject->topics as $t_index => $topic)
+                        {{$topic->enable}}
                         <div class="@if(!$topic->enable) disabled @endif">
                             <div class="col-sm-12">
                                 <div class="row">

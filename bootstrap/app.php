@@ -41,6 +41,10 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app['events']->listen('artisan.start', function(){
+    \DB::enableQueryLog();
+});
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
