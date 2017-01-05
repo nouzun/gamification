@@ -60,14 +60,14 @@
                         </h4>
                     </div>
                     @foreach($subject->topics as $t_index => $topic)
-                        {{$topic->enable}}
-                        <div class="@if(!$topic->enable) disabled @endif">
+                        <div class="@if($lecture->g_achievement && !$topic->enable) disabled @endif">
                             <div class="col-sm-12">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
                                                 <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/content') }}"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</a>
+                                                @if($lecture->g_achievement && !$topic->enable) <span class="fa fa-lock"></span> @else <span class="fa fa-unlock"> @endif
                                             </div>
                                         </div>
                                         @foreach($topic->knowledgeunits as $ku_index => $knowledgeunit)
