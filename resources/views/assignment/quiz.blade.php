@@ -92,24 +92,26 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
     @if ( $assignment->done == 1 )
-        @if ($goal_done)
-            <div class="alert alert-info" style="text-align: center">
-                Congratulations you reached a goal and earned a Trophy!</br>
-                <span class="bronze-badge fa fa-trophy"></span>
+        @if ($lecture->g_rewarding)
+            @if ($goal_done)
+                <div class="alert alert-info" style="text-align: center">
+                    Congratulations you reached a goal and earned a Trophy!</br>
+                    <span class="bronze-badge fa fa-trophy"></span>
+                </div>
+            @endif
+            @if ($all_easy_done)
+                <div class="alert alert-info" style="text-align: center">
+                    Congratulations you finished all easy assignments and earned a Bronze Badge!</br>
+                    <span class="bronze-badge fa fa-certificate"></span>
+                </div>
+            @endif
+            <div class="alert alert-success " role="alert">
+                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this assignment and earned <strong>{{ $assignment->point }}</strong> points.
             </div>
         @endif
-        @if ($all_easy_done)
-            <div class="alert alert-info" style="text-align: center">
-                Congratulations you finished all easy assignments and earned a Bronze Badge!</br>
-                <span class="bronze-badge fa fa-certificate"></span>
-            </div>
-        @endif
-        <div class="alert alert-success " role="alert">
-            <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this assignment and earned <strong>{{ $assignment->point }}</strong> points.
-        </div>
     @endif
     <div>{{ count($questionsAll) }} questions</div>
-    <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'. $knowledgeunit_id.'/assignments/'.$assignment->id.'/quiz' ) }}" method="POST" class="form-horizontal" id ="form-quiz">
+    <form action="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'. $knowledgeunit_id.'/assignments/'.$assignment->id.'/quiz' ) }}" method="POST" class="form-horizontal" id ="form-quiz">
         {{ csrf_field() }}
         <div class="col-sm-12">
             @foreach ($questionsAll as $index => $question)

@@ -51,7 +51,7 @@ class AssignmentController extends Controller
                 "</a>";
 
 
-            $data["lecture_id"] = $lecture_id;
+            $data["lecture"] = $lecture;
             $data["subject_id"] = $subject_id;
             $data["topic_id"] = $topic_id;
             $data["knowledgeunit_id"] = $knowledgeunit_id;

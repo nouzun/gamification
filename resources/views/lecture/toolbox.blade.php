@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset("assets/bootstrap-toggle-master/css/bootstrap-toggle.min.css") }}" />
     <script type="text/javascript">
         $( document ).ready(function() {
-
             $('.toolbox_module').change(function() {
                 var checked = $(this).prop('checked') ? 1 : 0;
                 var module_name = $(this).attr('data');
@@ -15,10 +14,13 @@
                     url: APP_URL + '/lectures/' + lecture_id + '/toolbox/store',
                     data: {"enable":checked, "module":module_name},
                     success: function( msg ) {
+                        var number = +$("#g_index").text();
                         if(msg == "1"){
                             closest_a.removeClass('disabled');
+                            $("#g_index").html(number+1);
                         } else {
                             closest_a.addClass('disabled');
+                            $("#g_index").html(number-1);
                         }
                     }
                 });
@@ -83,7 +85,7 @@
                             </td>
                             <!-- Gameness Index -->
                             <td class="table-text col-md-2">
-                                <div>3 / 5</div>
+                                <div><span id="g_index">{{ $lecture->g_index }}</span> / 5</div>
                             </td>
                             <td class="table-text">
                                 <div class="col-sm-10">

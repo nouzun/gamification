@@ -75,6 +75,9 @@ class LectureController extends Controller
 
         $lecture = Lecture::find($lecture_id);
         $lecture[$module] = $enable;
+        $g_index = $lecture->g_index;
+        if ($enable) $g_index ++; else $g_index --;
+        $lecture->g_index = $g_index;
         $lecture->save();
 
         return $enable;

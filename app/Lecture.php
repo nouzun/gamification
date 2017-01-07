@@ -15,6 +15,12 @@ class Lecture extends Model
     );
     protected $fillable = ['title','description'];
 
+    protected $appends = ['gamenessIndex'];
+
+    function getGamenessIndexAttribute() {
+
+    }
+
     public function subjects()
     {
         return $this->hasMany(Subject::class);
