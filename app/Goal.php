@@ -12,6 +12,19 @@ class Goal extends Model
     );
     protected $fillable = ['title','description'];
 
+    protected $appends = ['done'];
+
+    function getDoneAttribute() {
+        $done = true;
+        foreach($this->subjects() as $subject){
+            if($subject->allEasyAssignmentsDone == false){
+                $done = false;
+                break;
+            }
+        }
+        return $done;
+    }
+
     public function lecture()
     {
         return $this->belongsTo(Lecture::class);

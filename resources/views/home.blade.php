@@ -150,7 +150,7 @@
                                             </p>
                                         </div>
                                         <div class="timeline-body">
-                                            <p>You posted an Assignment {{ $feed->assignment_id }} and earned <strong>{{ $feed->point }}</strong> point.</p>
+                                            <p>You posted an Assignment {{ $feed->id }} and earned <strong>{{ $feed->point }}</strong> point.</p>
                                         </div>
                                     </div>
                             @elseif ($feed->type == 'quiz')
@@ -166,6 +166,19 @@
                                             <p>You posted a Quiz and earned <strong>{{ $feed->point }}</strong> point.</p>
                                         </div>
                                     </div>
+                                @elseif ($feed->type == 'reward')
+                                    <div class="timeline-badge success"><i class="fa @if(\App\Reward::find($feed->id)->type == 4) fa-trophy @else fa-certificate @endif "></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">You earned a @if(\App\Reward::find($feed->id)->type == 4) Trophy @else Badge @endif</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }} </small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>You finished all easy assignments and earned a <strong>{{ \App\Reward::find($feed->id)->name }}</strong>!</p>
+                                        </div>
+                                    </div>
                             @elseif ($feed->type == 'reminder')
                                     <div class="timeline-badge warning"><i class="fa fa-bomb"></i>
                                     </div>
@@ -176,7 +189,7 @@
                                             </p>
                                         </div>
                                         <div class="timeline-body">
-                                            <p>You have only <strong>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }}</strong> to finish Assignment {{ $feed->assignment_id }}. Hurry up!</p>
+                                            <p>You have only <strong>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($feed->date))->diffForHumans() }}</strong> to finish Assignment {{ $feed->id }}. Hurry up!</p>
                                         </div>
                                     </div>
                             @endif

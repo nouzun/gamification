@@ -72,6 +72,10 @@
             background-color: #dff0d8;
             border-color: #d6e9c6;
         }
+        .bronze-badge {
+            font-size: 40px;
+        }
+
     </style>
     @stop
 @section('page_heading_tree')
@@ -88,6 +92,18 @@
     <!-- Display Validation Errors -->
     @include('common.errors')
     @if ( $assignment->done == 1 )
+        @if ($goal_done)
+            <div class="alert alert-info" style="text-align: center">
+                Congratulations you reached a goal and earned a Trophy!</br>
+                <span class="bronze-badge fa fa-trophy"></span>
+            </div>
+        @endif
+        @if ($all_easy_done)
+            <div class="alert alert-info" style="text-align: center">
+                Congratulations you finished all easy assignments and earned a Bronze Badge!</br>
+                <span class="bronze-badge fa fa-certificate"></span>
+            </div>
+        @endif
         <div class="alert alert-success " role="alert">
             <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  You completed this assignment and earned <strong>{{ $assignment->point }}</strong> points.
         </div>

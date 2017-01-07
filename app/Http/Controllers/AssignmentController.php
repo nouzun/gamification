@@ -8,6 +8,7 @@ use App\KnowledgeUnit;
 use App\Lecture;
 use App\Subject;
 use App\Topic;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -54,6 +55,14 @@ class AssignmentController extends Controller
             $data["subject_id"] = $subject_id;
             $data["topic_id"] = $topic_id;
             $data["knowledgeunit_id"] = $knowledgeunit_id;
+            $data["all_easy_done"] = 0;
+            $data["goal_done"] = 0;
+            if($subject->allEasyAssignmentsDone) {
+                $data["all_easy_done"] = 1;
+                foreach($subject->goals as $goal){
+                    if($goal->done) $data["goal_done"] = 1;
+                }
+            }
         }
         return view('assignment.quiz', $data);
 
@@ -84,7 +93,26 @@ class AssignmentController extends Controller
         }
         DB::update('UPDATE (users_assignments) SET point=? WHERE user_id=? AND assignment_id=?',
             [$point, $request->user()->id, $assignment_id]);
-        return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'.$assignment_id.'/quiz');
+
+        $subject = Subject::find($subject_id);
+
+        if($subject->allEasyAssignmentsDone){
+            $now = Carbon::now()->toDateTimeString();
+            DB::insert('INSERT INTO users_rewards (user_id,reward_id,subject_id,created_at,updated_at) VALUES (?,?,?,?,?)',
+                [$request->user()->id, 1, $subject_id, $now, $now]);
+
+            foreach ($subject->goals as $goal) {
+                if($goal->done) {
+                    DB::insert('INSERT INTO users_rewards (user_id,reward_id,goal_id,created_at,updated_at) VALUES (?,?,?,?,?)',
+                        [$request->user()->id, 4, $goal->id, $now, $now]);
+                }
+            }
+        
+        }
+
+        $redirect_url = '/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'.$assignment_id.'/quiz';
+
+        return redirect($redirect_url);
     }
 
     /**

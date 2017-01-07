@@ -117,14 +117,20 @@ class User extends Model implements AuthenticatableContract,
             });
 
         $quizzes = DB::table('users_quizzes')
-            ->select(DB::raw('quiz_id, point, null, created_at as date,  \'quiz\' as type'))
+            ->select(DB::raw('quiz_id as id, point, null, created_at as date,  \'quiz\' as type'))
+            ->where('user_id', '=', $this->id);
+
+        $rewards = DB::table('users_rewards')
+            ->select(DB::raw('reward_id as id, null, null, created_at as date,  \'reward\' as type'))
+            ->leftJoin('rewards', 'users_rewards.reward_id', '=', 'rewards.id')
             ->where('user_id', '=', $this->id);
 
         $timeline = DB::table('users_assignments')
-            ->select(DB::raw('assignment_id, point, null, created_at as date,  \'assignment\' as type'))
+            ->select(DB::raw('assignment_id as id, point, null, created_at as date,  \'assignment\' as type'))
             ->where('user_id', '=', $this->id)
             ->union($quizzes)
             ->union($waiting_assignments)
+            ->union($rewards)
             ->orderBy('date', 'desc')
             ->get();
 
@@ -159,6 +165,11 @@ class User extends Model implements AuthenticatableContract,
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function rewards()
+    {
+        return $this->hasMany(Reward::class);
     }
 
     public function hasRole($name)

@@ -95,7 +95,7 @@ class QuestionController extends Controller
         ]);
 
 
-        $assignment = KnowledgeUnit::find($assignment_id);
+        $assignment = Assignment::find($assignment_id);
 
         $question = new Question();
         $question->title = $request->title;

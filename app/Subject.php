@@ -18,7 +18,57 @@ class Subject extends Model
     );
     protected $fillable = ['title','description'];
 
-    protected $appends = ['assignmentDoneCount', 'assignmentTotal'];
+    protected $appends = ['assignmentDoneCount', 'assignmentTotal', 'allEasyAssignmentsDone'];
+
+    function getAllEasyAssignmentsDoneAttribute() {
+        $allEasyAssignmentsDone = false;
+
+        $subject_id = $this->id;
+
+        $numberOfEasyAssignment = DB::table('assignments')
+            ->select(DB::raw('COUNT(assignments.id) as numberOfEasyAssignment'))
+            ->where('difficulty_level', '=', 1)
+            ->whereIn('assignments.knowledge_unit_id', function($query) use ($subject_id)
+            {
+                $query->select(DB::raw('knowledge_units.id'))
+                    ->from('knowledge_units')
+                    ->whereIn('knowledge_units.topic_id', function($query) use ($subject_id)
+                    {
+                        $query->select(DB::raw('topics.id'))
+                            ->from('topics')
+                            ->where('topics.subject_id', '=', $subject_id);
+                    });
+            })
+            ->pluck('numberOfEasyAssignment');
+
+        Log::info('########## numberOfEasyAssignment: '.$numberOfEasyAssignment);
+
+        $numberOfFinishedEasyAssignment = DB::table('users_assignments')
+            ->where('users_assignments.user_id', '=', Auth::user()->id)
+            ->leftJoin('assignments', 'users_assignments.assignment_id', '=', 'assignments.id')
+            ->select(DB::raw('COUNT(assignments.id) as numberOfFinishedEasyAssignment'))
+            ->where('assignments.difficulty_level', '=', 1)
+            ->whereIn('assignments.knowledge_unit_id', function($query) use ($subject_id)
+            {
+                $query->select(DB::raw('knowledge_units.id'))
+                    ->from('knowledge_units')
+                    ->whereIn('knowledge_units.topic_id', function($query) use ($subject_id)
+                    {
+                        $query->select(DB::raw('topics.id'))
+                            ->from('topics')
+                            ->where('topics.subject_id', '=', $subject_id);
+                    });
+            })
+            ->pluck('numberOfFinishedEasyAssignment');
+
+        Log::info('$numberOfFinishedEasyAssignment: '.$numberOfFinishedEasyAssignment);
+
+        if($numberOfEasyAssignment == $numberOfFinishedEasyAssignment){
+            $allEasyAssignmentsDone = true;
+        }
+
+        return $allEasyAssignmentsDone;
+    }
 
     function getAssignmentTotalAttribute() {
         $numberOfTotalAssignment = DB::table('assignments')
