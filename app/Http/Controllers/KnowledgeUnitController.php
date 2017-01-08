@@ -72,6 +72,21 @@ class KnowledgeUnitController extends Controller
         $knowledgeUnit->topic()->associate($topic);
         $knowledgeUnit->save();
 
+        $assignment_easy = new Assignment();
+        $assignment_easy->difficulty_level = 1;
+        $assignment_easy->knowledgeUnit()->associate($knowledgeUnit);
+        $assignment_easy->save();
+
+        $assignment_medium = new Assignment();
+        $assignment_medium->difficulty_level = 2;
+        $assignment_medium->knowledgeUnit()->associate($knowledgeUnit);
+        $assignment_medium->save();
+
+        $assignment_hard = new Assignment();
+        $assignment_hard->difficulty_level = 3;
+        $assignment_hard->knowledgeUnit()->associate($knowledgeUnit);
+        $assignment_hard->save();
+
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits');
     }
 

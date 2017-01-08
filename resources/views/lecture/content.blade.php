@@ -46,6 +46,31 @@
             pointer-events:none;
             opacity: 0.5;
         }
+
+        .assignment-easy, .assignment-easy .panel-body {
+            background-color: #c4e3f3;
+        }
+
+        .assignment-easy .panel-default {
+            border-color: #CCC;
+        }
+
+        .assignment-medium .panel-default {
+            border-color: #CCC;
+        }
+
+        .assignment-medium, .assignment-medium .panel-body {
+            background-color: #F4FF77;
+        }
+
+        .assignment-hard, .assignment-hard .panel-body {
+            background-color: #ff8888;
+        }
+
+        .assignment-hard .panel-default {
+            border-color: #CCC;
+        }
+
     </style>
 @stop
 @section('page_heading','Course Content')
@@ -80,12 +105,16 @@
                                                     </div>
                                                 </div>
                                                 @foreach($knowledgeunit->assignments as $assignment)
-                                                    <div class="col-xs-2 col-sm-2">
+                                                    <div class="col-xs-2 col-sm-2 @if($assignment->difficulty_level == 1) assignment-easy @elseif($assignment->difficulty_level == 2) assignment-medium @if($lecture->level <= 1) disabled @endif @else assignment-hard @if($lecture->level <= 2) disabled @endif @endif">
                                                         <div class="panel panel-default">
                                                             <div class="panel-body">
-                                                                <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/assignments/'.$assignment->id.'/quiz') }}">{{ level2Text($assignment->difficulty_level) }}</a>
-                                                                @if($assignment->done)
-                                                                    <i class="fa fa-check"></i>
+                                                                @if (count ($assignment->questions) > 0)
+                                                                    <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/knowledgeunits/'.$knowledgeunit->id .'/assignments/'.$assignment->id.'/quiz') }}">{{ level2Text($assignment->difficulty_level) }}</a>
+                                                                    @if($assignment->done)
+                                                                        <i class="fa fa-check"></i>
+                                                                    @endif
+                                                                @else
+                                                                    -
                                                                 @endif
                                                             </div>
                                                         </div>

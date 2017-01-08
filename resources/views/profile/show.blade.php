@@ -57,8 +57,49 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-8">
+                @foreach(\App\Lecture::all() as $l_index => $lecture)
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">{{$lecture->title}} <span style="float: right">Level: {{$lecture->level}}</span></div>
+                            @foreach($lecture->subjects as $index => $subject)
+                                    <div class="panel-body">
+                                        <a href="#">
+                                            <div>
+                                                <p>
+                                                    <strong>{{ $subject->title }}</strong>
+                                                    @if ($subject->assignmentTotal == 0)
+                                                        <br />There's no assignment yet!
+                                                    @endif
+                                                </p>
+                                                @if ($subject->assignmentTotal > 0)
+                                                    <div>&nbsp;
+                                                        <span class="pull-right text-muted">{{number_format($subject->assignmentDoneCount / $subject->assignmentTotal * 100, 2)}}% Completed </span>
+                                                        @if ($index % 4 == 0)
+                                                            @include('widgets.progress', array('animated'=> true, 'class'=>'success', 'value'=> ($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
+                                                        @elseif($index % 4 == 1)
+                                                            @include('widgets.progress', array('animated'=> true, 'class'=>'info', 'value'=>($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
+                                                        @elseif($index % 4 == 2)
+                                                            @include('widgets.progress', array('animated'=> true, 'class'=>'warning', 'value'=>($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
+                                                        @else
+                                                            @include('widgets.progress', array('animated'=> true, 'class'=>'danger', 'value'=>($subject->assignmentDoneCount / $subject->assignmentTotal * 100)))
+                                                        @endif
+                                                        <span class="sr-only">{{number_format($subject->assignmentDoneCount / $subject->assignmentTotal * 100, 2)}}% Completed</span>
+
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </a>
+                                    </div>
+                            @endforeach
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
 
         @if ($user->isCurrent())
            <!-- <a href="{{url('user/'. $user->id .'/edit')}}">Edit Your Profile</a>-->
         @endif
+    <br />
 @endsection

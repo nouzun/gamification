@@ -50,7 +50,7 @@ class Assignment extends Model
         return $this->belongsToMany(KnowledgeUnit::class, 'quiz', 'assignment_id', 'knowledgeunit_id')->withTimestamps();
     }
     */
-    public function knowledgeunit()
+    public function knowledgeUnit()
     {
         return $this->belongsTo(KnowledgeUnit::class);
     }
