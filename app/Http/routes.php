@@ -122,6 +122,7 @@ Route::get('/game', function()
 });
 
 // Lectures
+Route::get('/lectures', 'LectureController@index');
 Route::get('/lectures/manage', 'LectureController@index');
 Route::get('/lectures/toolbox', 'LectureController@toolbox');
 Route::get('/lectures/{lecture_id}/toolbox/rewarding', 'LectureController@toolbox_rewarding');

@@ -96,7 +96,7 @@ class LectureController extends Controller
         ]);
 
 
-        return redirect('/lectures');
+        return redirect('/lectures/manage');
     }
 
     public function edit(Request $request, $lecture_id)
@@ -121,7 +121,7 @@ class LectureController extends Controller
         $lecture->title = $request->title;
         $lecture->description = $request->description;
         $lecture->save();
-        return redirect('/lectures');
+        return redirect('/lectures/manage');
     }
 
     public function destroy(Request $request, $lecture_id)
@@ -130,6 +130,6 @@ class LectureController extends Controller
 
         $lecture->delete();
 
-        return redirect('/lectures');
+        return redirect('/lectures/manage');
     }
 }
