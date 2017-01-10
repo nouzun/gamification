@@ -5,6 +5,19 @@
             $('#answer-description').summernote({
                 height: "200px"
             });
+
+            $('#answer-explanation').summernote({
+                height: "200px"
+            });
+
+            $('div.answer-explanation').hide();
+            $("#answer-correct").change(function() {
+                if(this.checked) {
+                    $('div.answer-explanation').show();
+                } else {
+                    $('div.answer-explanation').hide();
+                }
+            });
         });
     </script>
     @stop
@@ -94,6 +107,15 @@
 
             <div class="col-sm-1">
                 <input type="checkbox" name="correct" id="answer-correct" class="form-control" value="1">
+            </div>
+        </div>
+
+        <div class="form-group answer-explanation">
+            <label for="task-name" class="col-sm-3 control-label">Explanation</label>
+
+            <div class="col-sm-6">
+                <textarea name="explanation" id="answer-explanation" rows="18" class="form-control">
+                </textarea>
             </div>
         </div>
 

@@ -4,6 +4,24 @@
         $( document ).ready(function() {
             var markupStr = $("#answer-description").val();
             $('#answer-description').summernote('code', markupStr);
+
+            var markupStr = $("#answer-explanation").val();
+            $('#answer-explanation').summernote('code', markupStr);
+
+
+            if ($('input#answer-correct').is(':checked')) {
+                $('div.answer-explanation').show();
+            } else {
+                $('div.answer-explanation').hide();
+            }
+
+            $("#answer-correct").change(function() {
+                if(this.checked) {
+                    $('div.answer-explanation').show();
+                } else {
+                    $('div.answer-explanation').hide();
+                }
+            });
         });
     </script>
 @stop
@@ -43,7 +61,15 @@
                 <input type="checkbox" name="correct" id="answer-correct" class="form-control" value="1" @if($answer->correct) checked="checked" @endif>
             </div>
         </div>
+        <div class="form-group answer-explanation">
+            <label for="task-name" class="col-sm-2 control-label">Explanation</label>
 
+            <div class="col-sm-6">
+                <textarea name="explanation" id="answer-explanation" rows="18" class="form-control">
+                    {!! $answer->explanation !!}
+                </textarea>
+            </div>
+        </div>
         <!-- Update Answer Button -->
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-6">

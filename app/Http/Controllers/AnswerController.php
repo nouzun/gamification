@@ -111,6 +111,9 @@ class AnswerController extends Controller
         $answer = new Answer();
         $answer->correct = $request->correct ?  $request->correct : 0;
         $answer->description = $request->description;
+        if($answer->correct) {
+            $answer->explanation = $request->explanation;
+        }
 
         $answer->question()->associate($question);
         $answer->save();
@@ -129,6 +132,9 @@ class AnswerController extends Controller
         $answer = new Answer();
         $answer->correct = $request->correct ?  $request->correct : 0;
         $answer->description = $request->description;
+        if($answer->correct) {
+            $answer->explanation = $request->explanation;
+        }
 
         $answer->question()->associate($question);
         $answer->save();
@@ -209,6 +215,9 @@ class AnswerController extends Controller
         $answer = Answer::find($answer_id);
         $answer->correct = $request->correct ?  $request->correct : 0;
         $answer->description = $request->description;
+        if($answer->correct) {
+            $answer->explanation = $request->explanation;
+        }
         $answer->save();
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'.$assignment_id.'/questions/'.$question_id.'/answers');
     }
@@ -218,6 +227,9 @@ class AnswerController extends Controller
         $answer = Answer::find($answer_id);
         $answer->correct = $request->correct ?  $request->correct : 0;
         $answer->description = $request->description;
+        if($answer->correct) {
+            $answer->explanation = $request->explanation;
+        }
         $answer->save();
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/quizzes/'.$quiz_id.'/questions/'.$question_id.'/answers');
     }

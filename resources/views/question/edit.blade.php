@@ -20,19 +20,22 @@
     @if (isset($quiz_id))
         <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/quizzes/'.$quiz_id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
     @else
-        <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
+        <form action="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'.$assignment_id.'/questions/'.$question->id.'/edit') }}" method="POST" class="form-horizontal">
     @endif
         {{ csrf_field() }}
 
-        <!-- Question Title -->
         <div class="form-group">
-            <label for="task-name" class="col-sm-2 control-label">Title</label>
-
+            <label for="task-name" class="col-sm-2 control-label">Points</label>
             <div class="col-sm-6">
-                <input type="text" name="title" id="question-title" class="form-control" value="{{ $question->title }}">
+                <select name="point" id="question-point" class="form-control" style="width: 100px;">
+                    <option value="1" @if($question->point == 1) selected @endif>1</option>
+                    <option value="2" @if($question->point == 2) selected @endif>2</option>
+                    <option value="3" @if($question->point == 3) selected @endif>3</option>
+                    <option value="4" @if($question->point == 4) selected @endif>4</option>
+                    <option value="5" @if($question->point == 5) selected @endif>5</option>
+                </select>
             </div>
         </div>
-
         <!-- Question Description -->
         <div class="form-group">
             <label for="task-name" class="col-sm-2 control-label">Description</label>

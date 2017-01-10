@@ -7,6 +7,11 @@
             });
         });
     </script>
+    <style>
+        ul.answers {
+            -webkit-padding-start: 0px;
+        }
+    </style>
     @stop
 @section('page_heading_tree')
     <div class="navigation">
@@ -34,32 +39,38 @@
 
                     <!-- Table Headings -->
                     <thead>
-                    <th>Title</th>
+                    <th>Q #</th>
                     <th>Description</th>
+                    <th>Points</th>
                     <th>Answers</th>
                     <th>&nbsp;</th>
                     </thead>
 
                     <!-- Table Body -->
                     <tbody>
-                    @foreach ($questions as $question)
+                    @foreach ($questions as $q_index => $question)
                         <tr>
                             <!-- Topic Name -->
                             <td class="table-text col-md-1">
-                                <div>{{ $question->title }}</div>
+                                <div>Q {{ ($q_index+1) }}</div>
                             </td>
                             <!-- Topic Description -->
-                            <td class="table-text col-md-5">
+                            <td class="table-text col-md-4">
                                 <div>{!! $question->description !!}</div>
                             </td>
-                            <td class="table-text col-md-2">
+                            <td class="table-text col-md-1">
+                                <div>{{ $question->point }}</div>
+                            </td>
+                            <td class="table-text col-md-3">
+                                <ul class="answers">
                                 @foreach ($question->answers as $answer)
                                     @if ($answer->correct == 1)
-                                        <div class="text-success">{!! $answer->description !!}<span class="fa fa-check"></span></div>
+                                        <li><div class="text-success">{!! $answer->description !!}<span class="fa fa-check"></span></div></li>
                                     @else
-                                        <div>{!! $answer->description !!}</div>
+                                        <li><div>{!! $answer->description !!}</div></li>
                                     @endif
                                 @endforeach
+                                </ul>
                                     @if (isset($quiz_id))
                                         <a href="{{ url('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/quizzes/'.$quiz_id.'/questions/'.$question->id.'/answers') }}"><i class="fa fa-edit"></i> Answers</a>
                                     @else
@@ -94,18 +105,21 @@
         @endif
         {{ csrf_field() }}
 
-                <!-- Question Title -->
         <div class="form-group">
-            <label for="task-name" class="col-sm-3 control-label">Title</label>
-
+            <label for="task-name" class="col-sm-3 control-label">Points</label>
             <div class="col-sm-6">
-                <input type="text" name="title" id="question-title" class="form-control">
+                <select name="point" id="question-point" class="form-control" style="width: 100px;">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
             </div>
         </div>
-
         <!-- Question Description -->
         <div class="form-group">
-            <label for="task-name" class="col-sm-3 control-label">Description</label>
+            <label for="task-name" class="col-sm-3 control-label">Question</label>
 
             <div class="col-sm-6">
                 <textarea name="description" id="question-description" rows="18" class="form-control">

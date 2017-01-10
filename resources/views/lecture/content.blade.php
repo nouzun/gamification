@@ -13,7 +13,7 @@
             margin-left: 24px;
             margin-right: 24px;
             margin-bottom: 20px;
-            margin-top: 30px;
+            margin-top: 20px;
         }
 /*
         .lesson-box .subject-box:not(:first-child) {
@@ -92,8 +92,7 @@
                                     <div class="col-sm-12">
                                         <div class="panel panel-default">
                                             <div class="panel-body">
-                                                <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/content') }}"><span class="topic-icon fa fa-play-circle-o"></span>{{ $topic->title }}</a>
-                                                @if($lecture->g_achievement) @if(!$topic->enable) <span class="fa fa-lock"></span> @else <span class="fa fa-unlock"></span> @endif @endif
+                                                <span class="topic-icon fa fa-play-circle-o"></span> @if($lecture->g_achievement) @if(!$topic->enable)<span class="fa fa-lock"></span> @else <span class="fa fa-unlock"></span> @endif @endif <a href="{{ url('/lectures/'.$lecture->id.'/subjects/'.$subject->id.'/topics/'.$topic->id.'/content') }}"> {{ $topic->title }}</a>
                                             </div>
                                         </div>
                                         @foreach($topic->knowledgeunits as $ku_index => $knowledgeunit)

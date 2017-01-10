@@ -90,7 +90,7 @@ class QuestionController extends Controller
     public function store(Request $request, $lecture_id, $subject_id, $topic_id, $knowledgeunit_id, $assignment_id)
     {
         $this->validate($request, [
-            'title' => 'required',
+            'point' => 'required',
             'description' => 'required',
         ]);
 
@@ -99,6 +99,7 @@ class QuestionController extends Controller
 
         $question = new Question();
         $question->title = $request->title;
+        $question->point = $request->point;
         $question->description = $request->description;
 
         $question->assignment()->associate($assignment);
@@ -110,7 +111,7 @@ class QuestionController extends Controller
     public function storeWithQuiz(Request $request, $lecture_id, $subject_id, $quiz_id)
     {
         $this->validate($request, [
-            'title' => 'required',
+            'point' => 'required',
             'description' => 'required',
         ]);
 
@@ -119,6 +120,7 @@ class QuestionController extends Controller
 
         $question = new Question();
         $question->title = $request->title;
+        $question->point = $request->point;
         $question->description = $request->description;
 
         $question->assignment()->associate($quiz);
@@ -191,6 +193,7 @@ class QuestionController extends Controller
     {
         $question = Question::find($question_id);
         $question->title = $request->title;
+        $question->point = $request->point;
         $question->description = $request->description;
         $question->save();
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'.$assignment_id.'/questions');
@@ -200,6 +203,7 @@ class QuestionController extends Controller
     {
         $question = Question::find($question_id);
         $question->title = $request->title;
+        $question->point = $request->point;
         $question->description = $request->description;
         $question->save();
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/quizzes/'.$quiz_id.'/questions');
