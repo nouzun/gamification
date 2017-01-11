@@ -71,11 +71,19 @@
             border-color: #CCC;
         }
 
+        .level {
+            border: 1px solid rgba(0,0,0,0.1);
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
     </style>
 @stop
 @section('page_heading','Course Content')
-
 @section('section')
+    @if ($lecture->g_level) Your level is <div class="level @if($lecture->level==1) assignment-easy @elseif ($lecture->level==2) assignment-medium @else assignment-hard @endif "> {{  $lecture->level }} </div> @endif
     <div class="lesson-box col-sm-12">
             @foreach($lecture->subjects as $s_index => $subject)
                 <div class="subject-box row">
@@ -105,7 +113,7 @@
                                                     </div>
                                                 </div>
                                                 @foreach($knowledgeunit->assignments as $assignment)
-                                                    <div class="col-xs-2 col-sm-2 @if($assignment->difficulty_level == 1) assignment-easy @elseif($assignment->difficulty_level == 2) assignment-medium @if($lecture->level <= 1) disabled @endif @else assignment-hard @if($lecture->level <= 2) disabled @endif @endif">
+                                                    <div class="col-xs-2 col-sm-2 @if($lecture->g_level) @if($assignment->difficulty_level == 1) assignment-easy @elseif($assignment->difficulty_level == 2) assignment-medium @if($lecture->level <= 1) disabled @endif @else assignment-hard @if($lecture->level <= 2) disabled @endif @endif @endif">
                                                         <div class="panel panel-default">
                                                             <div class="panel-body">
                                                                 @if (count ($assignment->questions) > 0)
