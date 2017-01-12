@@ -105,6 +105,9 @@ class QuestionController extends Controller
         $question->assignment()->associate($assignment);
         $question->save();
 
+        DB::update('UPDATE (assignments) SET enable=? WHERE id=?',
+            [1, $assignment_id]);
+
         return redirect('/lectures/'.$lecture_id.'/subjects/'.$subject_id.'/topics/'.$topic_id.'/knowledgeunits/'.$knowledgeunit_id.'/assignments/'.$assignment_id.'/questions');
     }
 

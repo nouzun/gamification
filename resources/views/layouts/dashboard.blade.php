@@ -224,6 +224,7 @@
                                 @endforeach
                             </ul>
                         </li>
+                        <!--
                         <li>
                             <a href="#"><i class="fa fa-star"></i> Quizzes<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -234,6 +235,7 @@
                                 @endforeach
                             </ul>
                         </li>
+                        -->
                     @if (Auth::user()->hasRole('administrator'))
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Instructor Panel<span class="fa arrow"></span></a>

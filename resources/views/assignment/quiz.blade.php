@@ -122,7 +122,7 @@
                     <div class="col-sm-11 single-page-question od-item ">
                         <div class="single-page-question-desc">{!! $question->description !!}</div>
                         @if (count($question->correctAnswers) > 1)
-                            @foreach ($question->answers as $answer)
+                            @foreach ($question->answers as $a_index => $answer)
                                 <div class="row">
                                     <div class="col-sm-12" >
                                         @if ($assignment->done && $answer->correct)

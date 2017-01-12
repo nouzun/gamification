@@ -73,13 +73,14 @@ class Subject extends Model
     function getAssignmentTotalAttribute() {
         $numberOfTotalAssignment = DB::table('assignments')
             ->select(DB::raw('COUNT(id) as numberOfTotalAssignment'))
+            ->where('assignments.enable', '=', 1)
             ->whereIn('assignments.knowledge_unit_id', function($query)
             {
-                $query->select(DB::raw(1))
+                $query->select(DB::raw('knowledge_units.id'))
                     ->from('knowledge_units')
-                    ->whereIn('topic_id', function($query)
+                    ->whereIn('knowledge_units.topic_id', function($query)
                     {
-                        $query->select(DB::raw(1))
+                        $query->select(DB::raw('topics.id'))
                             ->from('topics')
                             ->where('topics.subject_id', '=', $this->id);
                     });
@@ -88,7 +89,7 @@ class Subject extends Model
 
         if (!is_numeric($numberOfTotalAssignment)) $numberOfTotalAssignment = 0;
 
-        Log::info('$numberOfTotalAssignment: '.$numberOfTotalAssignment);
+        Log::info('subject: '. $this->id.' $numberOfTotalAssignment: '.$numberOfTotalAssignment);
 
         return $numberOfTotalAssignment;
     }
@@ -100,18 +101,18 @@ class Subject extends Model
             ->where('user_id', '=', Auth::user()->id)
             ->whereIn('assignments.knowledge_unit_id', function($query)
             {
-                $query->select(DB::raw(1))
+                $query->select(DB::raw('knowledge_units.id'))
                     ->from('knowledge_units')
-                    ->whereIn('topic_id', function($query)
+                    ->whereIn('knowledge_units.topic_id', function($query)
                     {
-                        $query->select(DB::raw(1))
+                        $query->select(DB::raw('topics.id'))
                             ->from('topics')
                             ->where('topics.subject_id', '=', $this->id);
                     });
             })
             ->pluck('numberOfFinishedAssignment');
 
-        Log::info('querty: '.$numberOfFinishedAssignment);
+        Log::info('subject: '.$this->id.' $numberOfFinishedAssignment: '.$numberOfFinishedAssignment);
 
         if (!is_numeric($numberOfFinishedAssignment)) $numberOfFinishedAssignment = 0;
 
